@@ -1,3 +1,4 @@
+import { execSync } from 'child_process'
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse, type NextRequest } from 'next/server'
 
@@ -5,22 +6,18 @@ const APIFY_TOKEN = process.env.APIFY_API_TOKEN!
 // Facebook Marketplace scraper actor on Apify
 const ACTOR_ID = 'apify~facebook-marketplace-scraper'
 
-/** Follow redirects server-side to resolve FB share URLs → actual marketplace URL */
-async function resolveUrl(url: string): Promise<string> {
+/** Follow redirects to resolve FB share URLs → clean marketplace URL.
+ *  Node.js fetch gets a 400 from Facebook on share links; curl follows them correctly. */
+function resolveUrl(url: string): string {
   try {
-    const res = await fetch(url, {
-      method: 'GET',
-      redirect: 'follow',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      },
-      signal: AbortSignal.timeout(10000),
-    })
-    // Strip query params — Apify needs the clean marketplace item URL
-    const resolved = new URL(res.url)
-    return `${resolved.origin}${resolved.pathname}`
+    const resolved = execSync(
+      `curl -s -o /dev/null -w "%{url_effective}" -L --max-time 10 "${url}"`,
+      { timeout: 12000 }
+    ).toString().trim()
+    const u = new URL(resolved)
+    return `${u.origin}${u.pathname}`
   } catch {
-    return url // return original if resolution fails
+    return url
   }
 }
 
@@ -67,7 +64,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Step 1: Resolve share URL → actual marketplace URL
-  const resolvedUrl = await resolveUrl(url)
+  const resolvedUrl = resolveUrl(url)
 
   // Validate it's a Facebook Marketplace URL
   if (!resolvedUrl.includes('facebook.com')) {
