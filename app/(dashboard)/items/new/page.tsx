@@ -23,7 +23,7 @@ type Tab = 'manual' | 'import'
 
 export default function NewItemPage() {
   const router = useRouter()
-  const [tab, setTab] = useState<Tab>('manual')
+  const [tab, setTab] = useState<Tab>('import')
 
   // Import state
   const [importUrl, setImportUrl] = useState('')
@@ -120,21 +120,23 @@ export default function NewItemPage() {
       <div className="flex bg-gray-100 rounded-lg p-1 gap-1">
         <button
           type="button"
+          onClick={() => setTab('import')}
+          className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
+            tab === 'import'
+              ? 'bg-blue-600 text-white shadow-sm'
+              : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Import from FB Marketplace
+        </button>
+        <button
+          type="button"
           onClick={() => setTab('manual')}
           className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
             tab === 'manual' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
           }`}
         >
           Manual entry
-        </button>
-        <button
-          type="button"
-          onClick={() => setTab('import')}
-          className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
-            tab === 'import' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-          }`}
-        >
-          Import from FB Marketplace
         </button>
       </div>
 
