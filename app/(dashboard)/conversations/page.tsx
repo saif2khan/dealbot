@@ -87,34 +87,34 @@ export default function ConversationsPage() {
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer"
+              className="appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-9 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
             >
               <option value="all">All statuses</option>
               <option value="active">Active</option>
               <option value="escalated">Escalated</option>
               <option value="resolved">Resolved</option>
             </select>
-            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-sm">expand_more</span>
+            <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
           </div>
 
           <div className="relative">
             <select
               value={itemFilter}
               onChange={e => setItemFilter(e.target.value)}
-              className="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer"
+              className="appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-9 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
             >
               <option value="all">All items</option>
               {items.map(item => (
                 <option key={item.id} value={item.id}>{item.name}</option>
               ))}
             </select>
-            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-sm">expand_more</span>
+            <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
           </div>
 
           {(statusFilter !== 'all' || itemFilter !== 'all') && (
             <button
               onClick={() => { setStatusFilter('all'); setItemFilter('all') }}
-              className="text-sm text-primary hover:underline font-medium"
+              className="text-sm text-indigo-600 hover:underline font-semibold"
             >
               Clear
             </button>

@@ -156,9 +156,12 @@ export default function StepCountry({ userId, onNext }: Props) {
         <>
           <div className="space-y-1.5">
             <label className="block text-sm font-medium text-on-surface">Country</label>
-            <select value={country} onChange={e => { setCountry(e.target.value); setSearchResults([]) }} className={inputClass}>
-              {SUPPORTED_COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}
-            </select>
+            <div className="relative">
+              <select value={country} onChange={e => { setCountry(e.target.value); setSearchResults([]) }} className="w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer">
+                {SUPPORTED_COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}
+              </select>
+              <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+            </div>
           </div>
 
           <button onClick={searchNumbers} disabled={searching}

@@ -27,7 +27,7 @@ const STATUSES = [
 ]
 
 const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
-const selectClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm appearance-none cursor-pointer"
+const selectClass = "w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
 
 export default function EditItemPage() {
   const router = useRouter()
@@ -143,16 +143,22 @@ export default function EditItemPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-on-surface">Condition <span className="text-red-500">*</span></label>
-                <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
-                  {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                </select>
+                <div className="relative">
+                  <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
+                    {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+                </div>
               </div>
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-on-surface">Category</label>
-                <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
-                  <option value="">Select…</option>
-                  {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                </select>
+                <div className="relative">
+                  <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
+                    <option value="">Select…</option>
+                    {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                  </select>
+                  <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+                </div>
               </div>
             </div>
             <div className="space-y-1.5">
@@ -213,9 +219,12 @@ export default function EditItemPage() {
             </div>
             <div className="space-y-1.5">
               <label className="block text-sm font-medium text-on-surface">Status</label>
-              <select value={form.status} onChange={e => update('status', e.target.value)} className={selectClass}>
-                {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-              </select>
+              <div className="relative">
+                <select value={form.status} onChange={e => update('status', e.target.value)} className={selectClass}>
+                  {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                </select>
+                <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+              </div>
             </div>
           </div>
         </div>

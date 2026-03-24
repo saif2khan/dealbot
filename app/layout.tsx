@@ -18,9 +18,11 @@ export const metadata: Metadata = {
   title: "DealBot — AI Marketplace Assistant",
   description: "Automate buyer conversations on peer-to-peer marketplaces with AI",
   icons: {
-    icon: [{ url: '/icon.png', type: 'image/png' }],
-    apple: '/apple-icon.png',
-    shortcut: '/favicon.ico',
+    icon: [
+      { url: '/handshake.png', type: 'image/png', sizes: 'any' },
+    ],
+    apple: '/handshake.png',
+    shortcut: '/handshake.png',
   },
 };
 

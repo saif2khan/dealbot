@@ -172,10 +172,13 @@ export default function SettingsPage() {
               </div>
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-on-surface">Agent gender</label>
-                <select value={form.agent_gender} onChange={e => update('agent_gender', e.target.value)} className={inputClass + ' appearance-none cursor-pointer'}>
-                  <option value="male">Male (he/him)</option>
-                  <option value="female">Female (she/her)</option>
-                </select>
+                <div className="relative">
+                  <select value={form.agent_gender} onChange={e => update('agent_gender', e.target.value)} className="w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer">
+                    <option value="male">Male (he/him)</option>
+                    <option value="female">Female (she/her)</option>
+                  </select>
+                  <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+                </div>
               </div>
             </div>
 

@@ -22,7 +22,7 @@ const CATEGORIES = [
 type Tab = 'manual' | 'import'
 
 const inputClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant text-sm outline-none"
-const selectClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 appearance-none transition-all text-sm outline-none"
+const selectClass = "w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
 const urlInputClass = "w-full bg-white border border-slate-300 rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400 text-sm outline-none"
 
 export default function NewItemPage() {
@@ -210,16 +210,22 @@ export default function NewItemPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Condition <span className="text-error">*</span></label>
-                  <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
-                    {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
+                      {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                    </select>
+                    <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category</label>
-                  <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
-                    <option value="">Select…</option>
-                    {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
+                      <option value="">Select…</option>
+                      {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                    </select>
+                    <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
+                  </div>
                 </div>
               </div>
               <div className="space-y-2">
