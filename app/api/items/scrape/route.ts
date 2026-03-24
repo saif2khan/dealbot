@@ -16,7 +16,9 @@ async function resolveUrl(url: string): Promise<string> {
       },
       signal: AbortSignal.timeout(10000),
     })
-    return res.url
+    // Strip query params — Apify needs the clean marketplace item URL
+    const resolved = new URL(res.url)
+    return `${resolved.origin}${resolved.pathname}`
   } catch {
     return url // return original if resolution fails
   }
