@@ -18,6 +18,13 @@ interface Profile {
   subscription_status: string | null
 }
 
+const TONES = [
+  { value: 'professional', label: 'Authoritative', icon: 'gavel', desc: 'Polite, concise, no emoji' },
+  { value: 'friendly', label: 'Friendly', icon: 'sentiment_satisfied', desc: 'Warm, casual, emoji ok' },
+  { value: 'firm', label: 'Direct', icon: 'speed', desc: 'Minimal small talk' },
+  { value: 'custom', label: 'Meticulous', icon: 'verified', desc: 'Define your own style' },
+]
+
 export default function SettingsPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [form, setForm] = useState({
@@ -106,142 +113,168 @@ export default function SettingsPage() {
     if (json.url) window.location.href = json.url
   }
 
+  const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
+
   return (
-    <div className="max-w-xl space-y-6">
+    <div className="max-w-4xl space-y-8 pb-20">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-gray-500 text-sm mt-1">Manage your profile, agent instructions, and billing.</p>
+        <h1 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">Settings</h1>
+        <p className="text-on-surface-variant text-sm mt-1">Manage your profile, agent instructions, and billing.</p>
       </div>
 
-      {/* Virtual number */}
+      {/* DealBot number card */}
       {profile?.telnyx_number && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <p className="text-xs font-medium text-blue-600 uppercase tracking-wide">Your DealBot Number</p>
-          <p className="text-xl font-bold text-blue-900 mt-0.5">{profile.telnyx_number}</p>
+        <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6">
+          <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Your DealBot Number</p>
+          <p className="text-2xl font-[family-name:var(--font-manrope)] font-bold text-indigo-900 tracking-tight">{profile.telnyx_number}</p>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <h2 className="font-semibold text-gray-900">Profile</h2>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-          <input type="text" value={form.name} onChange={e => update('name', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Your name" />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Full address</label>
-          <input type="text" value={form.address} onChange={e => update('address', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="123 Main St, Vancouver, BC" />
-          <p className="text-xs text-gray-400 mt-1">Shared with buyers only after deal is confirmed.</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">General area</label>
-          <input type="text" value={form.address_area} onChange={e => update('address_area', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Coquitlam area" />
-          <p className="text-xs text-gray-400 mt-1">Shared before deal confirmation (city/neighbourhood only).</p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Your mobile number</label>
-          <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="+1 604 555 0100" />
-          <p className="text-xs text-gray-400 mt-1">Receives deal confirmations and escalations.</p>
-        </div>
-
-        <div className="border-t border-gray-100 pt-4">
-          <h2 className="font-semibold text-gray-900 mb-3">Agent settings</h2>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Agent name</label>
-                <input type="text" value={form.agent_name} onChange={e => update('agent_name', e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-                  placeholder="Zuck" />
-                <p className="text-xs text-gray-400 mt-1">Buyers will see this name in your listing.</p>
+      <form onSubmit={handleSave} className="space-y-8">
+        {/* Profile section */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm space-y-10">
+          <section className="space-y-5">
+            <h3 className="text-lg font-[family-name:var(--font-manrope)] font-bold text-on-surface">Profile</h3>
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Name</label>
+                <input type="text" value={form.name} onChange={e => update('name', e.target.value)} className={inputClass} placeholder="Your name" />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Agent gender</label>
-                <select value={form.agent_gender} onChange={e => update('agent_gender', e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Full address</label>
+                <input type="text" value={form.address} onChange={e => update('address', e.target.value)} className={inputClass} placeholder="123 Main St, Vancouver, BC" />
+                <p className="text-xs text-slate-400">Shared with buyers only after deal is confirmed.</p>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">General area</label>
+                <input type="text" value={form.address_area} onChange={e => update('address_area', e.target.value)} className={inputClass} placeholder="Coquitlam area" />
+                <p className="text-xs text-slate-400">Shared before deal confirmation (city/neighbourhood only).</p>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Your mobile number</label>
+                <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} className={inputClass} placeholder="+1 604 555 0100" />
+                <p className="text-xs text-slate-400">Receives deal confirmations and escalations.</p>
+              </div>
+            </div>
+          </section>
+
+          <hr className="border-slate-100" />
+
+          {/* Agent settings */}
+          <section className="space-y-6">
+            <h3 className="text-lg font-[family-name:var(--font-manrope)] font-bold text-on-surface">Agent settings</h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Agent name</label>
+                <input type="text" value={form.agent_name} onChange={e => update('agent_name', e.target.value)} className={inputClass} placeholder="Zuck" />
+                <p className="text-xs text-slate-400">Buyers will see this name in your listing.</p>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Agent gender</label>
+                <select value={form.agent_gender} onChange={e => update('agent_gender', e.target.value)} className={inputClass + ' appearance-none cursor-pointer'}>
                   <option value="male">Male (he/him)</option>
                   <option value="female">Female (she/her)</option>
                 </select>
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Agent tone</label>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { value: 'professional', label: 'Professional', desc: 'Polite, concise, no emoji' },
-                  { value: 'friendly', label: 'Friendly', desc: 'Warm, casual, light emoji ok' },
-                  { value: 'firm', label: 'Firm', desc: 'Direct, minimal small talk' },
-                  { value: 'custom', label: 'Custom', desc: 'Define your own style' },
-                ].map(t => (
-                  <label key={t.value} className={`flex flex-col gap-0.5 p-3 rounded-lg border cursor-pointer transition ${
-                    form.agent_tone === t.value ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'
-                  }`}>
-                    <input type="radio" name="agent_tone" value={t.value} checked={form.agent_tone === t.value}
-                      onChange={e => update('agent_tone', e.target.value)} className="sr-only" />
-                    <span className="text-sm font-medium text-gray-900">{t.label}</span>
-                    <span className="text-xs text-gray-400">{t.desc}</span>
-                  </label>
+            {/* Tone picker */}
+            <div className="space-y-3">
+              <label className="block text-sm font-medium text-on-surface">Agent tone</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {TONES.map(t => (
+                  <button
+                    key={t.value}
+                    type="button"
+                    onClick={() => update('agent_tone', t.value)}
+                    className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 cursor-pointer transition-all ${
+                      form.agent_tone === t.value
+                        ? 'border-primary bg-primary-fixed/20'
+                        : 'border-outline-variant hover:border-primary/50'
+                    }`}
+                  >
+                    <span
+                      className={`material-symbols-outlined ${form.agent_tone === t.value ? 'text-primary' : 'text-on-surface-variant'}`}
+                      style={form.agent_tone === t.value ? { fontVariationSettings: "'FILL' 1" } : undefined}
+                    >
+                      {t.icon}
+                    </span>
+                    <span className={`text-xs font-bold ${form.agent_tone === t.value ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>
+                      {t.label}
+                    </span>
+                  </button>
                 ))}
               </div>
               {form.agent_tone === 'custom' && (
-                <textarea rows={2} value={form.custom_tone_instructions}
+                <textarea
+                  rows={2}
+                  value={form.custom_tone_instructions}
                   onChange={e => update('custom_tone_instructions', e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none mt-2"
-                  placeholder="e.g. Friendly but professional. Always use the buyer's first name." />
+                  className={inputClass + ' resize-none mt-2'}
+                  placeholder="e.g. Friendly but professional. Always use the buyer's first name."
+                />
               )}
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Agent instructions</label>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Agent instructions</label>
               <textarea rows={3} value={form.global_instructions} onChange={e => update('global_instructions', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
+                className={inputClass + ' resize-none'}
                 placeholder='e.g. "Always ask if buyer can pick up today. No trades."' />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Availability</label>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Availability</label>
               <textarea rows={3} value={form.availability_text} onChange={e => update('availability_text', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
+                className={inputClass + ' resize-none'}
                 placeholder='e.g. "Weekdays after 5pm, weekends 10am–4pm"' />
             </div>
-          </div>
+          </section>
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-error">{error}</p>}
 
-        <button type="submit" disabled={saving}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition">
-          {saving ? 'Saving...' : saved ? 'Saved!' : 'Save changes'}
-        </button>
+        {/* Form actions */}
+        <div className="flex items-center justify-end gap-4">
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="px-8 py-2.5 text-on-surface-variant font-semibold rounded-lg hover:bg-surface-container-low transition-colors"
+          >
+            Discard Changes
+          </button>
+          <button
+            type="submit"
+            disabled={saving}
+            className="primary-gradient text-white px-10 py-2.5 rounded-lg font-bold shadow-md hover:opacity-90 disabled:opacity-50 transition-all"
+          >
+            {saving ? 'Saving...' : saved ? '✓ Saved!' : 'Save Settings'}
+          </button>
+        </div>
       </form>
 
       {/* Billing */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-3">
-        <h2 className="font-semibold text-gray-900">Billing</h2>
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600">Plan</span>
-          <span className="font-medium">DealBot — $10/month</span>
+      <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm space-y-4">
+        <h3 className="text-lg font-[family-name:var(--font-manrope)] font-bold text-on-surface">Billing</h3>
+        <div className="flex items-center justify-between text-sm py-2 border-b border-slate-100">
+          <span className="text-on-surface-variant">Plan</span>
+          <span className="font-semibold">DealBot — $10/month</span>
         </div>
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600">Status</span>
-          <span className={`font-medium capitalize ${
+        <div className="flex items-center justify-between text-sm py-2">
+          <span className="text-on-surface-variant">Status</span>
+          <span className={`font-semibold capitalize ${
             profile?.subscription_status === 'active' || profile?.subscription_status === 'trialing'
-              ? 'text-green-600' : 'text-red-600'
+              ? 'text-emerald-600' : 'text-error'
           }`}>
             {profile?.subscription_status ?? 'inactive'}
           </span>
         </div>
-        <button onClick={handleBillingPortal} disabled={portalLoading}
-          className="w-full border border-gray-300 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 transition">
+        <button
+          onClick={handleBillingPortal}
+          disabled={portalLoading}
+          className="w-full border border-slate-200 py-2.5 rounded-xl text-sm font-medium hover:bg-surface-container-low disabled:opacity-50 transition"
+        >
           {portalLoading ? 'Loading...' : 'Manage billing →'}
         </button>
       </div>

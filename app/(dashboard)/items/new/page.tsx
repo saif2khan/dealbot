@@ -21,6 +21,9 @@ const CATEGORIES = [
 
 type Tab = 'manual' | 'import'
 
+const inputClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant text-sm outline-none"
+const selectClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 appearance-none transition-all text-sm outline-none"
+
 export default function NewItemPage() {
   const router = useRouter()
   const [tab, setTab] = useState<Tab>('import')
@@ -66,7 +69,6 @@ export default function NewItemPage() {
       return
     }
 
-    // Populate form with scraped data
     setForm(prev => ({
       ...prev,
       name: json.name || prev.name,
@@ -76,7 +78,6 @@ export default function NewItemPage() {
       askingPrice: json.askingPrice ? String(json.askingPrice) : prev.askingPrice,
     }))
 
-    // Switch to manual tab to let user review and adjust
     setTab('manual')
   }
 
@@ -110,21 +111,21 @@ export default function NewItemPage() {
   }
 
   return (
-    <div className="max-w-xl space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Add item</h1>
-        <p className="text-gray-500 text-sm mt-1">The agent uses this info to answer buyer questions.</p>
+    <div className="max-w-4xl pb-20">
+      <div className="mb-8">
+        <h1 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900 mb-1">Add item</h1>
+        <p className="text-on-surface-variant text-sm">The agent uses this info to answer buyer questions.</p>
       </div>
 
       {/* Tab switcher */}
-      <div className="flex bg-gray-100 rounded-lg p-1 gap-1">
+      <div className="bg-slate-100 p-1 rounded-xl flex mb-8 w-fit gap-1">
         <button
           type="button"
           onClick={() => setTab('import')}
-          className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
+          className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
             tab === 'import'
-              ? 'bg-blue-600 text-white shadow-sm'
-              : 'text-gray-500 hover:text-gray-700'
+              ? 'primary-gradient text-white shadow-sm'
+              : 'text-slate-500 hover:text-slate-900'
           }`}
         >
           Import from FB Marketplace
@@ -132,8 +133,10 @@ export default function NewItemPage() {
         <button
           type="button"
           onClick={() => setTab('manual')}
-          className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
-            tab === 'manual' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+          className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+            tab === 'manual'
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-500 hover:text-slate-900'
           }`}
         >
           Manual entry
@@ -142,25 +145,25 @@ export default function NewItemPage() {
 
       {/* Import tab */}
       {tab === 'import' && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-          <div>
-            <p className="text-sm text-gray-600 mb-4">
-              Paste your Facebook Marketplace listing URL or share link below. We&apos;ll auto-fill the details for you to review.
-            </p>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Listing URL</label>
+        <div className="bg-white border border-slate-200 rounded-2xl p-10 shadow-sm max-w-2xl">
+          <p className="text-on-surface-variant text-sm mb-8 leading-relaxed">
+            Paste your Facebook Marketplace listing URL or share link below. We&apos;ll auto-fill the details for you to review.
+          </p>
+          <div className="space-y-2 mb-8">
+            <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Listing URL</label>
             <input
               type="url"
               value={importUrl}
               onChange={e => setImportUrl(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              className={inputClass}
               placeholder="https://www.facebook.com/share/marketplace/..."
             />
-            <p className="text-xs text-gray-400 mt-1">Works with share links and direct marketplace URLs.</p>
+            <p className="text-xs text-outline-variant">Works with share links and direct marketplace URLs.</p>
           </div>
 
           {importError && (
-            <div className="bg-red-50 border border-red-100 rounded-lg px-3 py-2">
-              <p className="text-sm text-red-600">{importError}</p>
+            <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3 mb-6">
+              <p className="text-sm text-error">{importError}</p>
             </div>
           )}
 
@@ -168,7 +171,11 @@ export default function NewItemPage() {
             type="button"
             onClick={handleImport}
             disabled={importing || !importUrl.trim()}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition flex items-center justify-center gap-2"
+            className={`w-full py-3 px-6 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
+              importing || !importUrl.trim()
+                ? 'bg-indigo-400/60 text-white cursor-default'
+                : 'primary-gradient text-white hover:opacity-90'
+            }`}
           >
             {importing ? (
               <>
@@ -180,81 +187,111 @@ export default function NewItemPage() {
               </>
             ) : 'Import listing'}
           </button>
-
-          {importing && (
-            <p className="text-xs text-gray-400 text-center">This can take up to 30 seconds…</p>
-          )}
+          {importing && <p className="text-xs text-on-surface-variant text-center mt-3">This can take up to 30 seconds…</p>}
         </div>
       )}
 
-      {/* Manual form (shown on manual tab, or after import populates it) */}
+      {/* Manual form */}
       {tab === 'manual' && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Item name <span className="text-red-500">*</span></label>
-            <input type="text" required value={form.name} onChange={e => update('name', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="IKEA KALLAX shelf" />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description <span className="text-red-500">*</span></label>
-            <textarea rows={4} required value={form.description} onChange={e => update('description', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
-              placeholder="Detailed description for the agent to answer buyer questions..." />
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Condition <span className="text-red-500">*</span></label>
-              <select value={form.condition} onChange={e => update('condition', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
+        <form onSubmit={handleSubmit} className="space-y-12">
+          {/* Identity & Context */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-4">
+              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Identity & Context</h4>
+              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how DealBot answers buyer questions.</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-              <select value={form.category} onChange={e => update('category', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                <option value="">Select...</option>
-                {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Asking price ($) <span className="text-red-500">*</span></label>
-              <input type="number" required min="0" step="0.01" value={form.askingPrice} onChange={e => update('askingPrice', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="150" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Max discount ($)</label>
-              <input type="number" min="0" step="0.01" disabled={form.firmPrice} value={form.maxDiscount} onChange={e => update('maxDiscount', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm disabled:bg-gray-100" placeholder="20" />
+            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+              <div className="space-y-2">
+                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Item name <span className="text-error">*</span></label>
+                <input type="text" required value={form.name} onChange={e => update('name', e.target.value)} className={inputClass} placeholder="e.g. IKEA KALLAX shelf" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Condition <span className="text-error">*</span></label>
+                  <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
+                    {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category</label>
+                  <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
+                    <option value="">Select…</option>
+                    {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                  </select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Description <span className="text-error">*</span></label>
+                <textarea rows={4} required value={form.description} onChange={e => update('description', e.target.value)}
+                  className={inputClass + ' resize-none'}
+                  placeholder="Describe condition, history, and any wear…" />
+              </div>
             </div>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" checked={form.firmPrice} onChange={e => update('firmPrice', e.target.checked)} />
-            <span className="text-sm text-gray-700">Firm price — agent will not negotiate</span>
-          </label>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Preferred pickup times <span className="text-gray-400 font-normal">(optional override)</span></label>
-            <input type="text" value={form.preferredTimes} onChange={e => update('preferredTimes', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-              placeholder='e.g. "This weekend only"' />
+          {/* Pricing Strategy */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-4">
+              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Pricing Strategy</h4>
+              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. DealBot will close deals within your range.</p>
+            </div>
+            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Asking price ($) <span className="text-error">*</span></label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
+                    <input type="number" required min="0" step="0.01" value={form.askingPrice} onChange={e => update('askingPrice', e.target.value)}
+                      className={inputClass + ' pl-8'} placeholder="0.00" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Max discount ($)</label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
+                    <input type="number" min="0" step="0.01" disabled={form.firmPrice} value={form.maxDiscount} onChange={e => update('maxDiscount', e.target.value)}
+                      className={inputClass + ' pl-8 disabled:opacity-40'} placeholder="0.00" />
+                  </div>
+                </div>
+              </div>
+              <label className="flex items-center gap-4 p-4 bg-primary-fixed/30 rounded-xl cursor-pointer hover:bg-primary-fixed/50 transition-colors">
+                <input type="checkbox" checked={form.firmPrice} onChange={e => update('firmPrice', e.target.checked)}
+                  className="h-5 w-5 rounded border-primary text-primary focus:ring-primary" />
+                <div>
+                  <span className="text-sm font-bold text-primary block">Firm price — agent will not negotiate</span>
+                  <span className="text-xs text-on-primary-fixed-variant">DealBot will reject all offers below the asking price.</span>
+                </div>
+              </label>
+            </div>
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {/* Fulfillment */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-4">
+              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Fulfillment</h4>
+              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Streamline the hand-off with clear availability.</p>
+            </div>
+            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+              <div className="space-y-2">
+                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  Preferred pickup times <span className="text-outline-variant font-normal normal-case">(optional)</span>
+                </label>
+                <input type="text" value={form.preferredTimes} onChange={e => update('preferredTimes', e.target.value)}
+                  className={inputClass} placeholder='e.g. "Weekends after 2pm, Tuesdays 5–7pm"' />
+              </div>
+            </div>
+          </div>
 
-          <div className="flex gap-3 pt-2">
+          {error && <p className="text-sm text-error">{error}</p>}
+
+          {/* Actions */}
+          <div className="flex items-center justify-end gap-4 pt-4 border-t border-outline-variant/20">
             <button type="button" onClick={() => router.back()}
-              className="flex-1 border border-gray-300 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+              className="px-8 py-3 rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-high transition-colors">
               Cancel
             </button>
             <button type="submit" disabled={loading}
-              className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition">
+              className="primary-gradient px-12 py-3 rounded-xl text-white font-bold shadow-lg shadow-primary/20 hover:opacity-90 disabled:opacity-50 active:scale-95 transition-all duration-150">
               {loading ? 'Adding...' : 'Add item'}
             </button>
           </div>

@@ -27,10 +27,10 @@ export default async function DashboardPage() {
   const messagestoday = todayConversations.length
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-7xl space-y-8 pb-12">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-500 text-sm mt-1">Your DealBot at a glance</p>
+        <h2 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">Dashboard</h2>
+        <p className="text-on-surface-variant text-sm mt-1">Your DealBot at a glance</p>
       </div>
 
       {profile?.telnyx_number && (

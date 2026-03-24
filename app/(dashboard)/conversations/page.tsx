@@ -22,6 +22,12 @@ type ConvRow = {
 
 type ItemOption = { id: string; name: string }
 
+const STATUS_COLORS: Record<string, string> = {
+  active: 'bg-tertiary-container text-on-tertiary-container',
+  escalated: 'bg-yellow-100 text-yellow-700',
+  resolved: 'bg-slate-100 text-slate-500',
+}
+
 export default function ConversationsPage() {
   const [conversations, setConversations] = useState<ConvRow[]>([])
   const [items, setItems] = useState<ItemOption[]>([])
@@ -61,53 +67,78 @@ export default function ConversationsPage() {
     return true
   })
 
-  const statusColors: Record<string, string> = {
-    active: 'bg-green-100 text-green-700',
-    escalated: 'bg-yellow-100 text-yellow-700',
-    resolved: 'bg-gray-100 text-gray-500',
-  }
-
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Conversations</h1>
-        <p className="text-gray-500 text-sm mt-1">{filtered.length} thread{filtered.length !== 1 ? 's' : ''}</p>
+    <div className="max-w-5xl space-y-10 pb-20">
+      {/* Page header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h2 className="font-[family-name:var(--font-manrope)] text-3xl font-extrabold tracking-tight text-on-surface">
+            Conversations
+          </h2>
+          <p className="text-on-surface-variant font-medium mt-1 flex items-center gap-2 text-sm">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse inline-block"></span>
+            {filtered.length} thread{filtered.length !== 1 ? 's' : ''}
+          </p>
+        </div>
+
+        {/* Filters */}
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="relative">
+            <select
+              value={statusFilter}
+              onChange={e => setStatusFilter(e.target.value)}
+              className="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer"
+            >
+              <option value="all">All statuses</option>
+              <option value="active">Active</option>
+              <option value="escalated">Escalated</option>
+              <option value="resolved">Resolved</option>
+            </select>
+            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-sm">expand_more</span>
+          </div>
+
+          <div className="relative">
+            <select
+              value={itemFilter}
+              onChange={e => setItemFilter(e.target.value)}
+              className="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer"
+            >
+              <option value="all">All items</option>
+              {items.map(item => (
+                <option key={item.id} value={item.id}>{item.name}</option>
+              ))}
+            </select>
+            <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-sm">expand_more</span>
+          </div>
+
+          {(statusFilter !== 'all' || itemFilter !== 'all') && (
+            <button
+              onClick={() => { setStatusFilter('all'); setItemFilter('all') }}
+              className="text-sm text-primary hover:underline font-medium"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Filter bar */}
-      <div className="flex gap-3 flex-wrap">
-        <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
-          <option value="all">All statuses</option>
-          <option value="active">Active</option>
-          <option value="escalated">Escalated</option>
-          <option value="resolved">Resolved</option>
-        </select>
-
-        <select value={itemFilter} onChange={e => setItemFilter(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white">
-          <option value="all">All items</option>
-          {items.map(item => (
-            <option key={item.id} value={item.id}>{item.name}</option>
-          ))}
-        </select>
-
-        {(statusFilter !== 'all' || itemFilter !== 'all') && (
-          <button onClick={() => { setStatusFilter('all'); setItemFilter('all') }}
-            className="text-sm text-blue-600 hover:underline px-1">
-            Clear filters
-          </button>
-        )}
-      </div>
-
-      <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+      {/* Thread list */}
+      <div className="space-y-4">
         {loading ? (
-          <div className="p-8 text-center text-gray-400 text-sm animate-pulse">Loading...</div>
+          <div className="bg-white rounded-xl p-8 text-center text-on-surface-variant text-sm animate-pulse">Loading...</div>
         ) : filtered.length === 0 ? (
-          <div className="p-8 text-center text-gray-400 text-sm">
-            {conversations.length === 0
-              ? 'No conversations yet. Post your virtual number in marketplace listings to get started.'
-              : 'No conversations match the selected filters.'}
+          <div className="pt-12 flex flex-col items-center justify-center text-center opacity-40">
+            <div className="w-32 h-32 bg-surface-container-low rounded-full flex items-center justify-center mb-4">
+              <span className="material-symbols-outlined text-5xl text-on-surface-variant">forum</span>
+            </div>
+            <p className="font-[family-name:var(--font-manrope)] font-bold text-on-surface-variant">
+              {conversations.length === 0 ? 'No conversations yet' : 'No conversations match filters'}
+            </p>
+            <p className="text-sm text-on-surface-variant mt-1 max-w-xs">
+              {conversations.length === 0
+                ? 'New inquiries for your listed items will appear here automatically.'
+                : 'Try clearing the filters above.'}
+            </p>
           </div>
         ) : (
           filtered.map(conv => {
@@ -119,28 +150,51 @@ export default function ConversationsPage() {
               <Link
                 key={conv.id}
                 href={`/conversations/${conv.id}`}
-                className="flex items-center justify-between p-4 hover:bg-gray-50 transition"
+                className="group relative bg-white hover:bg-surface-container-low transition-all duration-200 rounded-xl p-6 shadow-sm flex items-start gap-6 cursor-pointer block"
               >
+                {/* Avatar */}
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+                    <span className="material-symbols-outlined">person</span>
+                  </div>
+                </div>
+
+                {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium text-sm text-gray-900">
-                      {conv.buyer_name ?? maskPhone(conv.buyer_phone)}
-                    </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[conv.status] ?? 'bg-gray-100 text-gray-500'}`}>
-                      {conv.status}
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-3">
+                      <span className="font-[family-name:var(--font-manrope)] font-bold text-on-surface">
+                        {conv.buyer_name ?? maskPhone(conv.buyer_phone)}
+                      </span>
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${STATUS_COLORS[conv.status] ?? 'bg-slate-100 text-slate-500'}`}>
+                        {conv.status}
+                      </span>
+                    </div>
+                    <span className="text-xs text-on-surface-variant">
+                      {conv.last_message_at ? new Date(conv.last_message_at).toLocaleDateString() : ''}
                     </span>
                   </div>
-                  {item && <p className="text-xs text-gray-400 mt-0.5">Re: {item.name}</p>}
+
+                  {item && (
+                    <p className="text-sm font-semibold text-primary-dim mb-1 flex items-center gap-1">
+                      <span className="material-symbols-outlined text-sm">reply</span>
+                      Re: {item.name}
+                    </p>
+                  )}
+
                   {lastMsg && (
-                    <p className="text-sm text-gray-500 truncate mt-1">
-                      {lastMsg.direction === 'outbound' ? 'You: ' : ''}{lastMsg.body}
+                    <p className="text-sm text-on-surface-variant truncate">
+                      {lastMsg.direction === 'outbound' && <span className="font-bold text-on-surface">You: </span>}
+                      {lastMsg.body}
                     </p>
                   )}
                 </div>
-                <div className="ml-4 text-xs text-gray-400 whitespace-nowrap">
-                  {conv.last_message_at
-                    ? new Date(conv.last_message_at).toLocaleDateString()
-                    : ''}
+
+                {/* Arrow */}
+                <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="p-2 rounded-full bg-primary/10 text-primary">
+                    <span className="material-symbols-outlined text-sm">arrow_forward_ios</span>
+                  </div>
                 </div>
               </Link>
             )

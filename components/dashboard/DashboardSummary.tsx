@@ -21,13 +21,13 @@ export default function DashboardSummary({
   ]
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map(stat => (
-        <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-4">
-          <p className="text-sm text-gray-500">{stat.label}</p>
-          <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
+        <div key={stat.label} className="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm">
+          <p className="text-on-surface-variant text-xs font-medium mb-3">{stat.label}</p>
+          <p className="text-4xl font-[family-name:var(--font-manrope)] font-black text-on-surface">{stat.value}</p>
         </div>
       ))}
-    </div>
+    </section>
   )
 }

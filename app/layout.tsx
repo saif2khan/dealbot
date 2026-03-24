@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
-});
+  weight: ["400", "500", "600", "700", "800"],
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
+  weight: ["400", "500", "600"],
+})
 
 export const metadata: Metadata = {
   title: "DealBot — AI Marketplace Assistant",
   description: "Automate buyer conversations on peer-to-peer marketplaces with AI",
   icons: {
-    icon: [
-      { url: '/icon.png', type: 'image/png' },
-    ],
+    icon: [{ url: '/icon.png', type: 'image/png' }],
     apple: '/apple-icon.png',
     shortcut: '/favicon.ico',
   },
@@ -30,11 +30,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
+    <html lang="en" className={`${manrope.variable} ${inter.variable} h-full`}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        className="min-h-full font-[family-name:var(--font-inter)] text-on-surface antialiased"
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }

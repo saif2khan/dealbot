@@ -14,15 +14,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
     .eq('id', user.id)
     .single()
 
-  // Redirect to onboarding if not set up yet
   if (!profile?.telnyx_number) {
     redirect('/onboarding')
   }
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="bg-background min-h-screen">
       <Sidebar user={profile} />
-      <main className="flex-1 overflow-y-auto p-6">{children}</main>
+      <main className="md:ml-64 min-h-screen px-8 py-8">
+        {children}
+      </main>
     </div>
   )
 }
