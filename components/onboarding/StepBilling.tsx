@@ -1,17 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { OnboardingData } from './OnboardingWizard'
 
 interface Props {
   userId: string
   data: Partial<OnboardingData>
   onNext: (data: Partial<OnboardingData>) => void
+  billingDone?: boolean
 }
 
-export default function StepBilling({ userId, data, onNext }: Props) {
+export default function StepBilling({ userId, data, onNext, billingDone = false }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Billing already completed (e.g. returning from Stripe) — auto-advance
+  useEffect(() => {
+    if (billingDone) {
+      onNext({})
+    }
+  }, [billingDone, onNext])
 
   async function startCheckout() {
     setLoading(true)

@@ -17,12 +17,27 @@ export default async function OnboardingPage({ searchParams }: Props) {
     .eq('id', user.id)
     .single()
 
-  // Already onboarded
-  if (profile?.telnyx_number) redirect('/dashboard')
-
   const { billing } = await searchParams
-  // After Stripe checkout success, jump straight to Profile step (step 2)
-  const initialStep = billing === 'success' ? 2 : 0
 
-  return <OnboardingWizard userId={user.id} initialStep={initialStep} />
+  const hasTelnyx = !!profile?.telnyx_number
+  // Billing confirmed either by webhook updating subscription_status, or by the
+  // Stripe success_url param (webhook may not have fired yet when user lands here)
+  const hasBilling =
+    ['trialing', 'active'].includes(profile?.subscription_status ?? '') ||
+    billing === 'success'
+
+  // Fully onboarded — both steps done
+  if (hasTelnyx && hasBilling) redirect('/dashboard')
+
+  // Determine which step to start on based on what's already complete
+  // Step 0: Phone Number, Step 1: Billing
+  const initialStep = hasTelnyx && !hasBilling ? 1 : 0
+
+  return (
+    <OnboardingWizard
+      userId={user.id}
+      initialStep={initialStep}
+      billingDone={hasBilling}
+    />
+  )
 }

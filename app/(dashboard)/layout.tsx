@@ -14,7 +14,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
     .eq('id', user.id)
     .single()
 
-  if (!profile?.telnyx_number) {
+  const hasTelnyx = !!profile?.telnyx_number
+  const hasBilling = ['trialing', 'active'].includes(profile?.subscription_status ?? '')
+
+  if (!hasTelnyx || !hasBilling) {
     redirect('/onboarding')
   }
 

@@ -12,6 +12,7 @@ const STEPS = ['Phone Number', 'Billing', 'Profile', 'Availability', 'First Item
 interface Props {
   userId: string
   initialStep?: number
+  billingDone?: boolean
 }
 
 export interface OnboardingData {
@@ -25,7 +26,7 @@ export interface OnboardingData {
   availabilityText: string
 }
 
-export default function OnboardingWizard({ userId, initialStep = 0 }: Props) {
+export default function OnboardingWizard({ userId, initialStep = 0, billingDone = false }: Props) {
   const [step, setStep] = useState(initialStep)
   const [data, setData] = useState<Partial<OnboardingData>>({})
 
@@ -63,7 +64,7 @@ export default function OnboardingWizard({ userId, initialStep = 0 }: Props) {
         {/* Card */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
           {step === 0 && <StepCountry userId={userId} onNext={next} />}
-          {step === 1 && <StepBilling userId={userId} data={data} onNext={next} />}
+          {step === 1 && <StepBilling userId={userId} data={data} onNext={next} billingDone={billingDone} />}
           {step === 2 && <StepProfile userId={userId} onNext={next} />}
           {step === 3 && <StepAvailability userId={userId} onNext={next} />}
           {step === 4 && <StepFirstItem userId={userId} data={data} />}
