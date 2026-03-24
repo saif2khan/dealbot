@@ -118,12 +118,22 @@ export async function POST(request: NextRequest) {
   // Map fields from apify~facebook-marketplace-scraper response format
   const title = (raw.listingTitle ?? '') as string
   const descObj = raw.description as { text?: string } | string | null | undefined
-  const description = typeof descObj === 'string' ? descObj : (descObj?.text ?? '') as string
+  const descText = typeof descObj === 'string' ? descObj : (descObj?.text ?? '') as string
   const priceObj = raw.listingPrice as { amount?: string | number } | null | undefined
   const priceRaw = priceObj?.amount ?? null
   // condition comes as top-level string e.g. "New", or from listingAttributes
   const conditionRaw = (raw.condition as string | null | undefined) ?? null
   const location = (raw.locationText as { text?: string } | null)?.text ?? ''
+
+  // Append listing attributes (e.g. Size, Material, Gemstone) to description
+  type Attr = { attribute_name?: string; label?: string }
+  const attrs = (raw.listingAttributes as Attr[] | null) ?? []
+  const attrLines = attrs
+    .filter(a => a.attribute_name && a.label)
+    .map(a => `${a.attribute_name}: ${a.label}`)
+  const description = attrLines.length
+    ? `${descText}\n\nDetails:\n${attrLines.join('\n')}`
+    : descText
 
   const price = parsePrice(priceRaw as string | number | null)
 
