@@ -40,7 +40,7 @@ export default async function ItemsPage() {
         </div>
         <Link
           href="/items/new"
-          className="primary-gradient text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:opacity-90 transition-opacity flex items-center gap-2"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-colors active:scale-95 flex items-center gap-2"
         >
           <span className="material-symbols-outlined text-sm">add</span>
           Add item

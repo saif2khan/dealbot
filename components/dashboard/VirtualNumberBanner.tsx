@@ -51,7 +51,7 @@ export default function VirtualNumberBanner({
         <p className="text-sm text-slate-800 leading-relaxed mb-6">{listingPhrase}</p>
         <button
           onClick={handleCopyPhrase}
-          className="primary-gradient text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:opacity-90 transition-opacity"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md transition-colors"
         >
           {copiedPhrase ? '✓ Copied!' : 'Copy listing text'}
         </button>

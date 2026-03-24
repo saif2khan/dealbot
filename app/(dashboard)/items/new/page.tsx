@@ -23,6 +23,7 @@ type Tab = 'manual' | 'import'
 
 const inputClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant text-sm outline-none"
 const selectClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 appearance-none transition-all text-sm outline-none"
+const urlInputClass = "w-full bg-white border border-slate-300 rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400 text-sm outline-none"
 
 export default function NewItemPage() {
   const router = useRouter()
@@ -124,7 +125,7 @@ export default function NewItemPage() {
           onClick={() => setTab('import')}
           className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
             tab === 'import'
-              ? 'primary-gradient text-white shadow-sm'
+              ? 'bg-indigo-600 text-white shadow-sm'
               : 'text-slate-500 hover:text-slate-900'
           }`}
         >
@@ -150,15 +151,16 @@ export default function NewItemPage() {
             Paste your Facebook Marketplace listing URL or share link below. We&apos;ll auto-fill the details for you to review.
           </p>
           <div className="space-y-2 mb-8">
-            <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Listing URL</label>
+            <label className="block text-sm font-semibold text-slate-900" htmlFor="listing_url">Listing URL</label>
             <input
+              id="listing_url"
               type="url"
               value={importUrl}
               onChange={e => setImportUrl(e.target.value)}
-              className={inputClass}
+              className={urlInputClass}
               placeholder="https://www.facebook.com/share/marketplace/..."
             />
-            <p className="text-xs text-outline-variant">Works with share links and direct marketplace URLs.</p>
+            <p className="text-[11px] text-slate-400">Works with share links and direct marketplace URLs.</p>
           </div>
 
           {importError && (
@@ -174,7 +176,7 @@ export default function NewItemPage() {
             className={`w-full py-3 px-6 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
               importing || !importUrl.trim()
                 ? 'bg-indigo-400/60 text-white cursor-default'
-                : 'primary-gradient text-white hover:opacity-90'
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white'
             }`}
           >
             {importing ? (
@@ -254,12 +256,12 @@ export default function NewItemPage() {
                   </div>
                 </div>
               </div>
-              <label className="flex items-center gap-4 p-4 bg-primary-fixed/30 rounded-xl cursor-pointer hover:bg-primary-fixed/50 transition-colors">
+              <label className="flex items-center gap-4 p-4 bg-indigo-50 rounded-xl cursor-pointer hover:bg-indigo-100 transition-colors">
                 <input type="checkbox" checked={form.firmPrice} onChange={e => update('firmPrice', e.target.checked)}
-                  className="h-5 w-5 rounded border-primary text-primary focus:ring-primary" />
+                  className="h-5 w-5 rounded border-indigo-400 text-indigo-600 focus:ring-indigo-500" />
                 <div>
-                  <span className="text-sm font-bold text-primary block">Firm price — agent will not negotiate</span>
-                  <span className="text-xs text-on-primary-fixed-variant">DealBot will reject all offers below the asking price.</span>
+                  <span className="text-sm font-bold text-indigo-700 block">Firm price — agent will not negotiate</span>
+                  <span className="text-xs text-indigo-500">DealBot will reject all offers below the asking price.</span>
                 </div>
               </label>
             </div>
@@ -287,11 +289,11 @@ export default function NewItemPage() {
           {/* Actions */}
           <div className="flex items-center justify-end gap-4 pt-4 border-t border-outline-variant/20">
             <button type="button" onClick={() => router.back()}
-              className="px-8 py-3 rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-high transition-colors">
+              className="px-8 py-3 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 transition-colors">
               Cancel
             </button>
             <button type="submit" disabled={loading}
-              className="primary-gradient px-12 py-3 rounded-xl text-white font-bold shadow-lg shadow-primary/20 hover:opacity-90 disabled:opacity-50 active:scale-95 transition-all duration-150">
+              className="bg-indigo-600 hover:bg-indigo-700 px-12 py-3 rounded-xl text-white font-bold shadow-lg disabled:opacity-50 active:scale-95 transition-all duration-150">
               {loading ? 'Adding...' : 'Add item'}
             </button>
           </div>

@@ -66,7 +66,7 @@ export default function Sidebar({ user }: { user: User }) {
         {/* Add Item CTA */}
         <Link
           href="/items/new"
-          className="primary-gradient text-white w-full py-3 rounded-xl font-[family-name:var(--font-manrope)] font-bold text-sm shadow-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-95 duration-150"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white w-full py-3 rounded-xl font-[family-name:var(--font-manrope)] font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-colors active:scale-95 duration-150"
         >
           <span className="material-symbols-outlined text-sm">add</span>
           Add Item

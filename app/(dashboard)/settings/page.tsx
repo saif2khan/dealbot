@@ -188,33 +188,24 @@ export default function SettingsPage() {
                     key={t.value}
                     type="button"
                     onClick={() => update('agent_tone', t.value)}
-                    className={`p-4 rounded-xl border-2 flex flex-col items-center gap-2 cursor-pointer transition-all ${
+                    className={`p-4 rounded-xl flex flex-col items-center gap-2 cursor-pointer transition-all ${
                       form.agent_tone === t.value
-                        ? 'border-primary bg-primary-fixed/20'
-                        : 'border-outline-variant hover:border-primary/50'
+                        ? 'border-2 border-indigo-600 bg-indigo-50'
+                        : 'border border-slate-200 hover:border-indigo-300'
                     }`}
                   >
                     <span
-                      className={`material-symbols-outlined ${form.agent_tone === t.value ? 'text-primary' : 'text-on-surface-variant'}`}
+                      className={`material-symbols-outlined ${form.agent_tone === t.value ? 'text-indigo-600' : 'text-slate-400'}`}
                       style={form.agent_tone === t.value ? { fontVariationSettings: "'FILL' 1" } : undefined}
                     >
                       {t.icon}
                     </span>
-                    <span className={`text-xs font-bold ${form.agent_tone === t.value ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>
+                    <span className={`text-xs font-bold ${form.agent_tone === t.value ? 'text-indigo-700' : 'text-slate-500'}`}>
                       {t.label}
                     </span>
                   </button>
                 ))}
               </div>
-              {form.agent_tone === 'custom' && (
-                <textarea
-                  rows={2}
-                  value={form.custom_tone_instructions}
-                  onChange={e => update('custom_tone_instructions', e.target.value)}
-                  className={inputClass + ' resize-none mt-2'}
-                  placeholder="e.g. Friendly but professional. Always use the buyer's first name."
-                />
-              )}
             </div>
 
             <div className="space-y-1.5">
@@ -240,14 +231,14 @@ export default function SettingsPage() {
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="px-8 py-2.5 text-on-surface-variant font-semibold rounded-lg hover:bg-surface-container-low transition-colors"
+            className="px-8 py-2.5 text-slate-600 font-semibold rounded-lg hover:bg-slate-100 transition-colors"
           >
             Discard Changes
           </button>
           <button
             type="submit"
             disabled={saving}
-            className="primary-gradient text-white px-10 py-2.5 rounded-lg font-bold shadow-md hover:opacity-90 disabled:opacity-50 transition-all"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-10 py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150"
           >
             {saving ? 'Saving...' : saved ? '✓ Saved!' : 'Save Settings'}
           </button>
