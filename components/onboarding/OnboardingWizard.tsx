@@ -11,6 +11,7 @@ const STEPS = ['Phone Number', 'Billing', 'Profile', 'Availability', 'First Item
 
 interface Props {
   userId: string
+  initialStep?: number
 }
 
 export interface OnboardingData {
@@ -24,8 +25,8 @@ export interface OnboardingData {
   availabilityText: string
 }
 
-export default function OnboardingWizard({ userId }: Props) {
-  const [step, setStep] = useState(0)
+export default function OnboardingWizard({ userId, initialStep = 0 }: Props) {
+  const [step, setStep] = useState(initialStep)
   const [data, setData] = useState<Partial<OnboardingData>>({})
 
   function next(update?: Partial<OnboardingData>) {

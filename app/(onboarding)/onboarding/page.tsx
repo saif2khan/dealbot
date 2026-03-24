@@ -2,7 +2,11 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import OnboardingWizard from '@/components/onboarding/OnboardingWizard'
 
-export default async function OnboardingPage() {
+interface Props {
+  searchParams: Promise<{ billing?: string }>
+}
+
+export default async function OnboardingPage({ searchParams }: Props) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
@@ -16,5 +20,9 @@ export default async function OnboardingPage() {
   // Already onboarded
   if (profile?.telnyx_number) redirect('/dashboard')
 
-  return <OnboardingWizard userId={user.id} />
+  const { billing } = await searchParams
+  // After Stripe checkout success, jump straight to Profile step (step 2)
+  const initialStep = billing === 'success' ? 2 : 0
+
+  return <OnboardingWizard userId={user.id} initialStep={initialStep} />
 }
