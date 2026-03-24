@@ -25,13 +25,16 @@ export default async function OnboardingPage({ searchParams }: Props) {
   const hasBilling =
     ['trialing', 'active'].includes(profile?.subscription_status ?? '') ||
     billing === 'success'
+  // availability_text is set in step 3 (Availability) — reliable signal the wizard was finished
+  const hasFinishedWizard = hasTelnyx && hasBilling && !!profile?.availability_text
 
-  // Fully onboarded — both steps done
-  if (hasTelnyx && hasBilling) redirect('/dashboard')
+  if (hasFinishedWizard) redirect('/dashboard')
 
-  // Determine which step to start on based on what's already complete
-  // Step 0: Phone Number, Step 1: Billing
-  const initialStep = hasTelnyx && !hasBilling ? 1 : 0
+  // Resume at the right step based on what's already saved
+  // Step 0: Phone, Step 1: Billing, Step 2: Profile, Step 3: Availability, Step 4: First Item
+  let initialStep = 0
+  if (hasTelnyx && hasBilling) initialStep = 2  // both done → resume at Profile
+  else if (hasTelnyx && !hasBilling) initialStep = 1  // phone done → resume at Billing
 
   return (
     <OnboardingWizard
