@@ -17,6 +17,8 @@ const baseUser: User = {
   availability_text: 'Weekdays after 5pm',
   agent_tone: 'professional',
   custom_tone_instructions: null,
+  agent_name: 'Zuck',
+  agent_gender: 'male',
   items_listed_this_month: 1,
   items_limit: 10,
   created_at: '2026-01-01T00:00:00Z',
