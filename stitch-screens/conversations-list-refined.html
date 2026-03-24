@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conversations | DealBot</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#d9e4ea",
+                        "error-container": "#ff8b9a",
+                        "surface": "#f7f9fb",
+                        "tertiary-container": "#d5dffd",
+                        "outline-variant": "#a9b4b9",
+                        "on-background": "#2a3439",
+                        "surface-container-highest": "#d9e4ea",
+                        "on-tertiary-fixed": "#333d55",
+                        "on-tertiary": "#f9f8ff",
+                        "on-primary-container": "#3b48a6",
+                        "primary-dim": "#3c49a7",
+                        "on-surface": "#2a3439",
+                        "inverse-surface": "#0b0f10",
+                        "on-secondary-fixed": "#2d424c",
+                        "on-primary": "#f9f6ff",
+                        "on-error": "#fff7f7",
+                        "primary-fixed": "#dfe0ff",
+                        "tertiary-fixed-dim": "#c7d1ee",
+                        "tertiary-dim": "#49536b",
+                        "tertiary": "#545f78",
+                        "on-secondary-container": "#40555f",
+                        "surface-container": "#e8eff3",
+                        "on-secondary-fixed-variant": "#495f69",
+                        "error-dim": "#4f0116",
+                        "surface-container-high": "#e1e9ee",
+                        "primary-fixed-dim": "#cdd1ff",
+                        "outline": "#717c82",
+                        "surface-dim": "#cfdce3",
+                        "on-primary-fixed": "#273492",
+                        "surface-container-low": "#f0f4f7",
+                        "secondary-fixed": "#cfe6f2",
+                        "on-secondary": "#f2faff",
+                        "inverse-primary": "#8c99fc",
+                        "surface-bright": "#f7f9fb",
+                        "error": "#9e3f4e",
+                        "secondary-container": "#cfe6f2",
+                        "tertiary-fixed": "#d5dffd",
+                        "on-tertiary-fixed-variant": "#4f5a72",
+                        "on-surface-variant": "#566166",
+                        "primary": "#4955b3",
+                        "secondary-dim": "#415660",
+                        "on-primary-fixed-variant": "#4652b0",
+                        "background": "#f7f9fb",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary": "#4d626c",
+                        "on-tertiary-container": "#455068",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#782232",
+                        "secondary-fixed-dim": "#c1d8e4",
+                        "primary-container": "#dfe0ff",
+                        "surface-tint": "#4955b3"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .glass-header {
+            background: rgba(247, 249, 251, 0.8);
+            backdrop-filter: blur(16px);
+        }
+        .primary-gradient-btn {
+            background: linear-gradient(135deg, #4955b3 0%, #3c49a7 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 dark:bg-slate-900 p-6 space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined" data-icon="robot_2">robot_2</span>
+</div>
+<div>
+<h1 class="font-headline text-lg font-extrabold text-slate-900 dark:text-slate-50 tracking-tight">DealBot</h1>
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">Premium Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Items</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>Conversations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<button class="primary-gradient-btn text-white w-full py-3 rounded-xl font-headline font-bold text-sm shadow-md flex items-center justify-center gap-2 active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>Add Item</span>
+</button>
+<div class="pt-6 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:text-slate-900 transition-colors font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-600 hover:text-slate-900 transition-colors font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-40 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md flex justify-between items-center px-8 py-3 w-full shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-lg" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-200/50 transition-colors text-on-surface-variant active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-200/50 transition-colors text-on-surface-variant active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User profile photo" data-alt="professional headshot of a person with friendly expression in bright office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzaF5hwSc_CxWcDJkLlXXkEQOoavMftBXhKnBDQWnC5Ncos5VaurWr6dTtgzXmFsJ8HVIEvFoUjYqOpSKWDEfnWGM153Kt6Mu0XCX1sJo8IJr_HkrzbfanFIAWN5sQzOmIC2uUC8ZwR9cGc4YPlP9tI2VWopVMkp30ktyx1NVXnvpSrNOr6OnK2fWTDCTgmZ-FMW-OlRGp7FxUNL07c4BlAy-868w1uGEoNt7cyIVcFwlCimVjc1BYK8V4U5yBNij83repKlNZwek"/>
+</div>
+</div>
+</header>
+<!-- Editorial Content Stage -->
+<div class="max-w-5xl mx-auto px-8 py-12">
+<!-- Page Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Conversations</h2>
+<p class="text-on-surface-variant font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        1 thread
+                    </p>
+</div>
+<div class="flex items-center gap-3">
+<!-- Custom Styled Selects -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer">
+<option>All statuses</option>
+<option>Active</option>
+<option>Archived</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border-none rounded-xl py-3 pl-4 pr-10 text-sm font-semibold text-on-surface focus:ring-2 focus:ring-primary/20 transition-all outline-none cursor-pointer">
+<option>All items</option>
+<option>Dark grey laundry basket</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Conversation List (Tonal Layering Principle) -->
+<div class="space-y-6">
+<!-- Single Conversation Entry -->
+<div class="group relative bg-surface-container-lowest hover:bg-surface-container-high transition-all duration-300 rounded-xl p-6 shadow-sm flex items-start gap-6 cursor-pointer">
+<!-- Avatar/Visual Anchor -->
+<div class="flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined text-2xl" data-icon="person">person</span>
+</div>
+</div>
+<!-- Conversation Content -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-3">
+<span class="font-headline font-bold text-lg text-on-surface">+17•••3901</span>
+<span class="px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-tertiary-container text-on-tertiary-container">active</span>
+</div>
+<span class="text-xs font-medium text-on-surface-variant">3/24/2026</span>
+</div>
+<h4 class="text-sm font-bold text-primary-dim mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="reply">reply</span>
+                            Re: Dark grey laundry basket.
+                        </h4>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-2xl line-clamp-1">
+<span class="font-bold text-on-surface">You:</span> Great question! I'm listing a couple of things right now, including that one. It's in excellent condition and was only used for a few months...
+                        </p>
+</div>
+<!-- Contextual Action (Glassmorphism inspired) -->
+<div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="p-2 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+<!-- Empty State Filler Illustration / Intentional Asymmetry -->
+<div class="pt-12 flex flex-col items-center justify-center text-center opacity-40">
+<div class="w-48 h-48 bg-surface-container-low rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-6xl text-on-surface-variant" data-icon="forum">forum</span>
+</div>
+<p class="font-headline font-bold text-on-surface-variant">No other conversations found</p>
+<p class="text-sm text-on-surface-variant max-w-xs">New inquiries for your listed items will appear here automatically.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-50/80 backdrop-blur-md flex justify-around items-center py-3 px-6 z-50">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-medium">Overview</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-medium">Items</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-indigo-600 font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="text-[10px]">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Item | DealBot</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#d9e4ea",
+              "error-container": "#ff8b9a",
+              "surface": "#f7f9fb",
+              "tertiary-container": "#d5dffd",
+              "outline-variant": "#a9b4b9",
+              "on-background": "#2a3439",
+              "surface-container-highest": "#d9e4ea",
+              "on-tertiary-fixed": "#333d55",
+              "on-tertiary": "#f9f8ff",
+              "on-primary-container": "#3b48a6",
+              "primary-dim": "#3c49a7",
+              "on-surface": "#2a3439",
+              "inverse-surface": "#0b0f10",
+              "on-secondary-fixed": "#2d424c",
+              "on-primary": "#f9f6ff",
+              "on-error": "#fff7f7",
+              "primary-fixed": "#dfe0ff",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "tertiary-dim": "#49536b",
+              "tertiary": "#545f78",
+              "on-secondary-container": "#40555f",
+              "surface-container": "#e8eff3",
+              "on-secondary-fixed-variant": "#495f69",
+              "error-dim": "#4f0116",
+              "surface-container-high": "#e1e9ee",
+              "primary-fixed-dim": "#cdd1ff",
+              "outline": "#717c82",
+              "surface-dim": "#cfdce3",
+              "on-primary-fixed": "#273492",
+              "surface-container-low": "#f0f4f7",
+              "secondary-fixed": "#cfe6f2",
+              "on-secondary": "#f2faff",
+              "inverse-primary": "#8c99fc",
+              "surface-bright": "#f7f9fb",
+              "error": "#9e3f4e",
+              "secondary-container": "#cfe6f2",
+              "tertiary-fixed": "#d5dffd",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "on-surface-variant": "#566166",
+              "primary": "#4955b3",
+              "secondary-dim": "#415660",
+              "on-primary-fixed-variant": "#4652b0",
+              "background": "#f7f9fb",
+              "inverse-on-surface": "#9a9d9f",
+              "secondary": "#4d626c",
+              "on-tertiary-container": "#455068",
+              "surface-container-lowest": "#ffffff",
+              "on-error-container": "#782232",
+              "secondary-fixed-dim": "#c1d8e4",
+              "primary-container": "#dfe0ff",
+              "surface-tint": "#4955b3"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-effect {
+            backdrop-filter: blur(16px);
+            background-color: rgba(247, 249, 251, 0.8);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #4955b3 0%, #3c49a7 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 dark:bg-slate-900 p-6 space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full primary-gradient flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h1 class="font-headline text-lg font-extrabold text-slate-900 dark:text-slate-50">DealBot</h1>
+<p class="text-[10px] uppercase tracking-wider text-on-surface-variant font-bold">Premium Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-manrope text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-manrope text-sm font-medium">Items</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-manrope text-sm font-medium">Conversations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-manrope text-sm font-medium">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-manrope text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 min-h-screen">
+<!-- TopAppBar (Contextual for Desktop) -->
+<header class="sticky top-0 z-40 w-full bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md px-8 py-3 flex justify-between items-center shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-slate-600">arrow_back</span>
+</button>
+<h2 class="font-headline text-xl font-bold tracking-tight text-slate-900 dark:text-slate-50">Add Item</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Quick search..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-slate-200/50 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional headshot of a smiling man with clean background and soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHwgU-YiKOOVPcAoNLZeI6TY5-NqhBAJFC2FPDsumB1yMlrXnzu_PnNzQU0uIOjH5SeWYQOeR9sZIKo0Nz7kKwyiBmrW7ov8HQHsCBwFcGZQSY7X_hrQ_Qv4pMpLrGxDDTyy86qOkeTuJ5eLgzwSA_gUod8gWjFQtbefb02KWCTtw8jF-uOlc7ZhV8WL7KV50zgGSL1aza8T4MXxJGDjuNZ_o-g98blMOcxZOmtYmlIhBD8wrO5cYSdFbBM6jmyItYswmFIlVpQL4"/>
+</div>
+</div>
+</header>
+<!-- Form Content -->
+<div class="max-w-4xl mx-auto px-8 py-12">
+<div class="mb-12">
+<h3 class="font-headline text-3xl font-bold text-on-surface mb-2">Curate New Listing</h3>
+<p class="text-on-surface-variant max-w-lg">Provide precise details to help DealBot negotiate the best possible value for your item.</p>
+</div>
+<form class="space-y-12">
+<!-- Section: Core Details -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h4 class="font-headline text-lg font-bold text-primary">Identity &amp; Context</h4>
+<p class="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how DealBot searches for market comparables.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Item name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant" placeholder="e.g., Mid-century Walnut Credenza" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Condition</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 appearance-none transition-all">
+<option>Like New</option>
+<option>Good</option>
+<option>Fair</option>
+<option>Needs Repair</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 appearance-none transition-all">
+<option>Furniture</option>
+<option>Electronics</option>
+<option>Apparel</option>
+<option>Art &amp; Decor</option>
+</select>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Description</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant" placeholder="Describe craftsmanship, history, and any minor wear..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Section: Valuation -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h4 class="font-headline text-lg font-bold text-primary">Pricing Strategy</h4>
+<p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. DealBot will attempt to close the deal within your specified range.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm space-y-6">
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Asking price ($)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl p-4 pl-8 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Max discount ($)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl p-4 pl-8 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all" placeholder="0.00" type="number"/>
+</div>
+</div>
+</div>
+<label class="flex items-center gap-4 p-4 bg-primary-fixed/30 rounded-xl cursor-pointer hover:bg-primary-fixed/50 transition-colors group">
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 rounded-lg border-primary text-primary focus:ring-primary transition-all" type="checkbox"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-primary">Firm price — agent will not negotiate</span>
+<span class="text-xs text-on-primary-fixed-variant">DealBot will reject all offers below the asking price.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Section: Logistics -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="md:col-span-4">
+<h4 class="font-headline text-lg font-bold text-primary">Fulfillment</h4>
+<p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Streamline the hand-off process with clear availability.</p>
+</div>
+<div class="md:col-span-8 bg-surface-container-lowest p-8 rounded-xl shadow-sm space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Preferred pickup times</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant" placeholder="e.g., Weekends after 2pm, Tuesdays 5-7pm" type="text"/>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center justify-end gap-6 pt-12 border-t border-outline-variant/10">
+<button class="px-8 py-3 rounded-xl text-on-surface-variant font-bold hover:bg-surface-container-high transition-colors active:scale-95 duration-150" type="button">
+                        Cancel
+                    </button>
+<button class="primary-gradient px-12 py-3 rounded-xl text-on-primary font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all duration-150" type="submit">
+                        Add item
+                    </button>
+</div>
+</form>
+</div>
+<!-- Spacer for Bottom Nav on Mobile -->
+<div class="h-20 md:hidden"></div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-slate-50/80 backdrop-blur-md flex justify-around items-center py-4 px-2 z-50 border-t border-slate-200">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-medium">Overview</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-indigo-700" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="text-[10px] font-bold">Items</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-medium">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

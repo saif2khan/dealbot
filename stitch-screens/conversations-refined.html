@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot | Conversations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#415660",
+              "on-secondary-fixed": "#2d424c",
+              "on-secondary-container": "#40555f",
+              "secondary": "#4d626c",
+              "tertiary-fixed": "#d5dffd",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-error": "#fff7f7",
+              "surface-container": "#e8eff3",
+              "on-surface": "#2a3439",
+              "inverse-on-surface": "#9a9d9f",
+              "on-primary": "#f9f6ff",
+              "on-primary-fixed-variant": "#4652b0",
+              "on-error-container": "#782232",
+              "tertiary": "#545f78",
+              "secondary-container": "#cfe6f2",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "on-tertiary-container": "#455068",
+              "tertiary-dim": "#49536b",
+              "on-surface-variant": "#566166",
+              "secondary-fixed": "#cfe6f2",
+              "surface-tint": "#4955b3",
+              "surface-dim": "#cfdce3",
+              "on-primary-fixed": "#273492",
+              "surface-variant": "#d9e4ea",
+              "on-background": "#2a3439",
+              "primary-dim": "#3c49a7",
+              "error-dim": "#4f0116",
+              "outline": "#717c82",
+              "surface": "#f7f9fb",
+              "primary": "#4955b3",
+              "background": "#f7f9fb",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "outline-variant": "#a9b4b9",
+              "surface-bright": "#f7f9fb",
+              "error-container": "#ff8b9a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#333d55",
+              "on-primary-container": "#3b48a6",
+              "inverse-surface": "#0b0f10",
+              "surface-container-low": "#f0f4f7",
+              "surface-container-highest": "#d9e4ea",
+              "primary-fixed": "#dfe0ff",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "tertiary-container": "#d5dffd",
+              "primary-container": "#dfe0ff",
+              "surface-container-high": "#e1e9ee",
+              "on-secondary-fixed-variant": "#495f69",
+              "error": "#9e3f4e",
+              "on-tertiary": "#f9f8ff",
+              "inverse-primary": "#8c99fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "manrope": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d9e4ea;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 dark:bg-slate-900 flex flex-col p-6 space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+</div>
+<div>
+<h1 class="font-manrope text-lg font-extrabold text-slate-900 dark:text-slate-50 leading-none">DealBot</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Premium Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Items</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span>Conversations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2">
+<button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-manrope font-bold text-sm shadow-md active:scale-95 transition-all">
+            Add Item
+        </button>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined text-red-500">logout</span>
+<span class="text-red-500">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-64 flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-40 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm flex justify-between items-center px-8 py-3">
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-lg">search</span>
+<input class="bg-slate-100 dark:bg-slate-900 border-none rounded-full py-2 pl-10 pr-4 text-sm w-64 focus:ring-2 focus:ring-indigo-600/20 transition-all" placeholder="Search conversations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 text-slate-500">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors active:scale-95 text-slate-500">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- Content Area (Matching IMAGE_7 layout) -->
+<div class="flex-1 overflow-y-auto p-12 bg-white">
+<!-- Chat Header -->
+<div class="mb-8">
+<h2 class="text-3xl font-bold text-slate-900">+17789923901</h2>
+<p class="text-slate-500 text-sm mt-1">Re: Dark grey laundry basket. — $20 (active)</p>
+</div>
+<!-- Chat Bubble Container (Strictly matching IMAGE_7) -->
+<div class="max-w-4xl mx-auto border border-slate-200 rounded-3xl p-8 bg-white shadow-sm min-h-[500px] flex flex-col">
+<!-- Buyer Message 1 -->
+<div class="self-start mb-6">
+<div class="bg-slate-100 p-5 rounded-2xl rounded-tl-none max-w-md">
+<p class="text-slate-900 font-medium">Is the laundry basket available?</p>
+<p class="text-[10px] text-slate-400 mt-2 uppercase tracking-wide">buyer · 12:40 p.m.</p>
+</div>
+</div>
+<!-- Agent Message 1 -->
+<div class="self-end mb-6">
+<div class="bg-indigo-600 p-5 rounded-2xl rounded-tr-none max-w-md shadow-md">
+<p class="text-white leading-relaxed">Hey! 👋 Yes, the dark grey laundry basket is available! It's listed at $20. Are you interested in it, or would you like to know more details?</p>
+<p class="text-[10px] text-indigo-100 mt-2 uppercase tracking-wide">agent · 12:40 p.m.</p>
+</div>
+</div>
+<!-- Buyer Message 2 -->
+<div class="self-start mb-6">
+<div class="bg-slate-100 p-5 rounded-2xl rounded-tl-none max-w-md">
+<p class="text-slate-900 font-medium">What else are u selling?</p>
+<p class="text-[10px] text-slate-400 mt-2 uppercase tracking-wide">buyer · 12:40 p.m.</p>
+</div>
+</div>
+<!-- Agent Message 2 -->
+<div class="self-end mb-6">
+<div class="bg-indigo-600 p-5 rounded-2xl rounded-tr-none max-w-md shadow-md">
+<p class="text-white leading-relaxed">Great question! I'm listing a couple of things right now: 1. **Dark grey laundry basket** — $20 (the one we were just talking about) 2. **Headphones** — $250 Both are available for pickup in the Coquitlam City Center area. Interested in either of them?</p>
+<p class="text-[10px] text-indigo-100 mt-2 uppercase tracking-wide">agent · 12:40 p.m.</p>
+</div>
+</div>
+</div>
+<!-- Footer Notice -->
+<div class="mt-8 text-center">
+<p class="text-xs text-slate-400">Read-only view. Conversations are managed by DealBot via SMS.</p>
+</div>
+</div>
+</main>
+</body></html>

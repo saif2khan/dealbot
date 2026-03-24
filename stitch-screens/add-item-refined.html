@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-dim": "#415660",
+                        "on-secondary-fixed": "#2d424c",
+                        "on-secondary-container": "#40555f",
+                        "secondary": "#4d626c",
+                        "tertiary-fixed": "#d5dffd",
+                        "primary-fixed-dim": "#cdd1ff",
+                        "on-error": "#fff7f7",
+                        "surface-container": "#e8eff3",
+                        "on-surface": "#2a3439",
+                        "inverse-on-surface": "#9a9d9f",
+                        "on-primary": "#f9f6ff",
+                        "on-primary-fixed-variant": "#4652b0",
+                        "on-error-container": "#782232",
+                        "tertiary": "#545f78",
+                        "secondary-container": "#cfe6f2",
+                        "tertiary-fixed-dim": "#c7d1ee",
+                        "on-tertiary-container": "#455068",
+                        "tertiary-dim": "#49536b",
+                        "on-surface-variant": "#566166",
+                        "secondary-fixed": "#cfe6f2",
+                        "surface-tint": "#4955b3",
+                        "surface-dim": "#cfdce3",
+                        "on-primary-fixed": "#273492",
+                        "surface-variant": "#d9e4ea",
+                        "on-background": "#2a3439",
+                        "primary-dim": "#3c49a7",
+                        "error-dim": "#4f0116",
+                        "outline": "#717c82",
+                        "surface": "#f7f9fb",
+                        "primary": "#4955b3",
+                        "background": "#f7f9fb",
+                        "secondary-fixed-dim": "#c1d8e4",
+                        "on-secondary": "#f2faff",
+                        "outline-variant": "#a9b4b9",
+                        "surface-bright": "#f7f9fb",
+                        "error-container": "#ff8b9a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#333d55",
+                        "on-primary-container": "#3b48a6",
+                        "inverse-surface": "#0b0f10",
+                        "surface-container-low": "#f0f4f7",
+                        "surface-container-highest": "#d9e4ea",
+                        "primary-fixed": "#dfe0ff",
+                        "on-tertiary-fixed-variant": "#4f5a72",
+                        "tertiary-container": "#d5dffd",
+                        "primary-container": "#dfe0ff",
+                        "surface-container-high": "#e1e9ee",
+                        "on-secondary-fixed-variant": "#495f69",
+                        "error": "#9e3f4e",
+                        "on-tertiary": "#f9f8ff",
+                        "inverse-primary": "#8c99fc"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Authority: COMPONENTS_3) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 dark:bg-slate-900 flex flex-col p-6 space-y-8">
+<div class="flex items-center space-x-3 px-2">
+<div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<div class="text-lg font-extrabold text-slate-900 dark:text-slate-50 tracking-tight font-manrope">DealBot</div>
+<div class="text-xs text-on-surface-variant font-medium">Premium Curator</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-manrope text-sm font-semibold">Items</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-manrope text-sm font-medium">Conversations</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-manrope text-sm font-medium">Support</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-error hover:bg-error-container/20 transition-all rounded-xl group hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-manrope text-sm font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar (Authority: COMPONENTS_3) -->
+<header class="w-full sticky top-0 z-40 bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md shadow-sm dark:shadow-none flex justify-between items-center px-8 py-3">
+<div class="flex items-center bg-slate-100 dark:bg-slate-900 px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body text-slate-900 dark:text-slate-50" placeholder="Search curated deals..." type="text"/>
+</div>
+<div class="flex items-center space-x-5">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center space-x-3">
+<img alt="User profile photo" class="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWbzmqal-IYcYb5a-4PvauvI4ismgSClpJ2dyX7xo1a6GMt7_Uef0XwhqvXj_gK_EpPrtc73jihH9iz1E0G79YAZwf5oD8jjf6Ky0mmP5OsnghZPZAn6WJNWlDpHUDGw3mbSZDPIkFLOf964HWqgrpB_c2NrFePvUNX9Bg7mft6RnDl4ACVrUnmD8ialwoxJPPaA-yDGo0Li-7NEOLpf4Kx3UsLTwptbu2QAk8rgQ2os09iFh2zpUQkVqeLafO-YzNaNDT6MuAZUM"/>
+</div>
+</div>
+</header>
+<!-- Page Content: Add Item Screen (Matches IMAGE_10 layout) -->
+<div class="p-12 max-w-4xl">
+<div class="mb-8">
+<h1 class="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-1">Add item</h1>
+<p class="text-slate-500 dark:text-slate-400">The agent uses this info to answer buyer questions.</p>
+</div>
+<!-- Tabs Section (IMAGE_10 Layout) -->
+<div class="bg-slate-100 dark:bg-slate-900 p-1 rounded-xl flex mb-8 w-fit overflow-hidden">
+<button class="px-8 py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white shadow-sm transition-all">
+                    Import from FB Marketplace
+                </button>
+<button class="px-8 py-2.5 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors">
+                    Manual entry
+                </button>
+</div>
+<!-- Form Card (IMAGE_10 Layout) -->
+<div class="bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl p-10 shadow-sm max-w-2xl">
+<p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                    Paste your Facebook Marketplace listing URL or share link below. We'll auto-fill the details for you to review.
+                </p>
+<div class="mb-8">
+<label class="block text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3" for="listing_url">Listing URL</label>
+<input class="block w-full px-4 py-3.5 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-900 dark:text-slate-50 placeholder-slate-400 transition-all font-body" id="listing_url" placeholder="https://www.facebook.com/share/marketplace/..." type="text"/>
+<p class="mt-3 text-[11px] text-slate-400 dark:text-slate-500">Works with share links and direct marketplace URLs.</p>
+</div>
+<button class="w-full bg-indigo-400/60 text-white py-3 px-6 rounded-xl font-semibold text-base transition-all hover:bg-indigo-400 cursor-default">
+                    Import listing
+                </button>
+</div>
+</div>
+</main>
+</body></html>

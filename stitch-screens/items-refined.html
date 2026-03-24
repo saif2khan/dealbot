@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot - Items Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#415660",
+              "on-secondary-fixed": "#2d424c",
+              "on-secondary-container": "#40555f",
+              "secondary": "#4d626c",
+              "tertiary-fixed": "#d5dffd",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-error": "#fff7f7",
+              "surface-container": "#e8eff3",
+              "on-surface": "#2a3439",
+              "inverse-on-surface": "#9a9d9f",
+              "on-primary": "#f9f6ff",
+              "on-primary-fixed-variant": "#4652b0",
+              "on-error-container": "#782232",
+              "tertiary": "#545f78",
+              "secondary-container": "#cfe6f2",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "on-tertiary-container": "#455068",
+              "tertiary-dim": "#49536b",
+              "on-surface-variant": "#566166",
+              "secondary-fixed": "#cfe6f2",
+              "surface-tint": "#4955b3",
+              "surface-dim": "#cfdce3",
+              "on-primary-fixed": "#273492",
+              "surface-variant": "#d9e4ea",
+              "on-background": "#2a3439",
+              "primary-dim": "#3c49a7",
+              "error-dim": "#4f0116",
+              "outline": "#717c82",
+              "surface": "#f7f9fb",
+              "primary": "#4955b3",
+              "background": "#f7f9fb",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "outline-variant": "#a9b4b9",
+              "surface-bright": "#f7f9fb",
+              "error-container": "#ff8b9a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#333d55",
+              "on-primary-container": "#3b48a6",
+              "inverse-surface": "#0b0f10",
+              "surface-container-low": "#f0f4f7",
+              "surface-container-highest": "#d9e4ea",
+              "primary-fixed": "#dfe0ff",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "tertiary-container": "#d5dffd",
+              "primary-container": "#dfe0ff",
+              "surface-container-high": "#e1e9ee",
+              "on-secondary-fixed-variant": "#495f69",
+              "error": "#9e3f4e",
+              "on-tertiary": "#f9f8ff",
+              "inverse-primary": "#8c99fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex">
+<!-- SideNavBar from COMPONENTS_3 -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 flex flex-col p-6 space-y-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="robot_2">robot_2</span>
+</div>
+<div>
+<h2 class="text-lg font-extrabold text-slate-900 tracking-tight leading-none">DealBot</h2>
+<p class="text-xs font-medium text-on-surface-variant">Premium Curator</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-indigo-600 rounded-xl shadow-sm transition-all hover:translate-x-1 duration-200 font-manrope text-sm font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Items</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>Conversations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all hover:translate-x-1 duration-200 rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-slate-200 space-y-2">
+<button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Add Item
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Stage -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopNavBar from COMPONENTS_3 -->
+<header class="w-full sticky top-0 z-40 bg-slate-50/80 backdrop-blur-md shadow-sm flex justify-between items-center px-8 py-3">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full bg-slate-100 border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-on-surface-variant/60" placeholder="Search your inventory..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-slate-200/50 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-slate-200/50 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-px bg-slate-200 mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<span class="text-sm font-semibold text-slate-900">Alex Curator</span>
+<img alt="User profile photo" class="w-10 h-10 rounded-full object-cover ring-2 ring-white" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfiPMZJhux6iDVjK949O8XeJZNuyFLBxXH7HVzahqza5UHqyEuIPnWycux70W2yREcUR7CsNvUA_pLN3eMfJuv01tNmrKE3KvOeDMm6uCPqymtK4sp4u0cNcgWZ0U310y_ngL-XH3xXUU9nGov9wdk6Uodw7ECr4zG2SMmYnym2s_RhJz0gt0RhqMNOhW8mOzr3z2R_qNn_7uqrHxU_qoKRjq-jRobdM4rOiGl7I7hZVJkUhFOuuOHZy_S90XuxrMI-_FjT4JXWoo"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-10 max-w-7xl w-full mx-auto">
+<!-- Header Section matches IMAGE_9 layout -->
+<div class="flex justify-between items-start mb-6">
+<div>
+<h1 class="text-2xl font-bold text-slate-900 mb-1">Items</h1>
+<p class="text-slate-500 text-sm">5 / 10 added this month</p>
+</div>
+<button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    Add item
+                </button>
+</div>
+<!-- List Layout matches IMAGE_9 -->
+<div class="space-y-4">
+<!-- Item Card 1 -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+<div class="space-y-1">
+<div class="flex items-center gap-3">
+<h3 class="text-lg font-semibold text-slate-900">Dark grey laundry basket.</h3>
+<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase px-2 py-0.5 rounded">active</span>
+</div>
+<p class="text-slate-500 text-sm">$20 · floor $15 · good</p>
+</div>
+<a class="text-indigo-600 font-medium text-sm hover:underline" href="#">Edit</a>
+</div>
+<!-- Item Card 2 -->
+<div class="bg-white border border-slate-200 rounded-xl p-5 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+<div class="space-y-1">
+<div class="flex items-center gap-3">
+<h3 class="text-lg font-semibold text-slate-900">Headphones</h3>
+<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase px-2 py-0.5 rounded">active</span>
+</div>
+<p class="text-slate-500 text-sm">$250 · floor $225 · good</p>
+</div>
+<a class="text-indigo-600 font-medium text-sm hover:underline" href="#">Edit</a>
+</div>
+</div>
+</div>
+</main>
+</body></html>
