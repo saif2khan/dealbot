@@ -1,6 +1,11 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect, notFound } from 'next/navigation'
 
+function maskPhone(phone: string) {
+  if (phone.length < 6) return phone
+  return phone.slice(0, 3) + '•••' + phone.slice(-4)
+}
+
 export default async function ConversationPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()
@@ -25,46 +30,57 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
   const item = conv.items as { name: string; asking_price: number; status: string } | null
 
   return (
-    <div className="space-y-4 max-w-2xl">
+    <div className="max-w-2xl space-y-6 pb-20">
+      {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
-          {conv.buyer_name ?? conv.buyer_phone}
+        <h1 className="text-2xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">
+          {conv.buyer_name ?? maskPhone(conv.buyer_phone)}
         </h1>
         {item && (
-          <p className="text-gray-500 text-sm">
-            Re: {item.name} — ${item.asking_price} ({item.status})
+          <p className="text-on-surface-variant text-sm mt-1">
+            Re: {item.name} — ${item.asking_price}{' '}
+            <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-100 text-emerald-700 ml-1">
+              {item.status}
+            </span>
           </p>
         )}
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto">
+      {/* Message thread */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4 max-h-[calc(100vh-260px)] overflow-y-auto">
         {messages?.map(msg => {
           const isInbound = msg.direction === 'inbound'
+          const isSeller = msg.sender_type === 'seller'
           return (
             <div key={msg.id} className={`flex ${isInbound ? 'justify-start' : 'justify-end'}`}>
-              <div
-                className={`max-w-xs lg:max-w-md px-3 py-2 rounded-xl text-sm ${
-                  isInbound
-                    ? 'bg-gray-100 text-gray-900'
-                    : msg.sender_type === 'seller'
-                    ? 'bg-yellow-100 text-yellow-900'
-                    : 'bg-blue-600 text-white'
-                }`}
-              >
-                <p>{msg.body}</p>
-                <p className={`text-xs mt-1 ${isInbound ? 'text-gray-400' : 'text-blue-200'}`}>
-                  {msg.sender_type} · {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              <div className={`max-w-[75%] space-y-1 ${isInbound ? '' : ''}`}>
+                <div
+                  className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                    isInbound
+                      ? 'bg-slate-100 text-slate-900 rounded-tl-sm'
+                      : isSeller
+                      ? 'bg-amber-100 text-amber-900 rounded-tr-sm'
+                      : 'bg-indigo-600 text-white rounded-tr-sm'
+                  }`}
+                >
+                  {msg.body}
+                </div>
+                <p className={`text-[10px] font-medium uppercase tracking-wider ${isInbound ? 'text-slate-400' : 'text-slate-400 text-right'}`}>
+                  {isSeller ? 'You' : msg.sender_type === 'agent' ? 'Agent' : 'Buyer'} · {new Date(msg.created_at).toLocaleDateString([], { month: 'numeric', day: 'numeric' })} {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
             </div>
           )
         })}
         {(!messages || messages.length === 0) && (
-          <p className="text-center text-gray-400 text-sm py-4">No messages yet.</p>
+          <div className="text-center py-12 text-on-surface-variant text-sm">
+            <span className="material-symbols-outlined text-4xl block mb-2 text-slate-300">chat_bubble</span>
+            No messages yet.
+          </div>
         )}
       </div>
 
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-on-surface-variant text-center">
         Read-only view. Conversations are managed by DealBot via SMS.
       </p>
     </div>

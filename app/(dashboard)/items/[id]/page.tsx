@@ -26,6 +26,9 @@ const STATUSES = [
   { value: 'archived', label: 'Archived' },
 ]
 
+const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
+const selectClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm appearance-none cursor-pointer"
+
 export default function EditItemPage() {
   const router = useRouter()
   const params = useParams()
@@ -110,106 +113,137 @@ export default function EditItemPage() {
 
   if (loading) {
     return (
-      <div className="max-w-xl">
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <p className="text-gray-400 text-sm animate-pulse">Loading item...</p>
+      <div className="max-w-4xl">
+        <div className="bg-white rounded-2xl border border-slate-200 p-8 animate-pulse">
+          <div className="h-4 bg-slate-100 rounded w-32" />
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-w-xl space-y-6">
+    <div className="max-w-4xl space-y-12 pb-20">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Edit item</h1>
+        <h1 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900 mb-1">Edit item</h1>
+        <p className="text-on-surface-variant text-sm">Update listing details. Changes apply immediately.</p>
       </div>
 
-      <form onSubmit={handleSave} className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Item name <span className="text-red-500">*</span></label>
-          <input type="text" required value={form.name} onChange={e => update('name', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Description <span className="text-red-500">*</span></label>
-          <textarea rows={4} required value={form.description} onChange={e => update('description', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none" />
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Condition <span className="text-red-500">*</span></label>
-            <select value={form.condition} onChange={e => update('condition', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
-              {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-            </select>
+      <form onSubmit={handleSave} className="space-y-12">
+        {/* Identity & Context */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-4">
+            <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-indigo-600">Identity & Context</h4>
+            <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how DealBot answers buyer questions.</p>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-            <select value={form.category} onChange={e => update('category', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
-              <option value="">Select...</option>
-              {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-            </select>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Asking price ($) <span className="text-red-500">*</span></label>
-            <input type="number" required min="0" step="0.01" value={form.asking_price} onChange={e => update('asking_price', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Max discount ($)</label>
-            <input type="number" min="0" step="0.01" disabled={form.firm_price} value={form.max_discount} onChange={e => update('max_discount', e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm disabled:bg-gray-100" />
+          <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Item name <span className="text-red-500">*</span></label>
+              <input type="text" required value={form.name} onChange={e => update('name', e.target.value)} className={inputClass} placeholder="e.g. IKEA KALLAX shelf" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Condition <span className="text-red-500">*</span></label>
+                <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
+                  {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Category</label>
+                <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
+                  <option value="">Select…</option>
+                  {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Description <span className="text-red-500">*</span></label>
+              <textarea rows={4} required value={form.description} onChange={e => update('description', e.target.value)}
+                className={inputClass + ' resize-none'} placeholder="Describe condition, history, and any wear…" />
+            </div>
           </div>
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" checked={form.firm_price} onChange={e => update('firm_price', e.target.checked)} />
-          <span className="text-sm text-gray-700">Firm price — agent will not negotiate</span>
-        </label>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Preferred pickup times <span className="text-gray-400 font-normal">(optional)</span></label>
-          <input type="text" value={form.preferred_times} onChange={e => update('preferred_times', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-            placeholder='e.g. "This weekend only"' />
+        {/* Pricing Strategy */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-4">
+            <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-indigo-600">Pricing Strategy</h4>
+            <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. DealBot will close deals within your range.</p>
+          </div>
+          <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Asking price ($) <span className="text-red-500">*</span></label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
+                  <input type="number" required min="0" step="0.01" value={form.asking_price} onChange={e => update('asking_price', e.target.value)}
+                    className={inputClass + ' pl-8'} placeholder="0.00" />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-on-surface">Max discount ($)</label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
+                  <input type="number" min="0" step="0.01" disabled={form.firm_price} value={form.max_discount} onChange={e => update('max_discount', e.target.value)}
+                    className={inputClass + ' pl-8 disabled:opacity-40'} placeholder="0.00" />
+                </div>
+              </div>
+            </div>
+            <label className="flex items-center gap-4 p-4 bg-indigo-50 rounded-xl cursor-pointer hover:bg-indigo-100 transition-colors">
+              <input type="checkbox" checked={form.firm_price} onChange={e => update('firm_price', e.target.checked)}
+                className="h-5 w-5 rounded border-indigo-400 text-indigo-600 focus:ring-indigo-500" />
+              <div>
+                <span className="text-sm font-bold text-indigo-700 block">Firm price — agent will not negotiate</span>
+                <span className="text-xs text-indigo-500">DealBot will reject all offers below the asking price.</span>
+              </div>
+            </label>
+          </div>
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-          <select value={form.status} onChange={e => update('status', e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
-            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-          </select>
+        {/* Fulfillment & Status */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-4">
+            <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-indigo-600">Fulfillment</h4>
+            <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Pickup logistics and current listing status.</p>
+          </div>
+          <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Preferred pickup times <span className="text-slate-400 font-normal">(optional)</span></label>
+              <input type="text" value={form.preferred_times} onChange={e => update('preferred_times', e.target.value)}
+                className={inputClass} placeholder='e.g. "Weekends after 2pm, Tuesdays 5–7pm"' />
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Status</label>
+              <select value={form.status} onChange={e => update('status', e.target.value)} className={selectClass}>
+                {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+              </select>
+            </div>
+          </div>
         </div>
 
         {error && <p className="text-sm text-red-600">{error}</p>}
 
-        <div className="flex gap-3 pt-2">
+        {/* Actions */}
+        <div className="flex items-center justify-end gap-4 pt-4 border-t border-slate-100">
           <button type="button" onClick={() => router.back()}
-            className="flex-1 border border-gray-300 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition">
+            className="px-8 py-2.5 rounded-lg text-slate-600 font-semibold hover:bg-slate-100 transition-colors">
             Cancel
           </button>
           <button type="submit" disabled={saving}
-            className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition">
+            className="bg-indigo-600 hover:bg-indigo-700 px-10 py-2.5 rounded-lg text-white font-bold shadow-md disabled:opacity-50 active:scale-95 transition-all duration-150">
             {saving ? 'Saving...' : 'Save changes'}
           </button>
         </div>
       </form>
 
-      <div className="bg-white rounded-xl border border-red-100 p-4 flex items-center justify-between">
+      {/* Danger zone */}
+      <div className="bg-white rounded-2xl border border-red-100 p-6 flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-900">Delete item</p>
-          <p className="text-xs text-gray-400 mt-0.5">Permanently removes this listing.</p>
+          <p className="text-sm font-semibold text-slate-900">Delete item</p>
+          <p className="text-xs text-slate-400 mt-0.5">Permanently removes this listing and all associated data.</p>
         </div>
         <button onClick={handleDelete} disabled={deleting}
-          className="px-4 py-2 bg-red-50 text-red-600 text-sm font-medium rounded-lg hover:bg-red-100 disabled:opacity-50 transition">
-          {deleting ? 'Deleting...' : 'Delete'}
+          className="px-4 py-2 bg-red-50 text-red-600 text-sm font-semibold rounded-lg hover:bg-red-100 disabled:opacity-50 transition-colors">
+          {deleting ? 'Deleting…' : 'Delete'}
         </button>
       </div>
     </div>

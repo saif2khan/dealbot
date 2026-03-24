@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import type { OnboardingData } from './OnboardingWizard'
 
+const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
+
 interface Props {
   userId: string
   onNext: (data: Partial<OnboardingData>) => void
@@ -37,65 +39,40 @@ export default function StepProfile({ userId, onNext }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold">Your profile</h2>
-        <p className="text-gray-500 text-sm mt-1">
-          Used for meetup logistics and seller notifications.
-        </p>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Your profile</h2>
+        <p className="text-on-surface-variant text-sm mt-1">Used for meetup logistics and seller notifications.</p>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Full address <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          required
-          value={address}
-          onChange={e => setAddress(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="123 Main St, Vancouver, BC"
-        />
-        <p className="text-xs text-gray-400 mt-1">Stored encrypted. Only shared after deal confirmation.</p>
+      <div className="space-y-1.5">
+        <label className="block text-sm font-medium text-on-surface">Full address <span className="text-red-500">*</span></label>
+        <input type="text" required value={address} onChange={e => setAddress(e.target.value)}
+          className={inputClass} placeholder="123 Main St, Vancouver, BC" />
+        <p className="text-xs text-slate-400">Stored encrypted. Only shared after deal confirmation.</p>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          General area <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          required
-          value={addressArea}
-          onChange={e => setAddressArea(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="Coquitlam area"
-        />
-        <p className="text-xs text-gray-400 mt-1">Shared with buyers before deal is confirmed (city/neighbourhood).</p>
+      <div className="space-y-1.5">
+        <label className="block text-sm font-medium text-on-surface">General area <span className="text-red-500">*</span></label>
+        <input type="text" required value={addressArea} onChange={e => setAddressArea(e.target.value)}
+          className={inputClass} placeholder="Coquitlam area" />
+        <p className="text-xs text-slate-400">Shared with buyers before deal is confirmed (city/neighbourhood).</p>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Your mobile number <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="tel"
-          required
-          value={phone}
-          onChange={e => setPhone(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-          placeholder="+1 604 555 0100"
-        />
-        <p className="text-xs text-gray-400 mt-1">You&apos;ll receive deal confirmations and escalations here.</p>
+      <div className="space-y-1.5">
+        <label className="block text-sm font-medium text-on-surface">Your mobile number <span className="text-red-500">*</span></label>
+        <input type="tel" required value={phone} onChange={e => setPhone(e.target.value)}
+          className={inputClass} placeholder="+1 604 555 0100" />
+        <p className="text-xs text-slate-400">You&apos;ll receive deal confirmations and escalations here.</p>
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+          <p className="text-sm text-red-600">{error}</p>
+        </div>
+      )}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-      >
-        {loading ? 'Saving...' : 'Continue'}
+      <button type="submit" disabled={loading}
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+        {loading ? 'Saving…' : 'Continue'}
       </button>
     </form>
   )

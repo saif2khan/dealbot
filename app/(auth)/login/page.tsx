@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+
+const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -31,56 +32,69 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full bg-white rounded-xl shadow p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Image src="/icon.png" alt="DealBot" width={40} height={40} className="rounded-xl" />
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+      <div className="max-w-md w-full">
+        {/* Logo */}
+        <div className="flex items-center gap-3 mb-8 justify-center">
+          <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg">
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
+          </div>
           <div>
-            <h1 className="text-2xl font-bold leading-tight">Welcome back</h1>
-            <p className="text-gray-500 text-sm">Log in to your DealBot account.</p>
+            <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">DealBot</h1>
+            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Premium Curator</p>
           </div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight">Welcome back</h2>
+            <p className="text-on-surface-variant text-sm mt-1">Log in to your DealBot account.</p>
           </div>
 
-          {error && (
-            <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
-          )}
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Email</label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className={inputClass}
+                placeholder="you@example.com"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-sm font-medium text-on-surface">Password</label>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                className={inputClass}
+                placeholder="Your password"
+              />
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-          >
-            {loading ? 'Logging in...' : 'Log in'}
-          </button>
-        </form>
+            {error && (
+              <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+                <p className="text-sm text-red-600">{error}</p>
+              </div>
+            )}
 
-        <p className="text-sm text-gray-500 text-center mt-4">
-          Don&apos;t have an account?{' '}
-          <Link href="/signup" className="text-blue-600 hover:underline">Sign up free</Link>
-        </p>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150 mt-2"
+            >
+              {loading ? 'Logging in…' : 'Log in'}
+            </button>
+          </form>
+
+          <p className="text-sm text-on-surface-variant text-center mt-6">
+            Don&apos;t have an account?{' '}
+            <Link href="/signup" className="text-indigo-600 hover:underline font-semibold">Sign up free</Link>
+          </p>
+        </div>
       </div>
     </div>
   )

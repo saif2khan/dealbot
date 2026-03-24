@@ -3,23 +3,24 @@
 import { useState } from 'react'
 import type { OnboardingData } from './OnboardingWizard'
 
+const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
+
+const TONES = [
+  { value: 'professional', label: 'Authoritative', icon: 'gavel', desc: 'Polite, concise, no emoji' },
+  { value: 'friendly', label: 'Friendly', icon: 'sentiment_satisfied', desc: 'Warm, casual, emoji ok' },
+  { value: 'firm', label: 'Direct', icon: 'speed', desc: 'Minimal small talk' },
+  { value: 'custom', label: 'Meticulous', icon: 'verified', desc: 'Define your own style' },
+]
+
 interface Props {
   userId: string
   onNext: (data: Partial<OnboardingData>) => void
 }
 
-const TONES = [
-  { value: 'professional', label: 'Professional', desc: 'Polite, concise, no emoji' },
-  { value: 'friendly', label: 'Friendly', desc: 'Warm, casual, light emoji ok' },
-  { value: 'firm', label: 'Firm', desc: 'Direct, minimal small talk' },
-  { value: 'custom', label: 'Custom', desc: 'Define your own style' },
-]
-
 export default function StepAvailability({ userId, onNext }: Props) {
   const [instructions, setInstructions] = useState('')
   const [availability, setAvailability] = useState('')
   const [tone, setTone] = useState('professional')
-  const [customTone, setCustomTone] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -35,7 +36,6 @@ export default function StepAvailability({ userId, onNext }: Props) {
         globalInstructions: instructions,
         availabilityText: availability,
         agentTone: tone,
-        customToneInstructions: customTone,
       }),
     })
     const json = await res.json()
@@ -48,71 +48,70 @@ export default function StepAvailability({ userId, onNext }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold">Agent settings</h2>
-        <p className="text-gray-500 text-sm mt-1">
-          Tell the agent how to behave and when you&apos;re available for meetups.
-        </p>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Agent settings</h2>
+        <p className="text-on-surface-variant text-sm mt-1">Tell the agent how to behave and when you&apos;re available.</p>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Agent tone</label>
-        <div className="grid grid-cols-2 gap-2">
+      {/* Tone picker */}
+      <div className="space-y-3">
+        <label className="block text-sm font-medium text-on-surface">Agent tone</label>
+        <div className="grid grid-cols-2 gap-3">
           {TONES.map(t => (
-            <label key={t.value} className={`flex flex-col gap-0.5 p-3 rounded-lg border cursor-pointer transition ${
-              tone === t.value ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'
-            }`}>
-              <input type="radio" name="agent_tone" value={t.value} checked={tone === t.value}
-                onChange={e => setTone(e.target.value)} className="sr-only" />
-              <span className="text-sm font-medium text-gray-900">{t.label}</span>
-              <span className="text-xs text-gray-400">{t.desc}</span>
-            </label>
+            <button
+              key={t.value}
+              type="button"
+              onClick={() => setTone(t.value)}
+              className={`p-4 rounded-xl flex flex-col items-center gap-2 cursor-pointer transition-all text-left ${
+                tone === t.value
+                  ? 'border-2 border-indigo-600 bg-indigo-50'
+                  : 'border border-slate-200 hover:border-indigo-300'
+              }`}
+            >
+              <span
+                className={`material-symbols-outlined ${tone === t.value ? 'text-indigo-600' : 'text-slate-400'}`}
+                style={tone === t.value ? { fontVariationSettings: "'FILL' 1" } : undefined}
+              >
+                {t.icon}
+              </span>
+              <div className="text-center">
+                <span className={`text-xs font-bold block ${tone === t.value ? 'text-indigo-700' : 'text-slate-600'}`}>{t.label}</span>
+                <span className="text-[10px] text-slate-400">{t.desc}</span>
+              </div>
+            </button>
           ))}
         </div>
-        {tone === 'custom' && (
-          <textarea rows={2} value={customTone} onChange={e => setCustomTone(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none mt-2"
-            placeholder='e.g. "Friendly but professional. Always use the buyer&apos;s first name."' />
-        )}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Agent instructions <span className="text-gray-400 font-normal">(optional)</span>
+      <div className="space-y-1.5">
+        <label className="block text-sm font-medium text-on-surface">
+          Agent instructions <span className="text-slate-400 font-normal">(optional)</span>
         </label>
-        <textarea
-          rows={3}
-          value={instructions}
-          onChange={e => setInstructions(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
-          placeholder='e.g. "Always ask buyers if they can pick up today. Do not accept trades."'
-        />
+        <textarea rows={3} value={instructions} onChange={e => setInstructions(e.target.value)}
+          className={inputClass + ' resize-none'}
+          placeholder='e.g. "Always ask buyers if they can pick up today. Do not accept trades."' />
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+      <div className="space-y-1.5">
+        <label className="block text-sm font-medium text-on-surface">
           Your availability <span className="text-red-500">*</span>
         </label>
-        <textarea
-          rows={3}
-          required
-          value={availability}
-          onChange={e => setAvailability(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none"
-          placeholder='e.g. "Weekdays after 5pm, weekends 10am–4pm. Not available Dec 25."'
-        />
-        <p className="text-xs text-gray-400 mt-1">The agent uses this to propose meetup times to buyers.</p>
+        <textarea rows={3} required value={availability} onChange={e => setAvailability(e.target.value)}
+          className={inputClass + ' resize-none'}
+          placeholder='e.g. "Weekdays after 5pm, weekends 10am–4pm. Not available Dec 25."' />
+        <p className="text-xs text-slate-400">The agent uses this to propose meetup times to buyers.</p>
       </div>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && (
+        <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+          <p className="text-sm text-red-600">{error}</p>
+        </div>
+      )}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-      >
-        {loading ? 'Saving...' : 'Continue'}
+      <button type="submit" disabled={loading}
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+        {loading ? 'Saving…' : 'Continue'}
       </button>
     </form>
   )

@@ -10,35 +10,24 @@ const SUPPORTED_COUNTRIES = [
   { code: 'AU', label: 'Australia (+61)' },
 ]
 
-interface PoolNumber {
-  phone_number: string
-  id: string
-}
+const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm appearance-none cursor-pointer"
 
-interface Props {
-  userId: string
-  onNext: (data: Partial<OnboardingData>) => void
-}
+interface PoolNumber { phone_number: string; id: string }
+interface Props { userId: string; onNext: (data: Partial<OnboardingData>) => void }
 
 export default function StepCountry({ userId, onNext }: Props) {
   const [poolNumbers, setPoolNumbers] = useState<PoolNumber[]>([])
   const [poolLoading, setPoolLoading] = useState(true)
   const [showBuyFlow, setShowBuyFlow] = useState(false)
-
-  // Pool selection state
   const [selectedPool, setSelectedPool] = useState('')
   const [claimLoading, setClaimLoading] = useState(false)
-
-  // Buy flow state
   const [country, setCountry] = useState('CA')
   const [searchResults, setSearchResults] = useState<PoolNumber[]>([])
   const [selectedBuy, setSelectedBuy] = useState('')
   const [searching, setSearching] = useState(false)
   const [buyLoading, setBuyLoading] = useState(false)
-
   const [error, setError] = useState<string | null>(null)
 
-  // On mount, check pool
   useEffect(() => {
     async function fetchPool() {
       try {
@@ -114,8 +103,8 @@ export default function StepCountry({ userId, onNext }: Props) {
   if (poolLoading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold">Get your DealBot number</h2>
-        <p className="text-gray-500 text-sm animate-pulse">Checking available numbers...</p>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your DealBot number</h2>
+        <p className="text-on-surface-variant text-sm animate-pulse">Checking available numbers…</p>
       </div>
     )
   }
@@ -123,104 +112,89 @@ export default function StepCountry({ userId, onNext }: Props) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-bold">Get your DealBot number</h2>
-        <p className="text-gray-500 text-sm mt-1">
-          Buyers will text this number. Post it in your marketplace listings.
-        </p>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your DealBot number</h2>
+        <p className="text-on-surface-variant text-sm mt-1">Buyers will text this number. Post it in your marketplace listings.</p>
       </div>
 
-      {/* Pool numbers available */}
       {!showBuyFlow && poolNumbers.length > 0 && (
         <>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-sm text-blue-700">
+          <div className="bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-3 text-sm text-indigo-700">
             Select a number below to get started instantly.
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Available numbers</label>
-            <div className="space-y-2">
-              {poolNumbers.map(n => (
-                <label key={n.phone_number} className="flex items-center gap-3 border border-gray-200 rounded-lg px-4 py-3 cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="poolNumber"
-                    value={n.phone_number}
-                    checked={selectedPool === n.phone_number}
-                    onChange={() => setSelectedPool(n.phone_number)}
-                  />
-                  <span className="font-medium text-gray-900">{n.phone_number}</span>
-                </label>
-              ))}
-            </div>
+          <div className="space-y-2">
+            {poolNumbers.map(n => (
+              <label key={n.phone_number}
+                className={`flex items-center gap-3 border rounded-xl px-4 py-3 cursor-pointer transition-colors ${
+                  selectedPool === n.phone_number
+                    ? 'border-indigo-400 bg-indigo-50'
+                    : 'border-slate-200 hover:bg-slate-50'
+                }`}>
+                <input type="radio" name="poolNumber" value={n.phone_number}
+                  checked={selectedPool === n.phone_number}
+                  onChange={() => setSelectedPool(n.phone_number)}
+                  className="text-indigo-600 focus:ring-indigo-500" />
+                <span className="font-semibold text-slate-900 text-sm">{n.phone_number}</span>
+              </label>
+            ))}
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
-
-          <button
-            onClick={handleClaim}
-            disabled={claimLoading || !selectedPool}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-          >
-            {claimLoading ? 'Setting up...' : `Use ${selectedPool}`}
-          </button>
-
-        </>
-      )}
-
-      {/* Buy flow — only shown when pool is empty */}
-      {showBuyFlow && (
-        <>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-            <select
-              value={country}
-              onChange={e => { setCountry(e.target.value); setSearchResults([]) }}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
-            >
-              {SUPPORTED_COUNTRIES.map(c => (
-                <option key={c.code} value={c.code}>{c.label}</option>
-              ))}
-            </select>
-          </div>
-
-          <button
-            onClick={searchNumbers}
-            disabled={searching}
-            className="w-full border border-gray-300 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 disabled:opacity-50 transition"
-          >
-            {searching ? 'Searching...' : 'Search available numbers'}
-          </button>
-
-          {searchResults.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Select a number</label>
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {searchResults.map(n => (
-                  <label key={n.phone_number} className="flex items-center gap-3 border border-gray-200 rounded-lg px-4 py-3 cursor-pointer hover:bg-gray-50">
-                    <input
-                      type="radio"
-                      name="buyNumber"
-                      value={n.phone_number}
-                      checked={selectedBuy === n.phone_number}
-                      onChange={() => setSelectedBuy(n.phone_number)}
-                    />
-                    <span className="font-medium text-gray-900">{n.phone_number}</span>
-                  </label>
-                ))}
-              </div>
+          {error && (
+            <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+              <p className="text-sm text-red-600">{error}</p>
             </div>
           )}
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          <button onClick={handleClaim} disabled={claimLoading || !selectedPool}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+            {claimLoading ? 'Setting up…' : `Use ${selectedPool}`}
+          </button>
+        </>
+      )}
+
+      {showBuyFlow && (
+        <>
+          <div className="space-y-1.5">
+            <label className="block text-sm font-medium text-on-surface">Country</label>
+            <select value={country} onChange={e => { setCountry(e.target.value); setSearchResults([]) }} className={inputClass}>
+              {SUPPORTED_COUNTRIES.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}
+            </select>
+          </div>
+
+          <button onClick={searchNumbers} disabled={searching}
+            className="w-full border border-slate-300 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors">
+            {searching ? 'Searching…' : 'Search available numbers'}
+          </button>
 
           {searchResults.length > 0 && (
-            <button
-              onClick={handlePurchase}
-              disabled={buyLoading || !selectedBuy}
-              className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 transition"
-            >
-              {buyLoading ? 'Provisioning...' : `Claim ${selectedBuy}`}
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {searchResults.map(n => (
+                <label key={n.phone_number}
+                  className={`flex items-center gap-3 border rounded-xl px-4 py-3 cursor-pointer transition-colors ${
+                    selectedBuy === n.phone_number
+                      ? 'border-indigo-400 bg-indigo-50'
+                      : 'border-slate-200 hover:bg-slate-50'
+                  }`}>
+                  <input type="radio" name="buyNumber" value={n.phone_number}
+                    checked={selectedBuy === n.phone_number}
+                    onChange={() => setSelectedBuy(n.phone_number)}
+                    className="text-indigo-600 focus:ring-indigo-500" />
+                  <span className="font-semibold text-slate-900 text-sm">{n.phone_number}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {error && (
+            <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+              <p className="text-sm text-red-600">{error}</p>
+            </div>
+          )}
+
+          {searchResults.length > 0 && (
+            <button onClick={handlePurchase} disabled={buyLoading || !selectedBuy}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+              {buyLoading ? 'Provisioning…' : `Claim ${selectedBuy}`}
             </button>
           )}
         </>
