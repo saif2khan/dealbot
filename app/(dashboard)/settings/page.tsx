@@ -12,6 +12,8 @@ interface Profile {
   availability_text: string | null
   agent_tone: string | null
   custom_tone_instructions: string | null
+  agent_name: string | null
+  agent_gender: string | null
   telnyx_number: string | null
   subscription_status: string | null
 }
@@ -27,6 +29,8 @@ export default function SettingsPage() {
     availability_text: '',
     agent_tone: 'professional',
     custom_tone_instructions: '',
+    agent_name: 'Zuck',
+    agent_gender: 'male',
   })
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -50,6 +54,8 @@ export default function SettingsPage() {
           availability_text: data.availability_text ?? '',
           agent_tone: data.agent_tone ?? 'professional',
           custom_tone_instructions: data.custom_tone_instructions ?? '',
+          agent_name: data.agent_name ?? 'Zuck',
+          agent_gender: data.agent_gender ?? 'male',
         })
       }
     }
@@ -78,6 +84,8 @@ export default function SettingsPage() {
         availabilityText: form.availability_text,
         agentTone: form.agent_tone,
         customToneInstructions: form.custom_tone_instructions,
+        agentName: form.agent_name,
+        agentGender: form.agent_gender,
       }),
     })
     const json = await res.json()
@@ -147,6 +155,24 @@ export default function SettingsPage() {
           <h2 className="font-semibold text-gray-900 mb-3">Agent settings</h2>
 
           <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Agent name</label>
+                <input type="text" value={form.agent_name} onChange={e => update('agent_name', e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                  placeholder="Zuck" />
+                <p className="text-xs text-gray-400 mt-1">Buyers will see this name in your listing.</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Agent gender</label>
+                <select value={form.agent_gender} onChange={e => update('agent_gender', e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                  <option value="male">Male (he/him)</option>
+                  <option value="female">Female (she/her)</option>
+                </select>
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Agent tone</label>
               <div className="grid grid-cols-2 gap-2">

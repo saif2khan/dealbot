@@ -27,6 +27,8 @@ export interface User {
   availability_text: string | null
   agent_tone: 'professional' | 'friendly' | 'firm' | 'custom'
   custom_tone_instructions: string | null
+  agent_name: string
+  agent_gender: 'male' | 'female'
   items_listed_this_month: number
   items_limit: number
   created_at: string

@@ -1,0 +1,3 @@
+ALTER TABLE public.users
+  ADD COLUMN IF NOT EXISTS agent_name TEXT NOT NULL DEFAULT 'Zuck',
+  ADD COLUMN IF NOT EXISTS agent_gender TEXT NOT NULL DEFAULT 'male';

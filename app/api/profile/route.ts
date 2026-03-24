@@ -8,7 +8,7 @@ export async function PATCH(request: NextRequest) {
 
   const body = await request.json()
 
-  const allowed = ['address', 'addressArea', 'phone', 'globalInstructions', 'availabilityText', 'name', 'agentTone', 'customToneInstructions']
+  const allowed = ['address', 'addressArea', 'phone', 'globalInstructions', 'availabilityText', 'name', 'agentTone', 'customToneInstructions', 'agentName', 'agentGender']
   const update: Record<string, string> = {}
 
   // Map camelCase to snake_case
@@ -21,6 +21,8 @@ export async function PATCH(request: NextRequest) {
     name: 'name',
     agentTone: 'agent_tone',
     customToneInstructions: 'custom_tone_instructions',
+    agentName: 'agent_name',
+    agentGender: 'agent_gender',
   }
 
   for (const key of allowed) {

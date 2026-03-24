@@ -34,7 +34,11 @@ export default async function DashboardPage() {
       </div>
 
       {profile?.telnyx_number && (
-        <VirtualNumberBanner number={profile.telnyx_number} />
+        <VirtualNumberBanner
+          number={profile.telnyx_number}
+          agentName={profile.agent_name || 'Zuck'}
+          agentGender={((profile.agent_gender as 'male' | 'female') || 'male')}
+        />
       )}
 
       <DashboardSummary
