@@ -82,8 +82,8 @@ export async function POST(request: NextRequest) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           startUrls: [{ url: resolvedUrl }],
-          maxItems: 1,
-          proxy: { useApifyProxy: true },
+          resultsLimit: 1,
+          includeListingDetails: true,
         }),
         signal: AbortSignal.timeout(150000), // 150s client timeout
       }
@@ -116,32 +116,24 @@ export async function POST(request: NextRequest) {
     }, { status: 422 })
   }
 
-  // Apify FB Marketplace scraper output field names (handles different actor variants)
-  const title = (raw.title ?? raw.name ?? raw.listing_title ?? '') as string
-  const description = (raw.description ?? raw.text ?? raw.body ?? '') as string
-  const priceRaw = (raw.price ?? raw.priceAmount ?? raw.listing_price ?? null) as string | number | null
-  const conditionRaw = (raw.condition ?? raw.itemCondition ?? null) as string | null
-  const categoryRaw = (raw.category ?? raw.primaryCategory ?? null) as string | null
+  // Map fields from apify~facebook-marketplace-scraper response format
+  const title = (raw.listingTitle ?? '') as string
+  const descObj = raw.description as { text?: string } | string | null | undefined
+  const description = typeof descObj === 'string' ? descObj : (descObj?.text ?? '') as string
+  const priceObj = raw.listingPrice as { amount?: string | number } | null | undefined
+  const priceRaw = priceObj?.amount ?? null
+  // condition comes as top-level string e.g. "New", or from listingAttributes
+  const conditionRaw = (raw.condition as string | null | undefined) ?? null
+  const location = (raw.locationText as { text?: string } | null)?.text ?? ''
 
-  // Location: could be string or object
-  let location = ''
-  if (typeof raw.location === 'string') {
-    location = raw.location
-  } else if (raw.location && typeof raw.location === 'object') {
-    const loc = raw.location as Record<string, string>
-    location = [loc.city, loc.state, loc.country].filter(Boolean).join(', ')
-  } else if (typeof raw.seller_location === 'string') {
-    location = raw.seller_location as string
-  }
-
-  const price = parsePrice(priceRaw)
+  const price = parsePrice(priceRaw as string | number | null)
 
   return NextResponse.json({
     name: title,
     description,
     askingPrice: price,
     condition: mapCondition(conditionRaw),
-    category: mapCategory(categoryRaw),
+    category: null, // not reliably available from scraper; user selects manually
     location,
     resolvedUrl,
   })
