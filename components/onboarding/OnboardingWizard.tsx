@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import StepCountry from './StepCountry'
 import StepBilling from './StepBilling'
 import StepProfile from './StepProfile'
@@ -29,6 +31,13 @@ export interface OnboardingData {
 export default function OnboardingWizard({ userId, initialStep = 0, billingDone = false }: Props) {
   const [step, setStep] = useState(initialStep)
   const [data, setData] = useState<Partial<OnboardingData>>({})
+  const router = useRouter()
+
+  async function handleSignOut() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
 
   function next(update?: Partial<OnboardingData>) {
     if (update) setData(prev => ({ ...prev, ...update }))
@@ -70,9 +79,18 @@ export default function OnboardingWizard({ userId, initialStep = 0, billingDone 
           {step === 4 && <StepFirstItem userId={userId} data={data} />}
         </div>
 
-        <p className="text-center text-xs text-on-surface-variant mt-4">
-          Step {step + 1} of {STEPS.length}
-        </p>
+        <div className="flex items-center justify-between mt-4 px-1">
+          <p className="text-xs text-on-surface-variant">
+            Step {step + 1} of {STEPS.length}
+          </p>
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+          >
+            <span className="material-symbols-outlined text-[14px]">logout</span>
+            Sign out
+          </button>
+        </div>
       </div>
     </div>
   )
