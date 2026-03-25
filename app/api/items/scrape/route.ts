@@ -83,6 +83,7 @@ export async function POST(request: NextRequest) {
           startUrls: [{ url: resolvedUrl }],
           resultsLimit: 1,
           includeListingDetails: true,
+          ...(process.env.FACEBOOK_COOKIES ? { cookies: JSON.parse(process.env.FACEBOOK_COOKIES) } : {}),
         }),
         signal: AbortSignal.timeout(150000), // 150s client timeout
       }
