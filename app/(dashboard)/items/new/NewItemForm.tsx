@@ -27,7 +27,7 @@ const urlInputClass = "w-full bg-white border border-slate-300 rounded-xl px-4 p
 
 export default function NewItemForm() {
   const router = useRouter()
-  const [tab, setTab] = useState<Tab>('import')
+  const [tab, setTab] = useState<Tab>('manual')
 
   // Import state
   const [importUrl, setImportUrl] = useState('')
@@ -123,17 +123,18 @@ export default function NewItemForm() {
 
       {/* Tab switcher */}
       <div className="bg-slate-100 p-1 rounded-xl flex mb-8 w-fit gap-1">
-        <button
-          type="button"
-          onClick={() => setTab('import')}
-          className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-            tab === 'import'
-              ? 'bg-indigo-600 text-white shadow-sm'
-              : 'text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          Import from FB Marketplace
-        </button>
+        <div className="relative">
+          <button
+            type="button"
+            disabled
+            className="px-6 py-2.5 rounded-lg text-sm font-semibold text-slate-400 cursor-not-allowed"
+          >
+            Import from FB Marketplace
+          </button>
+          <span className="absolute -top-2 -right-2 bg-amber-400 text-amber-900 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none">
+            Soon
+          </span>
+        </div>
         <button
           type="button"
           onClick={() => setTab('manual')}
