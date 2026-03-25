@@ -38,13 +38,20 @@ export default async function ItemsPage() {
             {profile?.items_listed_this_month ?? 0} / {profile?.items_limit ?? 10} added this month
           </p>
         </div>
-        <Link
-          href="/items/new"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-colors active:scale-95 flex items-center gap-2"
-        >
-          <span className="material-symbols-outlined text-sm">add</span>
-          Add item
-        </Link>
+        {(profile?.items_listed_this_month ?? 0) >= (profile?.items_limit ?? 10) ? (
+          <div className="bg-slate-200 text-slate-400 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 cursor-not-allowed" title="Monthly item limit reached">
+            <span className="material-symbols-outlined text-sm">add</span>
+            Add item
+          </div>
+        ) : (
+          <Link
+            href="/items/new"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm transition-colors active:scale-95 flex items-center gap-2"
+          >
+            <span className="material-symbols-outlined text-sm">add</span>
+            Add item
+          </Link>
+        )}
       </div>
 
       {/* Active items */}
@@ -53,6 +60,19 @@ export default async function ItemsPage() {
           const waitlistCount = (item.waitlist_entries as Array<{ count: number }>)?.[0]?.count ?? 0
           return (
             <div key={item.id} className="bg-white border border-slate-200 rounded-xl p-5 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex items-center gap-4">
+                {/* Thumbnail */}
+                {item.photo_url ? (
+                  <img
+                    src={item.photo_url}
+                    alt={item.name}
+                    className="w-12 h-12 rounded-lg object-cover shrink-0 bg-slate-100"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-slate-400 text-[22px]">inventory_2</span>
+                  </div>
+                )}
               <div className="space-y-1">
                 <div className="flex items-center gap-3 flex-wrap">
                   <h3 className="text-base font-semibold text-slate-900 font-[family-name:var(--font-manrope)]">{item.name}</h3>
@@ -71,6 +91,7 @@ export default async function ItemsPage() {
                   {item.firm_price && ' · firm'}
                   {' · '}{item.condition.replace(/_/g, ' ')}
                 </p>
+              </div>
               </div>
               <Link
                 href={`/items/${item.id}`}

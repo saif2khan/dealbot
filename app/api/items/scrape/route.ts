@@ -137,6 +137,11 @@ export async function POST(request: NextRequest) {
 
   const price = parsePrice(priceRaw as string | number | null)
 
+  // Extract first photo URL from listingPhotos[0].image.uri
+  type ListingPhoto = { image?: { uri?: string } }
+  const listingPhotos = (raw.listingPhotos ?? []) as ListingPhoto[]
+  const photoUrl: string | null = listingPhotos[0]?.image?.uri ?? null
+
   return NextResponse.json({
     name: title,
     description,
@@ -145,5 +150,6 @@ export async function POST(request: NextRequest) {
     category: null, // not reliably available from scraper; user selects manually
     location,
     resolvedUrl,
+    photoUrl,
   })
 }

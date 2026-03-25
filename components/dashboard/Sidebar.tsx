@@ -64,13 +64,20 @@ export default function Sidebar({ user }: { user: User }) {
         </nav>
 
         {/* Add Item CTA */}
-        <Link
-          href="/items/new"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white w-full py-3 rounded-xl font-[family-name:var(--font-manrope)] font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-colors active:scale-95 duration-150"
-        >
-          <span className="material-symbols-outlined text-sm">add</span>
-          Add Item
-        </Link>
+        {user.items_listed_this_month >= user.items_limit ? (
+          <div className="bg-slate-200 text-slate-400 w-full py-3 rounded-xl font-[family-name:var(--font-manrope)] font-bold text-sm flex items-center justify-center gap-2 cursor-not-allowed" title="Monthly item limit reached">
+            <span className="material-symbols-outlined text-sm">add</span>
+            Add Item
+          </div>
+        ) : (
+          <Link
+            href="/items/new"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white w-full py-3 rounded-xl font-[family-name:var(--font-manrope)] font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-colors active:scale-95 duration-150"
+          >
+            <span className="material-symbols-outlined text-sm">add</span>
+            Add Item
+          </Link>
+        )}
 
         {/* Footer */}
         <div className="border-t border-slate-200 pt-4 space-y-1">

@@ -71,6 +71,16 @@ export async function getPhoneNumberId(phoneNumber: string): Promise<string> {
   throw new Error(`Could not find provisioned number ${phoneNumber} after retries`)
 }
 
+/** Assign a phone number to a messaging profile */
+export async function assignToMessagingProfile(numberId: string, profileId: string) {
+  const telnyx = getTelnyxClient()
+  await (telnyx.phoneNumbers as unknown as {
+    update: (id: string, params: object) => Promise<unknown>
+  }).update(numberId, {
+    messaging: { messaging_profile_id: profileId },
+  })
+}
+
 /** Register a webhook for inbound SMS on a phone number */
 export async function registerWebhook(phoneNumberId: string, webhookUrl: string) {
   const telnyx = getTelnyxClient()

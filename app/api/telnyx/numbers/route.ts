@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
-import { searchNumbers, purchaseNumber, getPhoneNumberId, registerWebhook } from '@/lib/telnyx/client'
+import { searchNumbers, purchaseNumber, getPhoneNumberId, registerWebhook, getMessagingProfileId, assignToMessagingProfile } from '@/lib/telnyx/client'
 import { NextResponse, type NextRequest } from 'next/server'
 
 /** GET /api/telnyx/numbers?country=US — search available numbers */
@@ -48,6 +48,12 @@ export async function POST(request: NextRequest) {
     // Register webhook
     const webhookUrl = `${process.env.WEBHOOK_URL}/api/webhooks/telnyx`
     await registerWebhook(numberId, webhookUrl)
+
+    // Assign to "FB Marketplace Agent" messaging profile
+    const messagingProfileId = await getMessagingProfileId('FB Marketplace Agent')
+    if (messagingProfileId) {
+      await assignToMessagingProfile(numberId, messagingProfileId)
+    }
 
     // Store in user profile
     await supabase
