@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true })
   }
 
-  const messagePayload = payload.data.payload
+  const messagePayload = payload.data?.payload
   const buyerPhone = messagePayload?.from?.phone_number
   const toNumber = messagePayload?.to?.[0]?.phone_number
   const buyerMessage = messagePayload?.text?.trim()
