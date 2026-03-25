@@ -116,15 +116,17 @@ export function verifyTelnyxSignature(
   timestamp: string
 ): boolean {
   const crypto = require('crypto') as typeof import('crypto')
-  const publicKey = process.env.TELNYX_PUBLIC_KEY!
+  const publicKeyBase64 = process.env.TELNYX_PUBLIC_KEY!
   const toVerify = `${timestamp}|${payload}`
   try {
-    return crypto.verify(
-      'sha256',
-      Buffer.from(toVerify),
-      { key: publicKey, format: 'pem', type: 'spki' },
-      Buffer.from(signature, 'base64')
-    )
+    // Telnyx provides a raw base64-encoded Ed25519 public key (32 bytes).
+    // Wrap it in a DER SPKI envelope so Node's crypto can load it.
+    const rawKey = Buffer.from(publicKeyBase64, 'base64')
+    const spkiHeader = Buffer.from('302a300506032b6570032100', 'hex')
+    const derKey = Buffer.concat([spkiHeader, rawKey])
+    const keyObject = crypto.createPublicKey({ key: derKey, format: 'der', type: 'spki' })
+    // Ed25519 uses null as the digest algorithm
+    return crypto.verify(null, Buffer.from(toVerify), keyObject, Buffer.from(signature, 'base64'))
   } catch {
     return false
   }
