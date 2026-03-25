@@ -75,13 +75,17 @@ export async function getPhoneNumberId(phoneNumber: string): Promise<string> {
 
 /** Assign a phone number to a messaging profile */
 export async function assignToMessagingProfile(numberId: string, profileId: string) {
-  const telnyx = getTelnyxClient()
-  const result = await (telnyx.phoneNumbers as unknown as {
-    update: (id: string, params: object) => Promise<{ data?: { messaging?: { messaging_profile_id?: string } } }>
-  }).update(numberId, {
-    messaging: { messaging_profile_id: profileId },
+  const res = await fetch(`https://api.telnyx.com/v2/phone_numbers/${numberId}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${process.env.TELNYX_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ messaging: { messaging_profile_id: profileId } }),
   })
-  console.log(`[telnyx] assignToMessagingProfile result: ${JSON.stringify(result?.data?.messaging)}`)
+  const json = await res.json() as { data?: { messaging?: { messaging_profile_id?: string } } }
+  console.log(`[telnyx] assignToMessagingProfile status=${res.status} profile=${json?.data?.messaging?.messaging_profile_id ?? 'not set'}`)
+  if (!res.ok) throw new Error(`Failed to assign messaging profile: ${res.status}`)
 }
 
 /** Register a webhook for inbound SMS on a phone number */
