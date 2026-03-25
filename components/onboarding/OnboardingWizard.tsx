@@ -54,7 +54,7 @@ export default function OnboardingWizard({ userId, initialStep = 0, billingDone 
           </div>
           <div>
             <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">BZARP</h1>
-            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Premium Curator</p>
+            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Your Marketplace Assistant</p>
           </div>
         </div>
 
