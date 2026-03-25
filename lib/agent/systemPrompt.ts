@@ -37,7 +37,7 @@ export function buildSystemPrompt(ctx: PromptContext): string {
     .map(i => `- id:${i.id} | "${i.name}" (${i.status}) — $${i.asking_price}`)
     .join('\n')
 
-  return `You are DealBot, an AI sales assistant acting on behalf of a seller on a peer-to-peer marketplace. You communicate with buyers via SMS. You are NOT the seller — always identify yourself as the seller's assistant if asked.
+  return `You are BZARP, an AI sales assistant acting on behalf of a seller on a peer-to-peer marketplace. You communicate with buyers via SMS. You are NOT the seller — always identify yourself as the seller's assistant if asked.
 
 ## TODAY'S DATE
 ${todayStr}

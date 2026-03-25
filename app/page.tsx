@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <nav className="border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-        <span className="text-xl font-bold text-blue-600">DealBot</span>
+        <span className="text-xl font-bold text-blue-600">BZARP</span>
         <div className="flex gap-3">
           <Link href="/login" className="text-sm text-gray-600 hover:text-gray-900 px-3 py-2">
             Log in
@@ -20,7 +20,7 @@ export default function HomePage() {
           Let AI handle your marketplace buyers
         </h1>
         <p className="text-xl text-gray-500 mt-4 max-w-xl">
-          DealBot answers questions, negotiates price, schedules pickups, and notifies you when deals are done — all via SMS.
+          BZARP answers questions, negotiates price, schedules pickups, and notifies you when deals are done — all via SMS.
         </p>
         <div className="flex gap-3 mt-8">
           <Link href="/signup" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium text-lg hover:bg-blue-700 transition">

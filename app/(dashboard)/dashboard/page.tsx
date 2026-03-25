@@ -30,7 +30,7 @@ export default async function DashboardPage() {
     <div className="max-w-7xl space-y-8 pb-12">
       <div>
         <h2 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">Dashboard</h2>
-        <p className="text-on-surface-variant text-sm mt-1">Your DealBot at a glance</p>
+        <p className="text-on-surface-variant text-sm mt-1">Your BZARP at a glance</p>
       </div>
 
       {profile?.telnyx_number && (

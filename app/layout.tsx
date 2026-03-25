@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "DealBot — AI Marketplace Assistant",
+  title: "BZARP — AI Marketplace Assistant",
   description: "Automate buyer conversations on peer-to-peer marketplaces with AI",
   icons: {
     icon: [

@@ -122,10 +122,10 @@ export default function SettingsPage() {
         <p className="text-on-surface-variant text-sm mt-1">Manage your profile, agent instructions, and billing.</p>
       </div>
 
-      {/* DealBot number card */}
+      {/* BZARP number card */}
       {profile?.telnyx_number && (
         <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6">
-          <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Your DealBot Number</p>
+          <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Your BZARP Number</p>
           <p className="text-2xl font-[family-name:var(--font-manrope)] font-bold text-indigo-900 tracking-tight">{profile.telnyx_number}</p>
         </div>
       )}
@@ -253,7 +253,7 @@ export default function SettingsPage() {
         <h3 className="text-lg font-[family-name:var(--font-manrope)] font-bold text-on-surface">Billing</h3>
         <div className="flex items-center justify-between text-sm py-2 border-b border-slate-100">
           <span className="text-on-surface-variant">Plan</span>
-          <span className="font-semibold">DealBot — $10/month</span>
+          <span className="font-semibold">BZARP — $10/month</span>
         </div>
         <div className="flex items-center justify-between text-sm py-2">
           <span className="text-on-surface-variant">Status</span>

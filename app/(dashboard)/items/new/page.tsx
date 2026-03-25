@@ -200,7 +200,7 @@ export default function NewItemPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-4">
               <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Identity & Context</h4>
-              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how DealBot answers buyer questions.</p>
+              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how BZARP answers buyer questions.</p>
             </div>
             <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
               <div className="space-y-2">
@@ -241,7 +241,7 @@ export default function NewItemPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="md:col-span-4">
               <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Pricing Strategy</h4>
-              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. DealBot will close deals within your range.</p>
+              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. BZARP will close deals within your range.</p>
             </div>
             <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
               <div className="grid grid-cols-2 gap-4">
@@ -267,7 +267,7 @@ export default function NewItemPage() {
                   className="h-5 w-5 rounded border-indigo-400 text-indigo-600 focus:ring-indigo-500" />
                 <div>
                   <span className="text-sm font-bold text-indigo-700 block">Firm price — agent will not negotiate</span>
-                  <span className="text-xs text-indigo-500">DealBot will reject all offers below the asking price.</span>
+                  <span className="text-xs text-indigo-500">BZARP will reject all offers below the asking price.</span>
                 </div>
               </label>
             </div>

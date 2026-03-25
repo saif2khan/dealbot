@@ -103,7 +103,7 @@ export default function StepCountry({ userId, onNext }: Props) {
   if (poolLoading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your DealBot number</h2>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your BZARP number</h2>
         <p className="text-on-surface-variant text-sm animate-pulse">Checking available numbers…</p>
       </div>
     )
@@ -112,7 +112,7 @@ export default function StepCountry({ userId, onNext }: Props) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your DealBot number</h2>
+        <h2 className="text-xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900">Get your BZARP number</h2>
         <p className="text-on-surface-variant text-sm mt-1">Buyers will text this number. Post it in your marketplace listings.</p>
       </div>
 

@@ -50,7 +50,7 @@ export default function StepBilling({ userId, data, onNext, billingDone = false 
       <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3 text-sm">
         <div className="flex justify-between items-center">
           <span className="text-on-surface-variant">Plan</span>
-          <span className="font-semibold text-slate-900">DealBot — $10 / month</span>
+          <span className="font-semibold text-slate-900">BZARP — $10 / month</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-on-surface-variant">Trial period</span>

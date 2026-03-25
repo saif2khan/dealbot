@@ -40,7 +40,7 @@ export default function LoginPage() {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
           </div>
           <div>
-            <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">DealBot</h1>
+            <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">BZARP</h1>
             <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Premium Curator</p>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function LoginPage() {
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
           <div className="mb-6">
             <h2 className="text-2xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight">Welcome back</h2>
-            <p className="text-on-surface-variant text-sm mt-1">Log in to your DealBot account.</p>
+            <p className="text-on-surface-variant text-sm mt-1">Log in to your BZARP account.</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">

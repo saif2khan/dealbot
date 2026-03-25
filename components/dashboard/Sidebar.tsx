@@ -33,7 +33,7 @@ export default function Sidebar({ user }: { user: User }) {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
           </div>
           <div>
-            <h1 className="text-lg font-extrabold text-slate-900 tracking-tight font-[family-name:var(--font-manrope)]">DealBot</h1>
+            <h1 className="text-lg font-extrabold text-slate-900 tracking-tight font-[family-name:var(--font-manrope)]">BZARP</h1>
           </div>
         </div>
 

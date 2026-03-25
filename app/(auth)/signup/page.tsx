@@ -62,7 +62,7 @@ export default function SignupPage() {
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
           </div>
           <div>
-            <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">DealBot</h1>
+            <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">BZARP</h1>
             <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Premium Curator</p>
           </div>
         </div>

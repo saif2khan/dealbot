@@ -225,7 +225,7 @@ export async function POST(request: NextRequest) {
     console.error('Claude API error:', err)
     // Fallback: inform buyer and notify seller
     await sendSms(toNumber, buyerPhone, "Sorry, I'm having a brief technical issue. The seller will follow up with you shortly.")
-    await sendSms(toNumber, seller.phone!, `DealBot alert: Claude API error for buyer ${buyerPhone}. Message: "${buyerMessage}"`)
+    await sendSms(toNumber, seller.phone!, `BZARP alert: Claude API error for buyer ${buyerPhone}. Message: "${buyerMessage}"`)
     return NextResponse.json({ received: true })
   }
 
@@ -327,7 +327,7 @@ export async function POST(request: NextRequest) {
 
           // Notify seller via SMS
           const sellerMsg =
-            `DealBot: Deal confirmed!\n` +
+            `BZARP: Deal confirmed!\n` +
             `Item: ${currentItem.name}\n` +
             `Buyer: ${action.buyerName} (${buyerPhone})\n` +
             `Price: $${action.agreedPrice}\n` +
@@ -374,12 +374,12 @@ export async function POST(request: NextRequest) {
 
         // Notify seller via SMS
         const escalationMsg =
-          `DealBot escalation needed!\n` +
+          `BZARP escalation needed!\n` +
           `Buyer: ${buyerPhone}\n` +
           `Item: ${currentItem?.name ?? 'Unknown'}\n` +
           `Reason: ${action.reason}\n` +
           `Last message: "${action.lastBuyerMessage}"\n\n` +
-          `Reply to this SMS with your response and DealBot will forward it.`
+          `Reply to this SMS with your response and BZARP will forward it.`
         await sendSms(toNumber, seller.phone!, escalationMsg)
         break
       }

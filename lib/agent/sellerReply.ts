@@ -51,7 +51,7 @@ export async function handleSellerReply(
     )
 
     if (!target) {
-      await sendSms(virtualNumber, sellerPhone, `DealBot: Couldn't find an item named "${command.itemName}". Check your listings and try again.`)
+      await sendSms(virtualNumber, sellerPhone, `BZARP: Couldn't find an item named "${command.itemName}". Check your listings and try again.`)
       return
     }
 
@@ -84,7 +84,7 @@ export async function handleSellerReply(
     await sendSms(
       virtualNumber,
       sellerPhone,
-      `DealBot: "${target.name}" has been ${statusLabels[command.newStatus] ?? command.newStatus}.`
+      `BZARP: "${target.name}" has been ${statusLabels[command.newStatus] ?? command.newStatus}.`
     )
     return
   }
@@ -98,7 +98,7 @@ export async function handleSellerReply(
     )
 
     if (!target) {
-      await sendSms(virtualNumber, sellerPhone, `DealBot: Couldn't find an item named "${command.itemName}".`)
+      await sendSms(virtualNumber, sellerPhone, `BZARP: Couldn't find an item named "${command.itemName}".`)
       return
     }
 
@@ -116,7 +116,7 @@ export async function handleSellerReply(
     await sendSms(
       virtualNumber,
       sellerPhone,
-      `DealBot: Deal cancelled for "${target.name}". Item is back to active.`
+      `BZARP: Deal cancelled for "${target.name}". Item is back to active.`
     )
     return
   }
@@ -149,7 +149,7 @@ export async function handleSellerReply(
           .update({ status: 'sold', final_sale_price: deal.agreed_price, archived_at: new Date().toISOString() })
           .eq('id', deal.item_id)
 
-        await sendSms(virtualNumber, sellerPhone, `DealBot: "${item.name}" marked as sold. Congrats!`)
+        await sendSms(virtualNumber, sellerPhone, `BZARP: "${item.name}" marked as sold. Congrats!`)
       } else {
         // No-show — return item to active, broadcast waitlist
         await supabase.from('pending_deals').update({ status: 'no_show' }).eq('id', deal.id)
@@ -181,10 +181,10 @@ export async function handleSellerReply(
           await sendSms(
             virtualNumber,
             sellerPhone,
-            `DealBot: "${item.name}" is back to active. Reached out to ${waitlist.length} buyer(s) on the waitlist.`
+            `BZARP: "${item.name}" is back to active. Reached out to ${waitlist.length} buyer(s) on the waitlist.`
           )
         } else {
-          await sendSms(virtualNumber, sellerPhone, `DealBot: "${item.name}" is back to active. No waitlist buyers to notify.`)
+          await sendSms(virtualNumber, sellerPhone, `BZARP: "${item.name}" is back to active. No waitlist buyers to notify.`)
         }
       }
       return

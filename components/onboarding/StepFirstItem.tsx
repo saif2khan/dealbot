@@ -108,7 +108,7 @@ export default function StepFirstItem({ userId, data }: Props) {
           className="h-5 w-5 rounded border-indigo-400 text-indigo-600 focus:ring-indigo-500" />
         <div>
           <span className="text-sm font-bold text-indigo-700 block">Firm price — agent will not negotiate</span>
-          <span className="text-xs text-indigo-500">DealBot will reject all offers below the asking price.</span>
+          <span className="text-xs text-indigo-500">BZARP will reject all offers below the asking price.</span>
         </div>
       </label>
 

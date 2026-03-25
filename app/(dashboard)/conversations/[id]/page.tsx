@@ -81,7 +81,7 @@ export default async function ConversationPage({ params }: { params: Promise<{ i
       </div>
 
       <p className="text-xs text-on-surface-variant text-center">
-        Read-only view. Conversations are managed by DealBot via SMS.
+        Read-only view. Conversations are managed by BZARP via SMS.
       </p>
     </div>
   )

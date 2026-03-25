@@ -8,7 +8,7 @@ const MESSAGING_PROFILE_NAME = 'FB Marketplace Agent'
 /**
  * GET /api/telnyx/pool
  * Returns numbers from the "FB Marketplace Agent" messaging profile
- * that are not claimed by any active DealBot user.
+ * that are not claimed by any active BZARP user.
  */
 export async function GET() {
   const supabase = await createClient()

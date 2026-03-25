@@ -34,7 +34,7 @@ export default function VirtualNumberBanner({
       {/* Number row */}
       <div className="flex justify-between items-start mb-6">
         <div>
-          <p className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-2">Your DealBot Number</p>
+          <p className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-2">Your BZARP Number</p>
           <h3 className="text-3xl font-[family-name:var(--font-manrope)] font-black text-[#1a237e]">{number}</h3>
         </div>
         <button

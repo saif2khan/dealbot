@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
           await sendSms(
             seller.telnyx_number,
             seller.phone,
-            `DealBot: No response from you about "${item.name}" meetup with ${deal.buyer_name}. Marked as no-show, item is back to active. Reached out to ${waitlist.length} buyer(s) on the waitlist.`
+            `BZARP: No response from you about "${item.name}" meetup with ${deal.buyer_name}. Marked as no-show, item is back to active. Reached out to ${waitlist.length} buyer(s) on the waitlist.`
           )
         }
       }
@@ -104,7 +104,7 @@ export async function GET(request: NextRequest) {
       if (!seller?.telnyx_number || !seller.phone) continue
 
       const followupMsg =
-        `DealBot: Did ${deal.buyer_name} show up for "${item.name}" today?\n` +
+        `BZARP: Did ${deal.buyer_name} show up for "${item.name}" today?\n` +
         `Reply YES if the sale went through, or NO if they didn't show up.`
 
       await sendSms(seller.telnyx_number, seller.phone, followupMsg)
