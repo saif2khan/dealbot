@@ -44,22 +44,22 @@ export default function StepProfile({ userId, onNext }: Props) {
       </div>
 
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-on-surface">Full address <span className="text-red-500">*</span></label>
-        <input type="text" required value={address} onChange={e => setAddress(e.target.value)}
+        <label className="block text-sm font-medium text-on-surface">Full address</label>
+        <input type="text" value={address} onChange={e => setAddress(e.target.value)}
           className={inputClass} placeholder="123 Main St, Vancouver, BC" />
         <p className="text-xs text-slate-400">Stored encrypted. Only shared after deal confirmation.</p>
       </div>
 
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-on-surface">General area <span className="text-red-500">*</span></label>
-        <input type="text" required value={addressArea} onChange={e => setAddressArea(e.target.value)}
+        <label className="block text-sm font-medium text-on-surface">General area</label>
+        <input type="text" value={addressArea} onChange={e => setAddressArea(e.target.value)}
           className={inputClass} placeholder="Coquitlam area" />
         <p className="text-xs text-slate-400">Shared with buyers before deal is confirmed (city/neighbourhood).</p>
       </div>
 
       <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-on-surface">Your mobile number <span className="text-red-500">*</span></label>
-        <input type="tel" required value={phone} onChange={e => setPhone(e.target.value)}
+        <label className="block text-sm font-medium text-on-surface">Your mobile number</label>
+        <input type="tel" value={phone} onChange={e => setPhone(e.target.value)}
           className={inputClass} placeholder="+1 604 555 0100" />
         <p className="text-xs text-slate-400">You&apos;ll receive deal confirmations and escalations here.</p>
       </div>
@@ -70,10 +70,16 @@ export default function StepProfile({ userId, onNext }: Props) {
         </div>
       )}
 
-      <button type="submit" disabled={loading}
-        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
-        {loading ? 'Saving…' : 'Continue'}
-      </button>
+      <div className="flex gap-3 pt-1">
+        <button type="button" onClick={() => onNext({})}
+          className="flex-1 border border-slate-200 py-2.5 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
+          Skip for now
+        </button>
+        <button type="submit" disabled={loading}
+          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+          {loading ? 'Saving…' : 'Continue'}
+        </button>
+      </div>
     </form>
   )
 }
