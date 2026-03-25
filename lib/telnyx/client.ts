@@ -9,13 +9,15 @@ export function getTelnyxClient() {
   return _client
 }
 
-/** Find the messaging profile ID for a given profile name */
+/** Find the messaging profile ID for a given profile name (case-insensitive) */
 export async function getMessagingProfileId(profileName: string): Promise<string | null> {
   const telnyx = getTelnyxClient()
   const response = await (telnyx.messagingProfiles as unknown as {
     list: () => Promise<{ data: Array<{ id: string; name: string }> }>
   }).list()
-  const match = response.data.find(p => p.name === profileName)
+  const lower = profileName.toLowerCase()
+  const match = response.data.find(p => p.name.toLowerCase() === lower)
+  console.log(`[telnyx] messaging profiles: ${response.data.map(p => p.name).join(', ')} | looking for: "${profileName}" | found: ${match?.id ?? 'none'}`)
   return match?.id ?? null
 }
 
@@ -74,11 +76,12 @@ export async function getPhoneNumberId(phoneNumber: string): Promise<string> {
 /** Assign a phone number to a messaging profile */
 export async function assignToMessagingProfile(numberId: string, profileId: string) {
   const telnyx = getTelnyxClient()
-  await (telnyx.phoneNumbers as unknown as {
-    update: (id: string, params: object) => Promise<unknown>
+  const result = await (telnyx.phoneNumbers as unknown as {
+    update: (id: string, params: object) => Promise<{ data?: { messaging?: { messaging_profile_id?: string } } }>
   }).update(numberId, {
     messaging: { messaging_profile_id: profileId },
   })
+  console.log(`[telnyx] assignToMessagingProfile result: ${JSON.stringify(result?.data?.messaging)}`)
 }
 
 /** Register a webhook for inbound SMS on a phone number */

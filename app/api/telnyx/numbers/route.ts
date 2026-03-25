@@ -53,6 +53,9 @@ export async function POST(request: NextRequest) {
     const messagingProfileId = await getMessagingProfileId('FB Marketplace Agent')
     if (messagingProfileId) {
       await assignToMessagingProfile(numberId, messagingProfileId)
+      console.log(`[numbers] assigned ${numberId} to messaging profile ${messagingProfileId}`)
+    } else {
+      console.error('[numbers] Could not find "FB Marketplace Agent" messaging profile — number not assigned')
     }
 
     // Store in user profile
