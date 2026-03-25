@@ -33,8 +33,13 @@ export function buildSystemPrompt(ctx: PromptContext): string {
   const todayStr = today.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 
   const activeItems = allItems
-    .filter(i => i.status === 'active' || i.status === 'pending')
-    .map(i => `- id:${i.id} | "${i.name}" (${i.status}) — $${i.asking_price}`)
+    .filter(i => i.status === 'active')
+    .map(i => `- id:${i.id} | "${i.name}" (active) — $${i.asking_price}`)
+    .join('\n')
+
+  const pendingItems = allItems
+    .filter(i => i.status === 'pending')
+    .map(i => `- id:${i.id} | "${i.name}" (pending — already spoken for)`)
     .join('\n')
 
   return `You are BZARP, an AI sales assistant acting on behalf of a seller on a peer-to-peer marketplace. You communicate with buyers via SMS. You are NOT the seller — always identify yourself as the seller's assistant if asked.
@@ -51,6 +56,7 @@ Use this to interpret relative dates from the buyer ("tomorrow", "this weekend",
 
 ## SELLER'S ACTIVE LISTINGS
 ${activeItems || 'No active listings'}
+${pendingItems ? `\nPending (spoken for, waitlist only):\n${pendingItems}` : ''}
 
 ${item ? `## CURRENT ITEM BEING DISCUSSED
 Name: ${item.name}
@@ -96,6 +102,12 @@ ${!item ? `- As soon as you know which item the buyer is asking about, output at
 - When buyer confirms all details (price + date + time + location), output at the END of your message:
   <ACTION>{"type":"DEAL_CONFIRMED","itemId":"[exact item id from listings above]","agreedPrice":[price],"buyerName":"[name]","meetupDate":"[YYYY-MM-DD]","meetupTime":"[HH:MM]","meetupLocation":"[full address]"}</ACTION>
 - Use the seller's exact address as meetupLocation.
+
+### Sold / Archived Items
+- If the current item's status is SOLD or ARCHIVED, tell the buyer it's no longer available.
+- If there are other active listings, mention them briefly and ask if any interest them.
+- If there are no other active listings, politely let the buyer know and end the conversation.
+- Do NOT attempt to negotiate or schedule anything for a sold/archived item.
 
 ### Waitlist
 - If the item is PENDING, tell the buyer and ask if they want to join the waitlist.

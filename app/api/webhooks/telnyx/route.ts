@@ -200,12 +200,11 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // 6. Load all seller items for context
+  // 6. Load all seller items for context (all statuses so agent knows about sold/archived too)
   const { data: allItems } = await supabase
     .from('items')
     .select('*')
     .eq('user_id', seller.id)
-    .in('status', ['active', 'pending'])
 
   // 7. Build system prompt
   const systemPrompt = buildSystemPrompt({

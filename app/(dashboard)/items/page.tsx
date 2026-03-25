@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import MarkSoldButton from '@/components/dashboard/MarkSoldButton'
 
 const STATUS_COLORS: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-700',
@@ -93,12 +94,17 @@ export default async function ItemsPage() {
                 </p>
               </div>
               </div>
-              <Link
-                href={`/items/${item.id}`}
-                className="ml-4 text-sm font-semibold text-indigo-600 hover:underline"
-              >
-                Edit
-              </Link>
+              <div className="flex items-center gap-4 ml-4 shrink-0">
+                {item.status !== 'sold' && item.status !== 'archived' && (
+                  <MarkSoldButton itemId={item.id} itemName={item.name} />
+                )}
+                <Link
+                  href={`/items/${item.id}`}
+                  className="text-sm font-semibold text-indigo-600 hover:underline"
+                >
+                  Edit
+                </Link>
+              </div>
             </div>
           )
         })}
