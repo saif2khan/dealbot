@@ -122,7 +122,18 @@ export default function NewItemForm() {
       </div>
 
       {/* Tab switcher */}
-      <div className="bg-slate-100 p-1 rounded-xl flex mb-8 w-fit gap-1">
+      <div className="bg-slate-100 p-1 rounded-xl flex mb-8 w-fit gap-2">
+        <button
+          type="button"
+          onClick={() => setTab('manual')}
+          className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+            tab === 'manual'
+              ? 'bg-white text-slate-900 shadow-sm'
+              : 'text-slate-500 hover:text-slate-900'
+          }`}
+        >
+          Manual entry
+        </button>
         <div className="relative">
           <button
             type="button"
@@ -135,17 +146,6 @@ export default function NewItemForm() {
             Soon
           </span>
         </div>
-        <button
-          type="button"
-          onClick={() => setTab('manual')}
-          className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-            tab === 'manual'
-              ? 'bg-white text-slate-900 shadow-sm'
-              : 'text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          Manual entry
-        </button>
       </div>
 
       {/* Import tab */}
