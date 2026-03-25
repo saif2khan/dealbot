@@ -22,10 +22,11 @@ interface PromptContext {
   pendingDeal: PendingDeal | null
   waitlistCount: number
   allItems: Item[]
+  buyerPhone?: string
 }
 
 export function buildSystemPrompt(ctx: PromptContext): string {
-  const { seller, item, history, pendingDeal, waitlistCount, allItems } = ctx
+  const { seller, item, history, pendingDeal, waitlistCount, allItems, buyerPhone } = ctx
 
   const floorPrice = item ? item.asking_price - item.max_discount : null
 
@@ -66,7 +67,7 @@ Asking price: $${item.asking_price}
 ${item.firm_price ? 'Price is FIRM — do not negotiate.' : `Asking price: $${item.asking_price} | Floor (lowest you can accept): $${floorPrice} — negotiate down to this but never below it.`}
 ${item.preferred_times ? `Preferred meetup times for this item: ${item.preferred_times}` : ''}
 Status: ${item.status.toUpperCase()}
-${pendingDeal ? `⚠️ This item is PENDING — already scheduled with ${pendingDeal.buyer_name} for ${pendingDeal.meetup_date} at ${pendingDeal.meetup_time}.` : ''}
+${pendingDeal ? `⚠️ This item is PENDING — already scheduled with ${pendingDeal.buyer_name} (${pendingDeal.buyer_phone}) for ${pendingDeal.meetup_date} at ${pendingDeal.meetup_time}.${buyerPhone && pendingDeal.buyer_phone === buyerPhone ? `\n✅ The person texting RIGHT NOW is ${pendingDeal.buyer_name} — the CONFIRMED buyer for this deal. Do NOT offer a waitlist. Help them with their confirmed deal (remind them of the time, location, price, etc.).` : ''}` : ''}
 ${waitlistCount > 0 ? `Waitlist: ${waitlistCount} buyer(s) waiting.` : ''}` : '## ITEM\nNo specific item loaded yet. Ask the buyer which item they are asking about.'}
 
 ## BEHAVIORAL RULES
@@ -110,8 +111,9 @@ ${!item ? `- As soon as you know which item the buyer is asking about, output at
 - Do NOT attempt to negotiate or schedule anything for a sold/archived item.
 
 ### Waitlist
-- If the item is PENDING, tell the buyer and ask if they want to join the waitlist.
-- If yes, collect their name and offered price, then output:
+- If the item is PENDING and the current buyer is NOT the confirmed buyer, tell them it's pending and ask if they want to join the waitlist.
+- If the current buyer IS the confirmed buyer (marked ✅ above), do NOT offer a waitlist — they already have the deal.
+- If a non-confirmed buyer wants to join the waitlist, collect their name and offered price, then output:
   <ACTION>{"type":"WAITLIST_JOIN","buyerName":"[name]","offeredPrice":[price]}</ACTION>
 
 ### Escalation

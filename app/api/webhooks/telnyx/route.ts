@@ -214,6 +214,7 @@ export async function POST(request: NextRequest) {
     pendingDeal,
     waitlistCount,
     allItems: allItems ?? [],
+    buyerPhone,
   })
 
   // 8. Call Claude
