@@ -37,8 +37,9 @@ export async function GET() {
 
     const claimedNumbers = new Set(
       (claimedUsers ?? [])
-        .filter(u => ['trialing', 'active', 'past_due'].includes(u.subscription_status ?? ''))
-        .map(u => u.telnyx_number)
+        .filter((u: { telnyx_number: string | null; subscription_status: string | null }) =>
+          ['trialing', 'active', 'past_due'].includes(u.subscription_status ?? ''))
+        .map((u: { telnyx_number: string | null }) => u.telnyx_number)
     )
 
     // 4. Return only unclaimed numbers
