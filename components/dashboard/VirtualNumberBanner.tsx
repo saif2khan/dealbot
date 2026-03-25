@@ -35,7 +35,16 @@ export default function VirtualNumberBanner({
       <div className="flex justify-between items-start mb-6">
         <div>
           <p className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-2">Your BZARP Number</p>
-          <h3 className="text-3xl font-[family-name:var(--font-manrope)] font-black text-[#1a237e]">{number}</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-3xl font-[family-name:var(--font-manrope)] font-black text-[#1a237e]">{number}</h3>
+            <div className="relative group">
+              <span className="material-symbols-outlined text-indigo-300 hover:text-indigo-500 cursor-default text-[18px] transition-colors select-none">info</span>
+              <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-64 bg-slate-900 text-white text-xs rounded-xl px-4 py-3 leading-relaxed shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
+                When testing, make sure to text from a different number than the one you added in Settings.
+                <div className="absolute right-full top-1/2 -translate-y-1/2 w-0 h-0 border-y-4 border-y-transparent border-r-4 border-r-slate-900" />
+              </div>
+            </div>
+          </div>
         </div>
         <button
           onClick={handleCopyNumber}
