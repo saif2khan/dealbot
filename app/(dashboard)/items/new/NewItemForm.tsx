@@ -156,17 +156,22 @@ export default function NewItemForm() {
         >
           Manual entry
         </button>
-        <button
-          type="button"
-          onClick={() => setTab('import')}
-          className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-            tab === 'import'
-              ? 'bg-indigo-600 text-white shadow-sm'
-              : 'text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          Import from FB Marketplace
-        </button>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setTab('import')}
+            className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              tab === 'import'
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            Import from FB Marketplace
+          </button>
+          <span className="absolute -top-2 -right-2 bg-amber-400 text-amber-900 text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-full leading-none pointer-events-none">
+            Try now
+          </span>
+        </div>
       </div>
 
       {/* Import tab */}
