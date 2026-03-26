@@ -179,7 +179,7 @@ export default function NewItemForm() {
       {tab === 'import' && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-10 shadow-sm max-w-2xl">
           <p className="text-on-surface-variant text-sm mb-8 leading-relaxed">
-            Paste your Facebook Marketplace listing URL or share link below. We&apos;ll auto-fill the details for you to review.
+            Paste your Facebook Marketplace listing URL below. Please use the direct listing URL, not a share link. We&apos;ll auto-fill the details for you to review.
           </p>
           <div className="space-y-2 mb-8">
             <label className="block text-sm font-semibold text-slate-900" htmlFor="listing_url">Listing URL</label>
@@ -189,9 +189,9 @@ export default function NewItemForm() {
               value={importUrl}
               onChange={e => setImportUrl(e.target.value)}
               className={urlInputClass}
-              placeholder="https://www.facebook.com/share/marketplace/..."
+              placeholder="https://www.facebook.com/marketplace/item/...."
             />
-            <p className="text-[11px] text-slate-400">Works with share links and direct marketplace URLs.</p>
+            <p className="text-[11px] text-slate-400">Use the direct listing URL (not the share link).</p>
           </div>
 
           {importError && (
