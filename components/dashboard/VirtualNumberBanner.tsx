@@ -15,7 +15,7 @@ export default function VirtualNumberBanner({
   const [copiedPhrase, setCopiedPhrase] = useState(false)
 
   const pronoun = agentGender === 'female' ? 'she' : 'he'
-  const listingPhrase = `Hi! I'm using an AI assistant named ${agentName} to handle inquiries for this listing. Please text ${agentName} at ${number} — ${pronoun} responds instantly 24/7. I'm not monitoring FB Messenger.`
+  const listingPhrase = `Hi! I'm using BZARP's AI assistant named ${agentName} to handle inquiries for this listing. Please text ${agentName} at ${number} — ${pronoun} responds instantly 24/7. I'm not monitoring FB Messenger.`
 
   async function handleCopyNumber() {
     await navigator.clipboard.writeText(number)
