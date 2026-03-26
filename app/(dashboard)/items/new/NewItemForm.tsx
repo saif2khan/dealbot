@@ -58,30 +58,52 @@ export default function NewItemForm() {
     setImporting(true)
     setImportError(null)
 
-    const res = await fetch('/api/items/scrape', {
+    // Start async Apify run
+    const startRes = await fetch('/api/items/scrape', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: importUrl.trim() }),
     })
-    const json = await res.json()
-    setImporting(false)
+    const startJson = await startRes.json()
 
-    if (!res.ok) {
-      setImportError(json.error ?? 'Failed to import listing')
+    if (!startRes.ok) {
+      setImporting(false)
+      setImportError(startJson.error ?? 'Failed to start import')
       return
     }
 
-    setForm(prev => ({
-      ...prev,
-      name: json.name || prev.name,
-      description: json.description || prev.description,
-      condition: json.condition || prev.condition,
-      category: json.category || prev.category,
-      askingPrice: json.askingPrice ? String(json.askingPrice) : prev.askingPrice,
-      photoUrl: json.photoUrl || prev.photoUrl,
-    }))
+    const { runId } = startJson
 
-    setTab('manual')
+    // Poll until done (up to ~2 minutes)
+    for (let i = 0; i < 30; i++) {
+      await new Promise(r => setTimeout(r, 4000))
+      const pollRes = await fetch(`/api/items/scrape?runId=${runId}`)
+      const pollJson = await pollRes.json()
+
+      if (!pollRes.ok) {
+        setImporting(false)
+        setImportError(pollJson.error ?? 'Import failed')
+        return
+      }
+
+      if (pollJson.status === 'running') continue
+
+      setImporting(false)
+      setForm(prev => ({
+        ...prev,
+        name: pollJson.name || prev.name,
+        description: pollJson.description || prev.description,
+        condition: pollJson.condition || prev.condition,
+        category: pollJson.category || prev.category,
+        askingPrice: pollJson.askingPrice ? String(pollJson.askingPrice) : prev.askingPrice,
+        photoUrl: pollJson.photoUrl || prev.photoUrl,
+      }))
+      setTab('manual')
+      return
+    }
+
+    setImporting(false)
+    setImportError('Import timed out. Try again.')
   }
 
   async function handleSubmit(e: React.FormEvent) {
