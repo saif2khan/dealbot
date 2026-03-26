@@ -5,21 +5,6 @@ const APIFY_TOKEN = process.env.APIFY_API_TOKEN!
 // Facebook Marketplace scraper actor on Apify
 const ACTOR_ID = 'apify~facebook-marketplace-scraper'
 
-/** Follow redirects to resolve FB share URLs → clean marketplace URL. */
-async function resolveUrl(url: string): Promise<string> {
-  try {
-    const res = await fetch(url, {
-      redirect: 'follow',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' },
-      signal: AbortSignal.timeout(10000),
-    })
-    const u = new URL(res.url)
-    return `${u.origin}${u.pathname}`
-  } catch {
-    return url
-  }
-}
-
 /** Map FB Marketplace condition string → our DB enum */
 function mapCondition(raw: string | null | undefined): string {
   if (!raw) return 'good'
@@ -62,15 +47,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'URL is required' }, { status: 400 })
   }
 
-  // Step 1: Resolve share URL → actual marketplace URL
-  const resolvedUrl = await resolveUrl(url)
-
-  // Validate it resolved to an actual marketplace item (not a login redirect)
-  if (!resolvedUrl.includes('facebook.com/marketplace/item')) {
-    return NextResponse.json({
-      error: "Couldn't resolve this link. Please open the listing on Facebook, copy the URL from your browser's address bar (it should look like facebook.com/marketplace/item/...), and paste that instead.",
-    }, { status: 400 })
+  // Validate it's a Facebook URL and pass directly to Apify (no server-side resolution —
+  // Facebook blocks requests from data center IPs; Apify's residential proxies handle it)
+  if (!url.includes('facebook.com')) {
+    return NextResponse.json({ error: 'Please enter a Facebook Marketplace URL.' }, { status: 400 })
   }
+
+  const resolvedUrl = url
 
   // Step 2: Run Apify actor synchronously (blocks until done, max 120s)
   let apifyData: Record<string, unknown>[]
