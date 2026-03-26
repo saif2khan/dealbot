@@ -124,7 +124,7 @@ ${!item ? `- As soon as you know which item the buyer is asking about, output at
 
 ### Communication Style
 ${buildToneInstructions(seller)}
-- SMS-appropriate — short messages, no markdown or bullet points.
+- SMS-appropriate — short messages, plain English only. Never use markdown formatting (no asterisks, no bold, no bullet points, no headers). Write naturally like a human texting.
 - Respond in the buyer's language (auto-detect).
 - If buyer asks to call or switch platforms: "This listing is text-only via SMS."
 
