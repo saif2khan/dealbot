@@ -40,7 +40,7 @@ export default function VirtualNumberBanner({
             <div className="relative group">
               <span className="material-symbols-outlined text-indigo-300 hover:text-indigo-500 cursor-default text-[18px] transition-colors select-none">info</span>
               <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-64 bg-slate-900 text-white text-xs rounded-xl px-4 py-3 leading-relaxed shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-10">
-                When testing, make sure to text from a different number than the one you added in Settings.
+                When testing, make sure to text from a different number than your mobile number you have in Settings.
                 <div className="absolute right-full top-1/2 -translate-y-1/2 w-0 h-0 border-y-4 border-y-transparent border-r-4 border-r-slate-900" />
               </div>
             </div>
