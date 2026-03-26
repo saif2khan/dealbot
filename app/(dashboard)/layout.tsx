@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Sidebar from '@/components/dashboard/Sidebar'
+import MobileHeader from '@/components/dashboard/MobileHeader'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -22,9 +23,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <div className="bg-background min-h-screen">
+    <div className="bg-slate-50 min-h-screen">
+      <MobileHeader email={profile?.email ?? ''} />
       <Sidebar user={profile} />
-      <main className="md:ml-64 min-h-screen px-8 py-8">
+      <main className="md:ml-64 min-h-screen px-4 pt-[72px] pb-24 md:px-8 md:pt-8 md:pb-8">
         {children}
       </main>
     </div>

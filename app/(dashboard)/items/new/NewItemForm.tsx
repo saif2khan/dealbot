@@ -21,9 +21,9 @@ const CATEGORIES = [
 
 type Tab = 'manual' | 'import'
 
-const inputClass = "w-full bg-surface-container-low border-none rounded-xl p-4 text-on-surface focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant text-sm outline-none"
-const selectClass = "w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
-const urlInputClass = "w-full bg-white border border-slate-300 rounded-xl px-4 py-3.5 text-on-surface focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400 text-sm outline-none"
+const inputClass = "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400 text-sm outline-none"
+const selectClass = "w-full appearance-none bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
+const urlInputClass = "w-full bg-white border border-slate-300 rounded-xl px-4 py-3.5 text-slate-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all placeholder:text-slate-400 text-sm outline-none"
 
 export default function NewItemForm() {
   const router = useRouter()
@@ -138,8 +138,9 @@ export default function NewItemForm() {
 
   return (
     <div className="max-w-4xl pb-20">
-      <div className="mb-8">
-        <h1 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900 mb-1">Add item</h1>
+      <div className="mb-6">
+        <p className="text-indigo-600 text-xs font-bold uppercase tracking-widest mb-1">New Listing</p>
+        <h1 className="text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900 mb-1">Add Item</h1>
         <p className="text-on-surface-variant text-sm">The agent uses this info to answer buyer questions.</p>
       </div>
 
@@ -176,7 +177,7 @@ export default function NewItemForm() {
 
       {/* Import tab */}
       {tab === 'import' && (
-        <div className="bg-white border border-slate-200 rounded-2xl p-10 shadow-sm max-w-2xl">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-10 shadow-sm max-w-2xl">
           <p className="text-on-surface-variant text-sm mb-8 leading-relaxed">
             Paste your Facebook Marketplace listing URL or share link below. We&apos;ll auto-fill the details for you to review.
           </p>
@@ -225,21 +226,21 @@ export default function NewItemForm() {
 
       {/* Manual form */}
       {tab === 'manual' && (
-        <form onSubmit={handleSubmit} className="space-y-12">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {/* Identity & Context */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-4">
-              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Identity & Context</h4>
-              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">The name and category define how BZARP answers buyer questions.</p>
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 rounded-full bg-indigo-600"></div>
+              <h4 className="font-[family-name:var(--font-manrope)] text-base font-bold text-slate-900">Identity &amp; Context</h4>
             </div>
-            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Item name <span className="text-error">*</span></label>
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-700">Item Name <span className="text-error">*</span></label>
                 <input type="text" required value={form.name} onChange={e => update('name', e.target.value)} className={inputClass} placeholder="e.g. IKEA KALLAX shelf" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Condition <span className="text-error">*</span></label>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-slate-700">Condition <span className="text-error">*</span></label>
                   <div className="relative">
                     <select value={form.condition} onChange={e => update('condition', e.target.value)} className={selectClass}>
                       {CONDITIONS.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
@@ -247,8 +248,8 @@ export default function NewItemForm() {
                     <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category</label>
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-slate-700">Category</label>
                   <div className="relative">
                     <select value={form.category} onChange={e => update('category', e.target.value)} className={selectClass}>
                       <option value="">Select…</option>
@@ -258,41 +259,46 @@ export default function NewItemForm() {
                   </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Description <span className="text-error">*</span></label>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-700">Description <span className="text-error">*</span></label>
                 <textarea rows={4} required value={form.description} onChange={e => update('description', e.target.value)}
                   className={inputClass + ' resize-none'}
-                  placeholder="Describe condition, history, and any wear…" />
+                  placeholder="Describe key features and any minor wear…" />
               </div>
             </div>
           </div>
 
           {/* Pricing Strategy */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-4">
-              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Pricing Strategy</h4>
-              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Set your limits. BZARP will close deals within your range.</p>
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 rounded-full bg-indigo-600"></div>
+              <h4 className="font-[family-name:var(--font-manrope)] text-base font-bold text-slate-900">Pricing Strategy</h4>
             </div>
-            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Asking price ($) <span className="text-error">*</span></label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
-                    <input type="number" required min="0" step="0.01" value={form.askingPrice} onChange={e => update('askingPrice', e.target.value)}
-                      className={inputClass + ' pl-8'} placeholder="0.00" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Max discount ($)</label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">$</span>
-                    <input type="number" min="0" step="0.01" disabled={form.firmPrice} value={form.maxDiscount} onChange={e => update('maxDiscount', e.target.value)}
-                      className={inputClass + ' pl-8 disabled:opacity-40'} placeholder="0.00" />
-                  </div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4 shadow-sm">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-700">Asking Price ($) <span className="text-error">*</span></label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input type="number" required min="0" step="0.01" value={form.askingPrice} onChange={e => update('askingPrice', e.target.value)}
+                    className={inputClass + ' pl-8'} placeholder="0.00" />
                 </div>
               </div>
-              <label className="flex items-center gap-4 p-4 bg-indigo-50 rounded-xl cursor-pointer hover:bg-indigo-100 transition-colors">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-slate-700">Max Discount ($)</label>
+                  {!form.firmPrice && form.askingPrice && parseFloat(form.askingPrice) > 0 && (
+                    <span className="text-[11px] text-indigo-600 font-semibold">
+                      20% Recommended
+                    </span>
+                  )}
+                </div>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">$</span>
+                  <input type="number" min="0" step="0.01" disabled={form.firmPrice} value={form.maxDiscount} onChange={e => update('maxDiscount', e.target.value)}
+                    className={inputClass + ' pl-8 disabled:opacity-40'} placeholder="0.00" />
+                </div>
+              </div>
+              <label className="flex items-center gap-3 p-4 bg-indigo-50 rounded-xl cursor-pointer hover:bg-indigo-100 transition-colors">
                 <input type="checkbox" checked={form.firmPrice} onChange={e => update('firmPrice', e.target.checked)}
                   className="h-5 w-5 rounded border-indigo-400 text-indigo-600 focus:ring-indigo-500" />
                 <div>
@@ -304,15 +310,15 @@ export default function NewItemForm() {
           </div>
 
           {/* Fulfillment */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="md:col-span-4">
-              <h4 className="font-[family-name:var(--font-manrope)] text-lg font-bold text-primary">Fulfillment</h4>
-              <p className="text-sm text-on-surface-variant mt-2 leading-relaxed">Streamline the hand-off with clear availability.</p>
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-1 h-6 rounded-full bg-indigo-600"></div>
+              <h4 className="font-[family-name:var(--font-manrope)] text-base font-bold text-slate-900">Fulfillment</h4>
             </div>
-            <div className="md:col-span-8 bg-white border border-slate-200 p-8 rounded-xl shadow-sm space-y-5">
-              <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                  Preferred pickup times <span className="text-outline-variant font-normal normal-case">(optional)</span>
+            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-700">
+                  Pickup Times <span className="text-slate-400 font-normal">(optional)</span>
                 </label>
                 <input type="text" value={form.preferredTimes} onChange={e => update('preferredTimes', e.target.value)}
                   className={inputClass} placeholder='e.g. "Weekends after 2pm, Tuesdays 5–7pm"' />
@@ -323,14 +329,14 @@ export default function NewItemForm() {
           {error && <p className="text-sm text-error">{error}</p>}
 
           {/* Actions */}
-          <div className="flex items-center justify-end gap-4 pt-4 border-t border-outline-variant/20">
+          <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-end gap-3 pt-2">
             <button type="button" onClick={() => router.back()}
-              className="px-8 py-3 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 transition-colors">
+              className="w-full md:w-auto px-8 py-3 rounded-xl text-slate-600 font-semibold hover:bg-slate-100 transition-colors text-center">
               Cancel
             </button>
             <button type="submit" disabled={loading}
-              className="bg-indigo-600 hover:bg-indigo-700 px-12 py-3 rounded-xl text-white font-bold shadow-lg disabled:opacity-50 active:scale-95 transition-all duration-150">
-              {loading ? 'Adding...' : 'Add item'}
+              className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 px-12 py-3.5 rounded-xl text-white font-bold shadow-lg disabled:opacity-50 active:scale-95 transition-all duration-150">
+              {loading ? 'Adding...' : 'Add Item'}
             </button>
           </div>
         </form>

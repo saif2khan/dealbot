@@ -6,10 +6,10 @@ import { createClient } from '@/lib/supabase/client'
 import type { User } from '@/types/database'
 
 const navItems = [
-  { href: '/dashboard', label: 'Overview', icon: 'dashboard' },
-  { href: '/items', label: 'Items', icon: 'inventory_2' },
-  { href: '/conversations', label: 'Conversations', icon: 'chat_bubble' },
-  { href: '/settings', label: 'Settings', icon: 'settings' },
+  { href: '/dashboard', label: 'Overview', shortLabel: 'Overview', icon: 'dashboard' },
+  { href: '/items', label: 'Items', shortLabel: 'Items', icon: 'inventory_2' },
+  { href: '/conversations', label: 'Conversations', shortLabel: 'Chat', icon: 'chat_bubble' },
+  { href: '/settings', label: 'Settings', shortLabel: 'Settings', icon: 'settings' },
 ]
 
 export default function Sidebar({ user }: { user: User }) {
@@ -93,22 +93,24 @@ export default function Sidebar({ user }: { user: User }) {
       </aside>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 flex justify-around items-center py-3 px-6 z-50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around items-center h-16 z-50 px-2">
         {navItems.map(item => {
           const active = pathname === item.href || pathname.startsWith(item.href + '/')
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center gap-1 ${active ? 'text-indigo-600' : 'text-slate-400'}`}
+              className="flex flex-col items-center justify-center gap-0.5 flex-1 py-1"
             >
               <span
-                className="material-symbols-outlined"
+                className={`material-symbols-outlined text-[24px] transition-colors ${active ? 'text-indigo-600' : 'text-slate-400'}`}
                 style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
               >
                 {item.icon}
               </span>
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className={`text-[10px] font-semibold uppercase tracking-wide transition-colors ${active ? 'text-indigo-600' : 'text-slate-400'}`}>
+                {item.shortLabel}
+              </span>
             </Link>
           )
         })}

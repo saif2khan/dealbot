@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-const inputClass = "w-full bg-white border border-slate-300 rounded-lg px-4 py-2.5 text-on-surface focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400 transition-all outline-none text-sm"
+const inputClass = "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none text-sm placeholder:text-slate-400"
 
 export default function SignupPage() {
   const router = useRouter()
@@ -39,13 +39,13 @@ export default function SignupPage() {
 
   if (sent) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background px-4">
-        <div className="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-10 text-center">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-8">
+        <div className="max-w-md w-full bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-10 text-center">
           <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
             <span className="material-symbols-outlined text-emerald-600 text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>mark_email_read</span>
           </div>
           <h2 className="text-2xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 mb-2">Check your email</h2>
-          <p className="text-on-surface-variant text-sm">
+          <p className="text-slate-500 text-sm">
             We sent a verification link to <strong className="text-slate-900">{email}</strong>. Click it to activate your account.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4 py-8">
       <div className="max-w-md w-full">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-8 justify-center">
@@ -63,19 +63,19 @@ export default function SignupPage() {
           </div>
           <div>
             <h1 className="text-lg font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight leading-tight">BZARP</h1>
-            <p className="text-[10px] uppercase tracking-widest text-on-surface-variant font-semibold">Your Marketplace Assistant</p>
+            <p className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Your Marketplace Assistant</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8">
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 md:p-8">
           <div className="mb-6">
             <h2 className="text-2xl font-[family-name:var(--font-manrope)] font-extrabold text-slate-900 tracking-tight">Create your account</h2>
-            <p className="text-on-surface-variant text-sm mt-1">Start your free 1-month trial. No charge today.</p>
+            <p className="text-slate-500 text-sm mt-1">Start your free 1-month trial. No charge today.</p>
           </div>
 
           <form onSubmit={handleSignup} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-on-surface">Email</label>
+              <label className="block text-sm font-medium text-slate-700">Email</label>
               <input
                 type="email"
                 required
@@ -86,7 +86,7 @@ export default function SignupPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-on-surface">Password</label>
+              <label className="block text-sm font-medium text-slate-700">Password</label>
               <input
                 type="password"
                 required
@@ -107,13 +107,13 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150 mt-2"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150 mt-2"
             >
               {loading ? 'Creating account…' : 'Create account'}
             </button>
           </form>
 
-          <p className="text-sm text-on-surface-variant text-center mt-6">
+          <p className="text-sm text-slate-500 text-center mt-6">
             Already have an account?{' '}
             <Link href="/login" className="text-indigo-600 hover:underline font-semibold">Log in</Link>
           </p>
