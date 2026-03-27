@@ -7,9 +7,8 @@ import StepCountry from './StepCountry'
 import StepBilling from './StepBilling'
 import StepProfile from './StepProfile'
 import StepAvailability from './StepAvailability'
-import StepFirstItem from './StepFirstItem'
 
-const STEPS = ['Phone', 'Billing', 'Profile', 'Agent', 'First Item']
+const STEPS = ['Phone', 'Billing', 'Profile', 'Agent']
 
 interface Props {
   userId: string
@@ -41,7 +40,12 @@ export default function OnboardingWizard({ userId, initialStep = 0, billingDone 
 
   function next(update?: Partial<OnboardingData>) {
     if (update) setData(prev => ({ ...prev, ...update }))
-    setStep(s => s + 1)
+    const nextStep = step + 1
+    if (nextStep >= STEPS.length) {
+      router.push('/dashboard')
+    } else {
+      setStep(nextStep)
+    }
   }
 
   return (
@@ -81,7 +85,6 @@ export default function OnboardingWizard({ userId, initialStep = 0, billingDone 
           {step === 1 && <StepBilling userId={userId} data={data} onNext={next} billingDone={billingDone} />}
           {step === 2 && <StepProfile userId={userId} onNext={next} />}
           {step === 3 && <StepAvailability userId={userId} onNext={next} />}
-          {step === 4 && <StepFirstItem userId={userId} data={data} />}
         </div>
 
         <div className="flex items-center justify-end mt-4 px-1">

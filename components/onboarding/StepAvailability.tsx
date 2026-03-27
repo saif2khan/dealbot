@@ -95,9 +95,9 @@ export default function StepAvailability({ userId, onNext }: Props) {
 
       <div className="space-y-1.5">
         <label className="block text-sm font-medium text-on-surface">
-          Your availability <span className="text-slate-400 font-normal">(optional)</span>
+          Your availability
         </label>
-        <textarea rows={3} value={availability} onChange={e => setAvailability(e.target.value)}
+        <textarea rows={3} required value={availability} onChange={e => setAvailability(e.target.value)}
           className={inputClass + ' resize-none'}
           placeholder='e.g. "Weekdays after 5pm, weekends 10am–4pm. Not available Dec 25."' />
         <p className="text-xs text-slate-400">The agent uses this to propose meetup times to buyers.</p>
@@ -109,16 +109,10 @@ export default function StepAvailability({ userId, onNext }: Props) {
         </div>
       )}
 
-      <div className="flex gap-3">
-        <button type="button" onClick={() => onNext({})}
-          className="flex-1 border border-slate-200 py-2.5 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors">
-          Skip for now
-        </button>
-        <button type="submit" disabled={loading}
-          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
-          {loading ? 'Saving…' : 'Continue'}
-        </button>
-      </div>
+      <button type="submit" disabled={loading}
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2.5 rounded-lg font-bold shadow-md disabled:opacity-50 transition-colors active:scale-95 duration-150">
+        {loading ? 'Saving…' : 'Finish setup'}
+      </button>
     </form>
   )
 }
