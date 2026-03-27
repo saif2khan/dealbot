@@ -113,11 +113,38 @@ export async function handleSellerReply(
       .update({ status: 'active', pending_buyer_id: null })
       .eq('id', target.id)
 
-    await sendSms(
-      virtualNumber,
-      sellerPhone,
-      `BZARP: Deal cancelled for "${target.name}". Item is back to active.`
-    )
+    // Notify waitlisted buyers
+    const { data: waitlist } = await supabase
+      .from('waitlist_entries')
+      .select('*, conversations(buyer_phone)')
+      .eq('item_id', target.id)
+      .eq('status', 'waiting')
+      .order('position', { ascending: true })
+
+    if (waitlist && waitlist.length > 0) {
+      const broadcastMsg = `Good news — "${target.name}" is available again! Still interested? Reply YES to restart.`
+      for (const entry of waitlist) {
+        const buyerPhone = (entry as unknown as { conversations: { buyer_phone: string } }).conversations?.buyer_phone
+        if (buyerPhone) {
+          await sendSms(virtualNumber, buyerPhone, broadcastMsg)
+          await supabase
+            .from('waitlist_entries')
+            .update({ status: 'broadcast_sent', broadcast_sent_at: new Date().toISOString() })
+            .eq('id', entry.id)
+        }
+      }
+      await sendSms(
+        virtualNumber,
+        sellerPhone,
+        `BZARP: Deal cancelled for "${target.name}". Item is back to active. Reached out to ${waitlist.length} buyer(s) on the waitlist.`
+      )
+    } else {
+      await sendSms(
+        virtualNumber,
+        sellerPhone,
+        `BZARP: Deal cancelled for "${target.name}". Item is back to active.`
+      )
+    }
     return
   }
 

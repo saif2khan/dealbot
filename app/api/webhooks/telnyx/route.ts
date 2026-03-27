@@ -132,6 +132,114 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Conversation error' }, { status: 500 })
   }
 
+  // 2b. Check if buyer is replying YES to a waitlist broadcast
+  const normalizedMsg = buyerMessage.toLowerCase().trim()
+  if (normalizedMsg === 'yes' || normalizedMsg === 'y') {
+    const { data: broadcastEntry } = await supabase
+      .from('waitlist_entries')
+      .select('*, items(*)')
+      .eq('buyer_phone', buyerPhone)
+      .eq('status', 'broadcast_sent')
+      .order('broadcast_sent_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (broadcastEntry) {
+      const item = (broadcastEntry as unknown as { items: Item }).items
+      // Only proceed if the item is still active (no one else claimed it yet)
+      if (item && item.status === 'active') {
+        // Check no scheduled deal exists for this item
+        const { data: existingDeal } = await supabase
+          .from('pending_deals')
+          .select('id')
+          .eq('item_id', item.id)
+          .eq('status', 'scheduled')
+          .maybeSingle()
+
+        if (!existingDeal) {
+          // Create a pending deal for this buyer
+          const { data: deal } = await supabase
+            .from('pending_deals')
+            .insert({
+              item_id: item.id,
+              conversation_id: conversation.id,
+              buyer_phone: buyerPhone,
+              buyer_name: broadcastEntry.buyer_name ?? 'Waitlist buyer',
+              agreed_price: broadcastEntry.offered_price ?? item.asking_price,
+              meetup_date: null,
+              meetup_time: null,
+              meetup_location: seller.address ?? null,
+              status: 'scheduled',
+            })
+            .select()
+            .single()
+
+          if (deal) {
+            await supabase
+              .from('items')
+              .update({ status: 'pending', pending_buyer_id: deal.id })
+              .eq('id', item.id)
+
+            // Mark this waitlist entry as converted
+            await supabase
+              .from('waitlist_entries')
+              .update({ status: 'converted' })
+              .eq('id', broadcastEntry.id)
+
+            // Notify buyer
+            await sendSms(
+              toNumber,
+              buyerPhone,
+              `Great, "${item.name}" is yours! The seller will work out pickup details with you shortly. Feel free to text here to coordinate.`
+            )
+
+            // Notify seller
+            await sendSms(
+              toNumber,
+              seller.phone!,
+              `BZARP: ${broadcastEntry.buyer_name ?? 'A waitlist buyer'} confirmed interest in "${item.name}" ($${broadcastEntry.offered_price ?? item.asking_price}). The item is now pending. They'll text to coordinate pickup.`
+            )
+
+            // Update conversation to link to this item
+            await supabase
+              .from('conversations')
+              .update({
+                current_item_id: item.id,
+                last_message_at: new Date().toISOString(),
+              })
+              .eq('id', conversation.id)
+
+            return NextResponse.json({ received: true })
+          }
+        } else {
+          // Someone else already claimed it
+          await sendSms(
+            toNumber,
+            buyerPhone,
+            `Sorry, "${item.name}" was just claimed by another buyer. You're still on the waitlist in case it becomes available again.`
+          )
+          // Reset back to waiting so they can be notified again
+          await supabase
+            .from('waitlist_entries')
+            .update({ status: 'waiting' })
+            .eq('id', broadcastEntry.id)
+          return NextResponse.json({ received: true })
+        }
+      } else if (item && item.status === 'pending') {
+        await sendSms(
+          toNumber,
+          buyerPhone,
+          `Sorry, "${item.name}" was just claimed by another buyer. You're still on the waitlist in case it becomes available again.`
+        )
+        await supabase
+          .from('waitlist_entries')
+          .update({ status: 'waiting' })
+          .eq('id', broadcastEntry.id)
+        return NextResponse.json({ received: true })
+      }
+    }
+  }
+
   // 3. Deduplicate: check if this exact message was already processed (Telnyx retry protection)
   const since = new Date(Date.now() - 30000).toISOString() // within last 30s
   const { data: existing } = await supabase
@@ -340,6 +448,20 @@ export async function POST(request: NextRequest) {
 
       case 'WAITLIST_JOIN': {
         if (!currentItem) break
+
+        // Prevent duplicate waitlist entries for the same buyer + item
+        const { data: existingEntry } = await supabase
+          .from('waitlist_entries')
+          .select('id, status')
+          .eq('item_id', currentItem.id)
+          .eq('buyer_phone', buyerPhone)
+          .in('status', ['waiting', 'broadcast_sent'])
+          .maybeSingle()
+
+        if (existingEntry) {
+          console.log('[webhook] Buyer already on waitlist, skipping duplicate')
+          break
+        }
 
         // Get current waitlist count for position
         const { count: position } = await supabase

@@ -19,5 +19,23 @@ export default async function ItemsPage() {
   const profile = profileResult.data ?? { items_listed_this_month: 0, items_limit: 10 }
   const items = itemsResult.data ?? []
 
-  return <ItemsClientView items={items} profile={profile} />
+  // Fetch deals for pending items
+  const pendingItemIds = items.filter(i => i.status === 'pending').map(i => i.id)
+  let dealsByItem: Record<string, { buyer_name: string; buyer_phone: string; agreed_price: number; meetup_date: string; meetup_time: string }> = {}
+
+  if (pendingItemIds.length > 0) {
+    const { data: deals, error } = await supabase
+      .from('pending_deals')
+      .select('item_id, buyer_name, buyer_phone, agreed_price, meetup_date, meetup_time')
+      .in('item_id', pendingItemIds)
+      .eq('status', 'scheduled')
+
+    if (!error && deals) {
+      for (const deal of deals) {
+        dealsByItem[deal.item_id] = deal
+      }
+    }
+  }
+
+  return <ItemsClientView items={items} profile={profile} dealsByItem={dealsByItem} />
 }
