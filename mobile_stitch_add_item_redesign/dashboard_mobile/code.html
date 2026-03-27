@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#782232",
+                        "primary-dim": "#3c49a7",
+                        "tertiary-dim": "#49536b",
+                        "surface-container-high": "#e1e9ee",
+                        "background": "#f7f9fb",
+                        "on-tertiary-container": "#455068",
+                        "on-primary-fixed-variant": "#4652b0",
+                        "error-dim": "#4f0116",
+                        "secondary": "#4d626c",
+                        "on-secondary-fixed": "#2d424c",
+                        "on-primary-fixed": "#273492",
+                        "inverse-primary": "#8c99fc",
+                        "outline": "#717c82",
+                        "secondary-fixed-dim": "#c1d8e4",
+                        "on-secondary": "#f2faff",
+                        "on-tertiary-fixed": "#333d55",
+                        "on-secondary-fixed-variant": "#495f69",
+                        "surface": "#f7f9fb",
+                        "surface-tint": "#4955b3",
+                        "primary-fixed-dim": "#cdd1ff",
+                        "on-surface": "#2a3439",
+                        "primary": "#4955b3",
+                        "primary-fixed": "#dfe0ff",
+                        "primary-container": "#dfe0ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary-container": "#cfe6f2",
+                        "secondary-fixed": "#cfe6f2",
+                        "surface-container": "#e8eff3",
+                        "on-primary": "#f9f6ff",
+                        "surface-variant": "#d9e4ea",
+                        "on-primary-container": "#3b48a6",
+                        "tertiary-fixed": "#d5dffd",
+                        "on-error": "#fff7f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f0f4f7",
+                        "error": "#9e3f4e",
+                        "tertiary-fixed-dim": "#c7d1ee",
+                        "tertiary": "#545f78",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#f9f8ff",
+                        "surface-container-highest": "#d9e4ea",
+                        "on-surface-variant": "#566166",
+                        "tertiary-container": "#d5dffd",
+                        "on-tertiary-fixed-variant": "#4f5a72",
+                        "on-secondary-container": "#40555f",
+                        "surface-dim": "#cfdce3",
+                        "inverse-surface": "#0b0f10",
+                        "on-background": "#2a3439",
+                        "secondary-dim": "#415660",
+                        "error-container": "#ff8b9a",
+                        "outline-variant": "#a9b4b9"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .headline-md { font-size: 1.5rem; line-height: 2rem; font-weight: 700; }
+        .bg-primary-gradient { background: linear-gradient(135deg, #4955b3 0%, #3c49a7 100%); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body antialiased min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-950 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined text-[#4955b3] dark:text-[#7986cb] text-2xl" data-icon="robot_2">robot_2</span>
+<h1 class="font-headline text-xl font-bold tracking-tight text-[#4955b3] dark:text-[#7986cb]">DealBot</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-6 max-w-md mx-auto">
+<!-- Identity Card (Your DealBot Number) -->
+<section class="mb-10">
+<div class="bg-surface-container-low rounded-xl p-6 relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-on-surface-variant font-label text-xs font-semibold uppercase tracking-widest mb-1">Your DealBot Number</p>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-headline font-extrabold text-primary">+1 (555) 012-3456</span>
+<span class="material-symbols-outlined text-primary text-lg" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="mt-4 text-on-surface-variant text-sm leading-relaxed max-w-[240px]">
+                        Forward your SMS inquiries or marketplace links directly to this number to let AI start negotiating.
+                    </p>
+<div class="mt-6 flex gap-3">
+<button class="bg-primary-gradient text-on-primary px-5 py-2.5 rounded-lg font-semibold text-sm shadow-lg active:scale-95 transition-all">Copy Number</button>
+<button class="bg-surface-container-highest text-on-surface px-5 py-2.5 rounded-lg font-semibold text-sm active:scale-95 transition-all">Share</button>
+</div>
+</div>
+<!-- Abstract visual element for concierge feel -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute right-4 top-4">
+<span class="material-symbols-outlined text-primary/20 text-6xl" data-icon="contactless">contactless</span>
+</div>
+</div>
+</section>
+<!-- Stats Grid (Bento Style) -->
+<section class="grid grid-cols-2 gap-4 mb-10">
+<!-- Active Items -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between min-h-[140px] shadow-[0_4px_12px_rgba(42,52,57,0.03)] border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">+2</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-on-surface">14</h3>
+<p class="text-on-surface-variant text-xs font-medium">Active Items</p>
+</div>
+</div>
+<!-- Pending Deals -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between min-h-[140px] shadow-[0_4px_12px_rgba(42,52,57,0.03)] border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-error" data-icon="pending_actions">pending_actions</span>
+<span class="text-[10px] font-bold text-error bg-error/10 px-2 py-0.5 rounded-full">Urgent</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-on-surface">6</h3>
+<p class="text-on-surface-variant text-xs font-medium">Pending Deals</p>
+</div>
+</div>
+<!-- Active Threads -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between min-h-[140px] shadow-[0_4px_12px_rgba(42,52,57,0.03)] border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="forum">forum</span>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-slate-200 border-2 border-white overflow-hidden">
+<img alt="user" data-alt="portrait of a woman in a professional setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Xod4jVP06k_R8UnFoQy2ijWhxJk9ddfcQrPLR7RYQIA35oiOSa3qifwDEc-vvA3LSQ09Z35PuGzA38tV6N3B3eX4UoFv5GHTNZb1om3uPpNPSVOOK3aVk5xakZBqDaXW6xp5EIpXU1W4_l48v63lkZhcwCsocL6A55v4JjKqPgd50u3Rb1PYEkOAkNKTVS5XAf0vrML3yEXU0lwFLnPcCeUZPjlhhkuxC11oNMJy8r4x7G-yQtSyebz5s_1mEB9iDsXKLLP5otA"/>
+</div>
+<div class="w-6 h-6 rounded-full bg-slate-300 border-2 border-white flex items-center justify-center text-[8px] font-bold">+3</div>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-on-surface">24</h3>
+<p class="text-on-surface-variant text-xs font-medium">Active Threads Today</p>
+</div>
+</div>
+<!-- Items This Month -->
+<div class="bg-surface-container-lowest p-5 rounded-xl flex flex-col justify-between min-h-[140px] shadow-[0_4px_12px_rgba(42,52,57,0.03)] border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-tertiary" data-icon="calendar_today">calendar_today</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-bold text-on-surface">128</h3>
+<p class="text-on-surface-variant text-xs font-medium">Items This Month</p>
+</div>
+</div>
+</section>
+<!-- Integration Preview -->
+<section class="mb-10">
+<h2 class="font-headline font-bold text-lg mb-4">Marketplace Integrations</h2>
+<div class="space-y-4">
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/15">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">eBay Seller API</p>
+<p class="text-xs text-on-surface-variant">Connected &amp; Syncing</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/15 opacity-60">
+<div class="w-12 h-12 bg-surface-container-high rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="storefront">storefront</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">FB Marketplace</p>
+<p class="text-xs text-on-surface-variant">Setup Required</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="arrow_forward_ios">arrow_forward_ios</span>
+</div>
+</div>
+</section>
+<!-- Asymmetric CTA Section -->
+<section class="mb-12">
+<div class="bg-primary text-on-primary p-6 rounded-2xl relative overflow-hidden flex flex-col gap-4">
+<h3 class="font-headline text-2xl font-extrabold max-w-[200px]">Automate your negotiation flow.</h3>
+<p class="text-on-primary/80 text-sm">Deploy bot agents to handle initial offers and inquiries on your behalf.</p>
+<button class="bg-white text-primary px-6 py-3 rounded-lg font-bold text-sm self-start shadow-xl active:scale-95 transition-all">Start New Session</button>
+<div class="absolute right-[-20px] top-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[160px]" data-icon="smart_toy">smart_toy</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)] flex justify-around items-center h-20 pb-safe px-4 w-full">
+<!-- Overview (Active) -->
+<a class="flex flex-col items-center justify-center text-[#4955b3] dark:text-[#7986cb] bg-[#4955b3]/10 dark:bg-[#4955b3]/20 rounded-xl px-3 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Overview</span>
+</a>
+<!-- Items -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Items</span>
+</a>
+<!-- Chat -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Chat</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

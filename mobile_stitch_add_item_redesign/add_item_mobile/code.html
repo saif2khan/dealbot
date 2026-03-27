@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add Item - DealBot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#782232",
+              "primary-dim": "#3c49a7",
+              "tertiary-dim": "#49536b",
+              "surface-container-high": "#e1e9ee",
+              "background": "#f7f9fb",
+              "on-tertiary-container": "#455068",
+              "on-primary-fixed-variant": "#4652b0",
+              "error-dim": "#4f0116",
+              "secondary": "#4d626c",
+              "on-secondary-fixed": "#2d424c",
+              "on-primary-fixed": "#273492",
+              "inverse-primary": "#8c99fc",
+              "outline": "#717c82",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "on-tertiary-fixed": "#333d55",
+              "on-secondary-fixed-variant": "#495f69",
+              "surface": "#f7f9fb",
+              "surface-tint": "#4955b3",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-surface": "#2a3439",
+              "primary": "#4955b3",
+              "primary-fixed": "#dfe0ff",
+              "primary-container": "#dfe0ff",
+              "inverse-on-surface": "#9a9d9f",
+              "secondary-container": "#cfe6f2",
+              "secondary-fixed": "#cfe6f2",
+              "surface-container": "#e8eff3",
+              "on-primary": "#f9f6ff",
+              "surface-variant": "#d9e4ea",
+              "on-primary-container": "#3b48a6",
+              "tertiary-fixed": "#d5dffd",
+              "on-error": "#fff7f7",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#f0f4f7",
+              "error": "#9e3f4e",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "tertiary": "#545f78",
+              "surface-bright": "#f7f9fb",
+              "on-tertiary": "#f9f8ff",
+              "surface-container-highest": "#d9e4ea",
+              "on-surface-variant": "#566166",
+              "tertiary-container": "#d5dffd",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "on-secondary-container": "#40555f",
+              "surface-dim": "#cfdce3",
+              "inverse-surface": "#0b0f10",
+              "on-background": "#2a3439",
+              "secondary-dim": "#415660",
+              "error-container": "#ff8b9a",
+              "outline-variant": "#a9b4b9"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .headline-md { font-family: 'Manrope', sans-serif; font-size: 1.5rem; font-weight: 700; line-height: 2rem; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3 transition-all duration-200 active:scale-95">
+<span class="material-symbols-outlined text-[#4955b3]" data-icon="robot_2">robot_2</span>
+<h1 class="font-manrope headline-md text-on-surface text-xl font-bold tracking-tight text-[#4955b3]">DealBot</h1>
+</div>
+<button class="transition-all duration-200 active:scale-95 text-slate-500 hover:bg-slate-200/50 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-24 pb-32 px-6">
+<div class="max-w-md mx-auto">
+<!-- Header Section -->
+<div class="mb-8">
+<h2 class="font-headline text-2xl font-extrabold text-on-surface mb-2">Add New Item</h2>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed">Import a listing from a social marketplace or enter details manually to start tracking with DealBot.</p>
+</div>
+<!-- Tabbed Navigation -->
+<div class="bg-surface-container-low rounded-xl p-1.5 flex mb-8">
+<button class="flex-1 py-2.5 text-sm font-semibold rounded-lg bg-surface-container-lowest shadow-sm text-primary transition-all">
+                    Import from FB
+                </button>
+<button class="flex-1 py-2.5 text-sm font-semibold rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all">
+                    Manual entry
+                </button>
+</div>
+<!-- Import Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_12px_32px_-4px_rgba(42,52,57,0.08)] relative overflow-hidden">
+<!-- Subtle Gradient Background -->
+<div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-600" data-icon="link">link</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-on-surface">Marketplace URL</h3>
+<p class="text-xs text-on-surface-variant">Paste the link to the item listing</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Listing Link</label>
+<input class="w-full bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 rounded-xl px-4 py-4 text-sm focus:ring-primary focus:ring-2 transition-all outline-none" placeholder="https://facebook.com/marketplace/item/..." type="text"/>
+</div>
+<button class="w-full py-4 rounded-xl font-bold text-on-primary bg-gradient-to-br from-primary to-primary-dim shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="auto_awesome" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            Import listing
+                        </button>
+</div>
+<!-- Editorial Hint -->
+<div class="mt-8 flex items-start gap-4 p-4 rounded-xl bg-surface-container-low/50">
+<span class="material-symbols-outlined text-primary-dim mt-0.5" data-icon="lightbulb">lightbulb</span>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+                            Our AI will automatically scrape images, price, and description once you click import.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Visual Context Section (Asymmetric Bento Element) -->
+<div class="mt-12 grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low rounded-xl p-4 flex flex-col justify-between h-40">
+<span class="material-symbols-outlined text-primary" data-icon="analytics">analytics</span>
+<p class="text-xs font-semibold text-on-surface">Auto Price Comparison</p>
+</div>
+<div class="relative rounded-xl overflow-hidden h-40 shadow-sm">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Modern minimalist living room with clean lines and soft daylight reflecting on a wooden floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyfgz-ds5jg2SfS2s-gGoc57ZU2cwYMnWzD1gfiGR7y2LTHd4DASy7XsO_NfNJ6Ic3y3eTvT-siZMAcw_asINX0S54YbFYQctn2Gb2m9Ow6yEE5I-DtdpBvuMFgFGcD87qfLdQZow46KodtjGYyWv2ZWSm9Dp6Ju_g_IKd1VygoX2po0WgOlFJs-cHCHxOZvPJqVoRkkjelab9Abg17OAbhC5QSmzG-9dzgj4-7-J4WA0zkGWLOjM6s7FsqCicOdlVttfvyiGJDTw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+<p class="text-[10px] text-white/90 font-medium leading-tight">DealBot analyzes local market values instantly.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 backdrop-blur-lg shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)] border-t border-slate-200/15 flex justify-around items-center h-20 pb-safe px-4 w-full">
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] transition-transform duration-300 ease-out active:scale-90 px-3 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4955b3] bg-[#4955b3]/10 rounded-xl px-3 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Items</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] transition-transform duration-300 ease-out active:scale-90 px-3 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="forum">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] transition-transform duration-300 ease-out active:scale-90 px-3 py-1" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Settings</span>
+</a>
+</nav>
+</body></html>

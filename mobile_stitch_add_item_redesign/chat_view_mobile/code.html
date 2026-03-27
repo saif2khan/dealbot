@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot Chat View</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#782232",
+              "primary-dim": "#3c49a7",
+              "tertiary-dim": "#49536b",
+              "surface-container-high": "#e1e9ee",
+              "background": "#f7f9fb",
+              "on-tertiary-container": "#455068",
+              "on-primary-fixed-variant": "#4652b0",
+              "error-dim": "#4f0116",
+              "secondary": "#4d626c",
+              "on-secondary-fixed": "#2d424c",
+              "on-primary-fixed": "#273492",
+              "inverse-primary": "#8c99fc",
+              "outline": "#717c82",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "on-tertiary-fixed": "#333d55",
+              "on-secondary-fixed-variant": "#495f69",
+              "surface": "#f7f9fb",
+              "surface-tint": "#4955b3",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-surface": "#2a3439",
+              "primary": "#4955b3",
+              "primary-fixed": "#dfe0ff",
+              "primary-container": "#dfe0ff",
+              "inverse-on-surface": "#9a9d9f",
+              "secondary-container": "#cfe6f2",
+              "secondary-fixed": "#cfe6f2",
+              "surface-container": "#e8eff3",
+              "on-primary": "#f9f6ff",
+              "surface-variant": "#d9e4ea",
+              "on-primary-container": "#3b48a6",
+              "tertiary-fixed": "#d5dffd",
+              "on-error": "#fff7f7",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#f0f4f7",
+              "error": "#9e3f4e",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "tertiary": "#545f78",
+              "surface-bright": "#f7f9fb",
+              "on-tertiary": "#f9f8ff",
+              "surface-container-highest": "#d9e4ea",
+              "on-surface-variant": "#566166",
+              "tertiary-container": "#d5dffd",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "on-secondary-container": "#40555f",
+              "surface-dim": "#cfdce3",
+              "inverse-surface": "#0b0f10",
+              "on-background": "#2a3439",
+              "secondary-dim": "#415660",
+              "error-container": "#ff8b9a",
+              "outline-variant": "#a9b4b9"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4955b3]" data-icon="robot_2">robot_2</span>
+<h1 class="font-manrope text-on-surface text-xl font-bold tracking-tight text-[#4955b3]">DealBot</h1>
+</div>
+<button class="transition-all duration-200 active:scale-95 text-slate-500 hover:bg-slate-200/50 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pt-16 pb-40 min-h-screen">
+<!-- Item Context Header (Editorial Style) -->
+<section class="px-6 py-6">
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-[0_12px_32px_-4px_rgba(42,52,57,0.08)] flex items-center gap-4 transition-all duration-200 hover:bg-surface-container-high">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Professional studio photo of high-end wireless headphones on a clean gray background" class="w-full h-full object-cover" data-alt="Professional studio photo of high-end wireless headphones on a clean gray background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzCf9FPGTCvZyJpn-gG8edtEAPwxZqqFRrn9B_mf_lD2Le3WCFyCoAmn_FevLI695mfUCgC7TZBbU5pSuJzZbAdwouW6UEk2Hb-5Xt9ruy2X8TpDptBL5yFse_Zg2K7Cd_XG54P3eiWFdt1i_pYgAPq9sqLmWcRGohonORWtqft__FHOKJNZJjCUvHXRUFR1zVlCjZsIn-nOkzk2MyYplyClkdrgK4g8C2bvMfraOsYMDuMAPKXmNN-uQWbBfFoP45UrWdPpgMh7w"/>
+</div>
+<div class="flex-1">
+<h2 class="text-on-surface font-semibold text-base leading-tight">Sony WH-1000XM5</h2>
+<p class="text-on-surface-variant text-sm mt-1">$299.00 • Active Negotiation</p>
+</div>
+<div class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider">
+                    Buyer
+                </div>
+</div>
+</section>
+<!-- Message Thread (Vertical Thread Layout) -->
+<section class="px-6 space-y-8">
+<!-- Agent Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" data-icon="robot_2">robot_2</span>
+</div>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">DealBot Agent</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl rounded-tl-none text-on-surface text-[15px] leading-relaxed shadow-sm">
+                    I've analyzed the current market for the Sony WH-1000XM5. The seller's asking price is $320, but recent successful deals are closing at $290. Should I open with a $285 offer?
+                </div>
+<span class="text-[10px] text-outline mt-1 ml-1">10:42 AM</span>
+</div>
+<!-- Buyer Message -->
+<div class="flex flex-col items-end ml-auto max-w-[85%]">
+<div class="flex items-center gap-2 mb-2 flex-row-reverse text-right">
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" data-icon="person">person</span>
+</div>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">You</span>
+</div>
+<div class="bg-primary text-on-primary p-4 rounded-xl rounded-tr-none text-[15px] leading-relaxed shadow-sm">
+                    That sounds fair. Let's go with $285 and mention the minor scuff on the headband.
+                </div>
+<span class="text-[10px] text-outline mt-1 mr-1 text-right">10:45 AM</span>
+</div>
+<!-- Agent Message -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white" data-icon="robot_2">robot_2</span>
+</div>
+<span class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">DealBot Agent</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl rounded-tl-none text-on-surface text-[15px] leading-relaxed shadow-sm">
+                    Offer sent. I've highlighted the condition as a leverage point. The seller usually responds within 2 hours. I'll notify you the moment they reply.
+                </div>
+<span class="text-[10px] text-outline mt-1 ml-1">10:46 AM</span>
+</div>
+<!-- Status Update (Asymmetric Card) -->
+<div class="py-4 pr-12">
+<div class="bg-surface-bright/80 backdrop-blur-lg border border-outline-variant/15 p-4 rounded-xl flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="sync">sync</span>
+</div>
+<div>
+<p class="text-xs font-semibold text-on-secondary-container uppercase tracking-tight">Status Update</p>
+<p class="text-sm text-on-surface">Negotiation in progress. Waiting for seller's counter-offer.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Read-Only Notification -->
+<div class="fixed bottom-24 left-6 right-6 z-40">
+<div class="bg-surface-container-highest p-4 rounded-xl shadow-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="sms">sms</span>
+<div class="flex-1">
+<p class="text-xs font-semibold text-on-surface leading-none mb-1">SMS Managed Conversation</p>
+<p class="text-xs text-on-surface-variant leading-normal">This chat is read-only. To send a new message to your agent, reply directly to the SMS thread on your phone.</p>
+</div>
+<button class="text-primary p-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 backdrop-blur-lg border-t border-slate-200/15 flex justify-around items-center h-20 pb-safe px-4 w-full shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)]">
+<a class="transition-transform duration-300 ease-out active:scale-90 flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Overview</span>
+</a>
+<a class="transition-transform duration-300 ease-out active:scale-90 flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Items</span>
+</a>
+<a class="transition-transform duration-300 ease-out active:scale-90 flex flex-col items-center justify-center text-[#4955b3] bg-[#4955b3]/10 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Chat</span>
+</a>
+<a class="transition-transform duration-300 ease-out active:scale-90 flex flex-col items-center justify-center text-slate-500 hover:text-[#4955b3] px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

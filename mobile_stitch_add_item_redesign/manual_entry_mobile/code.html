@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Manual Entry | DealBot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#782232",
+                        "primary-dim": "#3c49a7",
+                        "tertiary-dim": "#49536b",
+                        "surface-container-high": "#e1e9ee",
+                        "background": "#f7f9fb",
+                        "on-tertiary-container": "#455068",
+                        "on-primary-fixed-variant": "#4652b0",
+                        "error-dim": "#4f0116",
+                        "secondary": "#4d626c",
+                        "on-secondary-fixed": "#2d424c",
+                        "on-primary-fixed": "#273492",
+                        "inverse-primary": "#8c99fc",
+                        "outline": "#717c82",
+                        "secondary-fixed-dim": "#c1d8e4",
+                        "on-secondary": "#f2faff",
+                        "on-tertiary-fixed": "#333d55",
+                        "on-secondary-fixed-variant": "#495f69",
+                        "surface": "#f7f9fb",
+                        "surface-tint": "#4955b3",
+                        "primary-fixed-dim": "#cdd1ff",
+                        "on-surface": "#2a3439",
+                        "primary": "#4955b3",
+                        "primary-fixed": "#dfe0ff",
+                        "primary-container": "#dfe0ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary-container": "#cfe6f2",
+                        "secondary-fixed": "#cfe6f2",
+                        "surface-container": "#e8eff3",
+                        "on-primary": "#f9f6ff",
+                        "surface-variant": "#d9e4ea",
+                        "on-primary-container": "#3b48a6",
+                        "tertiary-fixed": "#d5dffd",
+                        "on-error": "#fff7f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f0f4f7",
+                        "error": "#9e3f4e",
+                        "tertiary-fixed-dim": "#c7d1ee",
+                        "tertiary": "#545f78",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#f9f8ff",
+                        "surface-container-highest": "#d9e4ea",
+                        "on-surface-variant": "#566166",
+                        "tertiary-container": "#d5dffd",
+                        "on-tertiary-fixed-variant": "#4f5a72",
+                        "on-secondary-container": "#40555f",
+                        "surface-dim": "#cfdce3",
+                        "inverse-surface": "#0b0f10",
+                        "on-background": "#2a3439",
+                        "secondary-dim": "#415660",
+                        "error-container": "#ff8b9a",
+                        "outline-variant": "#a9b4b9"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-950 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4955b3] dark:text-[#7986cb]" data-icon="robot_2">robot_2</span>
+<h1 class="font-manrope text-xl font-bold tracking-tight text-[#4955b3] dark:text-[#7986cb]">DealBot</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="transition-all duration-200 active:scale-95 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-20 pb-28 px-4 max-w-md mx-auto">
+<!-- Header Section: Editorial Style -->
+<section class="mb-10 mt-4">
+<span class="font-label text-xs font-bold tracking-widest text-primary uppercase mb-2 block">New Listing</span>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface leading-tight">Manual Entry</h2>
+<p class="text-on-surface-variant mt-2 text-sm leading-relaxed">Provide details to allow DealBot to curate the perfect negotiation strategy for your item.</p>
+</section>
+<form class="space-y-12">
+<!-- Section: Identity & Context -->
+<fieldset class="space-y-6">
+<legend class="font-headline text-lg font-bold text-on-surface border-l-4 border-primary pl-4 mb-4">Identity &amp; Context</legend>
+<!-- Item Name -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Item Name</label>
+<input class="w-full h-14 px-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200 placeholder:text-outline/40" placeholder="e.g. Vintage Camera" type="text"/>
+</div>
+<!-- Horizontal Dual Inputs -->
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Condition</label>
+<div class="relative">
+<select class="appearance-none w-full h-14 pl-4 pr-10 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200">
+<option>Like New</option>
+<option>Good</option>
+<option>Fair</option>
+<option>For Parts</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-4 pointer-events-none text-outline-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Category</label>
+<div class="relative">
+<select class="appearance-none w-full h-14 pl-4 pr-10 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200">
+<option>Electronics</option>
+<option>Furniture</option>
+<option>Fashion</option>
+<option>Hobbies</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-4 pointer-events-none text-outline-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Description -->
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Description</label>
+<textarea class="w-full p-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200 placeholder:text-outline/40 resize-none" placeholder="Describe key features and any minor wear..." rows="4"></textarea>
+</div>
+</fieldset>
+<!-- Section: Pricing Strategy -->
+<fieldset class="space-y-6">
+<legend class="font-headline text-lg font-bold text-on-surface border-l-4 border-primary pl-4 mb-4">Pricing Strategy</legend>
+<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/5">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Asking Price</label>
+<div class="relative">
+<span class="absolute left-4 top-4 font-bold text-primary">$</span>
+<input class="w-full h-14 pl-10 pr-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200 font-bold text-lg" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end mb-1">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Max Discount</label>
+<span class="font-label text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">20% Recommended</span>
+</div>
+<div class="relative">
+<span class="absolute right-4 top-4 font-bold text-on-surface-variant">%</span>
+<input class="w-full h-14 pl-4 pr-10 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-xl focus:ring-primary focus:ring-2 transition-all duration-200" placeholder="0" type="number"/>
+</div>
+<p class="text-[10px] text-outline px-1 leading-tight">DealBot will not accept offers below this threshold without your explicit approval.</p>
+</div>
+</div>
+</div>
+</fieldset>
+<!-- Section: Fulfillment -->
+<fieldset class="space-y-6">
+<legend class="font-headline text-lg font-bold text-on-surface border-l-4 border-primary pl-4 mb-4">Fulfillment</legend>
+<div class="space-y-2">
+<label class="block font-label text-xs font-medium text-on-surface-variant ml-1">Pickup Times</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-12 flex items-center justify-center gap-2 rounded-xl bg-surface-container-lowest ring-1 ring-outline-variant/15 text-xs font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="wb_sunny">wb_sunny</span> Weekday AM
+                        </button>
+<button class="h-12 flex items-center justify-center gap-2 rounded-xl bg-surface-container-lowest ring-1 ring-outline-variant/15 text-xs font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="nights_stay">nights_stay</span> Weekday PM
+                        </button>
+<button class="h-12 flex items-center justify-center gap-2 rounded-xl bg-surface-container-lowest ring-1 ring-outline-variant/15 text-xs font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="event">event</span> Weekends
+                        </button>
+<button class="h-12 flex items-center justify-center gap-2 rounded-xl bg-surface-container-lowest ring-1 ring-outline-variant/15 text-xs font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span> Flexible
+                        </button>
+</div>
+</div>
+</fieldset>
+<!-- CTA -->
+<div class="pt-4 pb-8">
+<button class="w-full h-16 bg-gradient-to-br from-primary to-primary-dim text-on-primary font-headline font-bold text-lg rounded-xl shadow-lg shadow-primary/20 active:scale-[0.98] transition-all" type="submit">
+                    Activate DealBot
+                </button>
+<p class="text-center text-xs text-on-surface-variant mt-4 opacity-60">By activating, you agree to our concierge negotiation terms.</p>
+</div>
+</form>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)] flex justify-around items-center h-20 pb-safe px-4 w-full">
+<!-- Overview -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Overview</span>
+</a>
+<!-- Items (Active) -->
+<a class="flex flex-col items-center justify-center text-[#4955b3] dark:text-[#7986cb] bg-[#4955b3]/10 dark:bg-[#4955b3]/20 rounded-xl px-3 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Items</span>
+</a>
+<!-- Chat -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Chat</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Settings</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#782232",
+                        "primary-dim": "#3c49a7",
+                        "tertiary-dim": "#49536b",
+                        "surface-container-high": "#e1e9ee",
+                        "background": "#f7f9fb",
+                        "on-tertiary-container": "#455068",
+                        "on-primary-fixed-variant": "#4652b0",
+                        "error-dim": "#4f0116",
+                        "secondary": "#4d626c",
+                        "on-secondary-fixed": "#2d424c",
+                        "on-primary-fixed": "#273492",
+                        "inverse-primary": "#8c99fc",
+                        "outline": "#717c82",
+                        "secondary-fixed-dim": "#c1d8e4",
+                        "on-secondary": "#f2faff",
+                        "on-tertiary-fixed": "#333d55",
+                        "on-secondary-fixed-variant": "#495f69",
+                        "surface": "#f7f9fb",
+                        "surface-tint": "#4955b3",
+                        "primary-fixed-dim": "#cdd1ff",
+                        "on-surface": "#2a3439",
+                        "primary": "#4955b3",
+                        "primary-fixed": "#dfe0ff",
+                        "primary-container": "#dfe0ff",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary-container": "#cfe6f2",
+                        "secondary-fixed": "#cfe6f2",
+                        "surface-container": "#e8eff3",
+                        "on-primary": "#f9f6ff",
+                        "surface-variant": "#d9e4ea",
+                        "on-primary-container": "#3b48a6",
+                        "tertiary-fixed": "#d5dffd",
+                        "on-error": "#fff7f7",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f0f4f7",
+                        "error": "#9e3f4e",
+                        "tertiary-fixed-dim": "#c7d1ee",
+                        "tertiary": "#545f78",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#f9f8ff",
+                        "surface-container-highest": "#d9e4ea",
+                        "on-surface-variant": "#566166",
+                        "tertiary-container": "#d5dffd",
+                        "on-tertiary-fixed-variant": "#4f5a72",
+                        "on-secondary-container": "#40555f",
+                        "surface-dim": "#cfdce3",
+                        "inverse-surface": "#0b0f10",
+                        "on-background": "#2a3439",
+                        "secondary-dim": "#415660",
+                        "error-container": "#ff8b9a",
+                        "outline-variant": "#a9b4b9"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .headline-md { font-size: 1.5rem; line-height: 2rem; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 w-full bg-slate-50 dark:bg-slate-950">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4955b3] dark:text-[#7986cb]" data-icon="robot_2">robot_2</span>
+<h1 class="font-manrope headline-md text-on-surface dark:text-slate-100 text-xl font-bold tracking-tight text-[#4955b3] dark:text-[#7986cb]">DealBot</h1>
+</div>
+<button class="transition-all duration-200 active:scale-95 text-slate-500 dark:text-slate-400 p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-24 px-6 max-w-md mx-auto min-h-screen">
+<!-- Search & Filter Area -->
+<div class="mb-8 flex flex-col gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest rounded-xl border-none ring-1 ring-outline-variant/15 focus:ring-primary focus:ring-2 transition-all outline-none text-on-surface" placeholder="Search conversations..." type="text"/>
+</div>
+<!-- Quick Filters (Asymmetric Layout) -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar">
+<span class="px-4 py-1.5 bg-primary text-on-primary rounded-full text-sm font-medium whitespace-nowrap">All Threads</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full text-sm font-medium whitespace-nowrap">Unread</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full text-sm font-medium whitespace-nowrap">Active Deals</span>
+<span class="px-4 py-1.5 bg-surface-container-high text-on-surface-variant rounded-full text-sm font-medium whitespace-nowrap">Archived</span>
+</div>
+</div>
+<!-- Conversation Threads -->
+<div class="space-y-4">
+<!-- Active Thread 1 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_-4px_rgba(42,52,57,0.04)] transition-all hover:bg-surface-container-high cursor-pointer flex gap-4">
+<div class="relative flex-shrink-0">
+<img alt="User avatar" class="w-14 h-14 rounded-full bg-surface-variant" data-alt="Stylized minimalist 3D avatar of a professional male with glasses and a soft blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvQYVQWN4XMfzk9mgXr_uDQbJnL5Ur7IaQ2T5CvXAEu0PPcn-eHrFLgdfdGGplDUbH3dOKUv4kXTzOkPWRB3VdRfNkhiZKQUgeXXbIe944dIs6KCURaAOdX7Nwzx2iW9jeutM4tqYL7b7RPWDtPm0Ql7Qv0h8uXsZJVLaIg_hPZN5ixxxHLGG2ezTdofWgvqhta9VXkaoO8XpdU-ErnETKKHC-QBZBMwMTKrDWa4C6_TZVN-Wyjk2CYEduCHK1ozfh6WG9A_p1KvY"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-semibold text-on-surface truncate">+1 (555) 012-3456</h3>
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">2m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">The counter-offer of $45k seems reasonable given the inspection report...</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold rounded-full uppercase tracking-tighter">In Negotiation</span>
+<div class="flex -space-x-2">
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="done_all">done_all</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Thread 2 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_-4px_rgba(42,52,57,0.04)] transition-all hover:bg-surface-container-high cursor-pointer flex gap-4">
+<div class="relative flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-2xl" data-icon="person">person</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-semibold text-on-surface truncate">+1 (555) 890-1234</h3>
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">1h ago</span>
+</div>
+<p class="text-sm text-on-surface font-semibold line-clamp-1 mb-2">Did you receive the updated contract for the warehouse lease?</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-tighter">Reviewing</span>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+<!-- Active Thread 3 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_-4px_rgba(42,52,57,0.04)] transition-all hover:bg-surface-container-high cursor-pointer flex gap-4 opacity-80">
+<div class="relative flex-shrink-0">
+<img alt="User avatar" class="w-14 h-14 rounded-full bg-surface-variant" data-alt="Modern 3D character illustration of a person with a bright friendly expression in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6ji7RS24Z8_iXUXfn2Z4cRDOWiGR7hJoloOSsFI65Gwq_oyeXUPy7s17DufClyE03zBvGgtv83tK8d63m6czaoln-qm7U5Pwts0LgvHnphpqIDLSIzkRWfCSfGscfkv4wAJB3WEi64tLo4_hNjJZuNNNeZqsAuBhwaJ7uvjfb_nDbsb1V9_ZpA2MbpWeo4ciZZBtgzDi3rQF7_XiO1wl4Ygk3iMo7HqcBioIGZ9GUgAeyIoVvJKzh_btP06BM5GnEFvCOTdP6xA0"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-semibold text-on-surface truncate">+1 (555) 444-5566</h3>
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">Yesterday</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">Perfect, I'll send over the wire instructions shortly. Great doing business.</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold rounded-full uppercase tracking-tighter">Closed Won</span>
+</div>
+</div>
+</div>
+<!-- Active Thread 4 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_-4px_rgba(42,52,57,0.04)] transition-all hover:bg-surface-container-high cursor-pointer flex gap-4">
+<div class="relative flex-shrink-0">
+<div class="w-14 h-14 rounded-full bg-error-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-2xl" data-icon="warning">warning</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-semibold text-on-surface truncate">+1 (555) 222-3333</h3>
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-wider">2d ago</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 mb-2">Automated Alert: Deal status changed to 'Pending Cancellation' due to inactivity.</p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-tighter">At Risk</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Empty State (Subtle curation) -->
+<div class="mt-12 text-center p-8 border border-dashed border-outline-variant/30 rounded-2xl">
+<span class="material-symbols-outlined text-outline-variant text-4xl mb-3" data-icon="forum">forum</span>
+<p class="text-on-surface-variant text-sm font-medium">Looking for an older deal?</p>
+<button class="mt-3 text-primary font-bold text-sm tracking-tight transition-transform active:scale-95">View Archived Conversations</button>
+</div>
+</main>
+<!-- FAB: Only for Home/Dash context but active here to initiate new chat -->
+<button class="fixed right-6 bottom-24 w-14 h-14 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-xl shadow-lg flex items-center justify-center transition-transform active:scale-90 z-40">
+<span class="material-symbols-outlined" data-icon="add_comment">add_comment</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)]">
+<div class="flex justify-around items-center h-20 pb-safe px-4 w-full">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Items</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#4955b3] dark:text-[#7986cb] bg-[#4955b3]/10 dark:bg-[#4955b3]/20 rounded-xl px-3 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="forum" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase mt-1">Settings</span>
+</a>
+</div>
+</nav>
+</body></html>

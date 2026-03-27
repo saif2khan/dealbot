@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot - Items List</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#782232",
+              "primary-dim": "#3c49a7",
+              "tertiary-dim": "#49536b",
+              "surface-container-high": "#e1e9ee",
+              "background": "#f7f9fb",
+              "on-tertiary-container": "#455068",
+              "on-primary-fixed-variant": "#4652b0",
+              "error-dim": "#4f0116",
+              "secondary": "#4d626c",
+              "on-secondary-fixed": "#2d424c",
+              "on-primary-fixed": "#273492",
+              "inverse-primary": "#8c99fc",
+              "outline": "#717c82",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "on-tertiary-fixed": "#333d55",
+              "on-secondary-fixed-variant": "#495f69",
+              "surface": "#f7f9fb",
+              "surface-tint": "#4955b3",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-surface": "#2a3439",
+              "primary": "#4955b3",
+              "primary-fixed": "#dfe0ff",
+              "primary-container": "#dfe0ff",
+              "inverse-on-surface": "#9a9d9f",
+              "secondary-container": "#cfe6f2",
+              "secondary-fixed": "#cfe6f2",
+              "surface-container": "#e8eff3",
+              "on-primary": "#f9f6ff",
+              "surface-variant": "#d9e4ea",
+              "on-primary-container": "#3b48a6",
+              "tertiary-fixed": "#d5dffd",
+              "on-error": "#fff7f7",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#f0f4f7",
+              "error": "#9e3f4e",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "tertiary": "#545f78",
+              "surface-bright": "#f7f9fb",
+              "on-tertiary": "#f9f8ff",
+              "surface-container-highest": "#d9e4ea",
+              "on-surface-variant": "#566166",
+              "tertiary-container": "#d5dffd",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "on-secondary-container": "#40555f",
+              "surface-dim": "#cfdce3",
+              "inverse-surface": "#0b0f10",
+              "on-background": "#2a3439",
+              "secondary-dim": "#415660",
+              "error-container": "#ff8b9a",
+              "outline-variant": "#a9b4b9"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-950 flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4955b3] dark:text-[#7986cb]">robot_2</span>
+<h1 class="font-manrope headline-md text-on-surface dark:text-slate-100 text-xl font-bold tracking-tight text-[#4955b3] dark:text-[#7986cb]">DealBot</h1>
+</div>
+<button class="transition-all duration-200 active:scale-95 text-slate-500 dark:text-slate-400 p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-20 px-6 max-w-md mx-auto">
+<!-- Editorial Header Section -->
+<section class="mb-10 mt-4">
+<div class="flex justify-between items-end mb-2">
+<div>
+<span class="text-on-surface-variant text-sm font-medium tracking-wider uppercase">Active Tracking</span>
+<h2 class="font-headline text-3xl font-extrabold tracking-tight mt-1">Watching Items</h2>
+</div>
+<div class="bg-surface-container-high rounded-full px-3 py-1 flex items-center gap-1">
+<span class="text-xs font-bold text-primary">2</span>
+<span class="text-[10px] font-medium text-on-surface-variant">TOTAL</span>
+</div>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-[85%]">
+                Your curator is currently monitoring these items for price drops and stock updates.
+            </p>
+</section>
+<!-- Search & Filter (Editorial Style) -->
+<div class="mb-8 flex gap-3">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl pl-12 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline-variant" placeholder="Search your items..." type="text"/>
+</div>
+<button class="bg-surface-container-lowest p-3 rounded-xl transition-all active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-on-surface">tune</span>
+</button>
+</div>
+<!-- Items List: Thread Layout (No borders, tonal separation) -->
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="group transition-all active:scale-[0.98]">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden p-4 shadow-sm relative transition-colors group-hover:bg-surface-container-high">
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Modern dark grey woven laundry basket sitting on a light wooden floor in a minimalist sunlit bedroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu0yHeju7E6YXcKRkWSBPBnGeyRmTzMpgzgAJJKAUaLR3TSN8u2zzpCgKF9cPeVBgK9DecbWi6fTV_hoDkDh4Qeilr6cgcORNfCISZ26AjadF7Ckg_CuRCYayuTBRZ0i_WTgn-T4dKyWWq5AXXWXOGga4KZNoz2C4D4t6EKrNwe671Q-rCrl8TbYe3awEb8mllSXMeG8mJPWnV2m4XFneYXuDyPweZYo77vva5yRKuoyTsvpjW2AAwQqe-scejrYEAbJ4AfRLfKB0"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-grow">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-on-surface leading-tight">Dark grey laundry basket</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">more_vert</span>
+</div>
+<div class="mt-2 inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] font-bold tracking-wide uppercase">
+                                    Monitoring
+                                </div>
+</div>
+<div class="flex items-end justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-tighter">Current Price</span>
+<span class="font-headline font-extrabold text-primary text-lg">$34.99</span>
+</div>
+<div class="flex items-center gap-1 text-error text-[10px] font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +5%
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group transition-all active:scale-[0.98]">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden p-4 shadow-sm relative transition-colors group-hover:bg-surface-container-high">
+<div class="flex gap-4">
+<div class="w-24 h-24 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Premium sleek over-ear wireless headphones in matte black finish on a clean studio background with soft highlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA889Y3hSvT2N4dNryGYASo44Ve3BIp8FcPGwZQlCEL7iFh2RZesuHkG-7qJD8Zx4zp22-yKLAAD37aRBpiovvzTqk7aQY2PsnQARGSt6sllNJ4u2B1z8X5ksfmJn8k1vfCQ3HNIWSYpnbI4VeZZ2zrV9-hVrcyu32qEU6NLcd7pX5z49lDvLspk_ciHIQoRqgha4ZXduq9k3Q2vnLFPSITEpLfaRwnqkl485CLE5d2XgqY935WidYvkNGUg3US6X6_68hBFVVSjeE"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-grow">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-on-surface leading-tight">Headphones</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">more_vert</span>
+</div>
+<div class="mt-2 inline-flex items-center px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[10px] font-bold tracking-wide uppercase">
+                                    Price Drop
+                                </div>
+</div>
+<div class="flex items-end justify-between">
+<div class="flex flex-col">
+<span class="text-[10px] text-on-surface-variant font-medium uppercase tracking-tighter">Current Price</span>
+<span class="font-headline font-extrabold text-primary text-lg">$249.00</span>
+</div>
+<div class="flex items-center gap-1 text-green-600 text-[10px] font-bold">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+                                    -12%
+                                </div>
+</div>
+</div>
+</div>
+<!-- Glassmorphic Overlay Tag -->
+<div class="absolute top-2 left-2 bg-white/60 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1 border border-white/20">
+<span class="material-symbols-outlined text-[12px] text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-[9px] font-black text-on-surface uppercase">Hot Deal</span>
+</div>
+</div>
+</div>
+<!-- Empty State Suggestion (Editorial Feel) -->
+<div class="pt-8 text-center px-12">
+<div class="w-12 h-1 bg-surface-container-highest mx-auto rounded-full mb-6"></div>
+<p class="text-on-surface-variant text-xs italic">
+                    Add more items to unlock deeper collection insights and predictive price trends.
+                </p>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed right-6 bottom-28 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-dim shadow-lg shadow-primary/30 flex items-center justify-center text-on-primary transition-transform active:scale-90 z-50">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_20px_-4px_rgba(42,52,57,0.08)] flex justify-around items-center h-20 pb-safe px-4 w-full">
+<!-- Overview -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Overview</span>
+</a>
+<!-- Items (Active) -->
+<a class="flex flex-col items-center justify-center text-[#4955b3] dark:text-[#7986cb] bg-[#4955b3]/10 dark:bg-[#4955b3]/20 rounded-xl px-3 py-1 transition-transform duration-300 ease-out active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Items</span>
+</a>
+<!-- Chat -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Chat</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-3 py-1 transition-transform duration-300 ease-out active:scale-90 hover:text-[#4955b3] dark:hover:text-[#7986cb]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-[10px] font-medium tracking-wide uppercase">Settings</span>
+</a>
+</nav>
+</body></html>
