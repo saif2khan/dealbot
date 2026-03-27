@@ -31,10 +31,11 @@ export default async function OnboardingPage({ searchParams }: Props) {
   if (hasFinishedWizard) redirect('/dashboard')
 
   // Resume at the right step based on what's already saved
-  // Step 0: Phone, Step 1: Billing, Step 2: Profile, Step 3: Availability, Step 4: First Item
+  // Step 0: Phone, Step 1: Profile, Step 2: Agent, Step 3: Billing
+  const hasAvailability = !!profile?.availability_text
   let initialStep = 0
-  if (hasTelnyx && hasBilling) initialStep = 2  // both done → resume at Profile
-  else if (hasTelnyx && !hasBilling) initialStep = 1  // phone done → resume at Billing
+  if (hasTelnyx && hasAvailability) initialStep = 3  // phone + profile + agent done → resume at Billing
+  else if (hasTelnyx) initialStep = 1               // phone done → resume at Profile
 
   return (
     <OnboardingWizard

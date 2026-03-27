@@ -8,7 +8,7 @@ import StepBilling from './StepBilling'
 import StepProfile from './StepProfile'
 import StepAvailability from './StepAvailability'
 
-const STEPS = ['Phone', 'Billing', 'Profile', 'Agent']
+const STEPS = ['Phone', 'Profile', 'Agent', 'Billing']
 
 interface Props {
   userId: string
@@ -82,9 +82,9 @@ export default function OnboardingWizard({ userId, initialStep = 0, billingDone 
         {/* Card */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:p-8">
           {step === 0 && <StepCountry userId={userId} onNext={next} />}
-          {step === 1 && <StepBilling userId={userId} data={data} onNext={next} billingDone={billingDone} />}
-          {step === 2 && <StepProfile userId={userId} onNext={next} />}
-          {step === 3 && <StepAvailability userId={userId} onNext={next} />}
+          {step === 1 && <StepProfile userId={userId} onNext={next} />}
+          {step === 2 && <StepAvailability userId={userId} onNext={next} />}
+          {step === 3 && <StepBilling userId={userId} data={data} onNext={next} billingDone={billingDone} />}
         </div>
 
         <div className="flex items-center justify-end mt-4 px-1">
