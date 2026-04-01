@@ -20,7 +20,6 @@ type Item = {
   firm_price: boolean
   condition: string
   photo_url: string | null
-  final_sale_price: number | null
   waitlist_entries: Array<{ count: number }>
 }
 
@@ -254,7 +253,7 @@ export default function ItemsClientView({
                 <div>
                   <span className="font-semibold text-slate-900 font-[family-name:var(--font-manrope)]">{item.name}</span>
                   <p className="text-sm text-on-surface-variant mt-0.5">
-                    Sold for ${item.final_sale_price ?? item.asking_price}
+                    ${item.asking_price}
                   </p>
                 </div>
                 <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full ${STATUS_COLORS[item.status]}`}>

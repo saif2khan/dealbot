@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealBot Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-dim": "#415660",
+              "on-secondary-fixed": "#2d424c",
+              "on-secondary-container": "#40555f",
+              "secondary": "#4d626c",
+              "tertiary-fixed": "#d5dffd",
+              "primary-fixed-dim": "#cdd1ff",
+              "on-error": "#fff7f7",
+              "surface-container": "#e8eff3",
+              "on-surface": "#2a3439",
+              "inverse-on-surface": "#9a9d9f",
+              "on-primary": "#f9f6ff",
+              "on-primary-fixed-variant": "#4652b0",
+              "on-error-container": "#782232",
+              "tertiary": "#545f78",
+              "secondary-container": "#cfe6f2",
+              "tertiary-fixed-dim": "#c7d1ee",
+              "on-tertiary-container": "#455068",
+              "tertiary-dim": "#49536b",
+              "on-surface-variant": "#566166",
+              "secondary-fixed": "#cfe6f2",
+              "surface-tint": "#4955b3",
+              "surface-dim": "#cfdce3",
+              "on-primary-fixed": "#273492",
+              "surface-variant": "#d9e4ea",
+              "on-background": "#2a3439",
+              "primary-dim": "#3c49a7",
+              "error-dim": "#4f0116",
+              "outline": "#717c82",
+              "surface": "#f7f9fb",
+              "primary": "#4955b3",
+              "background": "#f7f9fb",
+              "secondary-fixed-dim": "#c1d8e4",
+              "on-secondary": "#f2faff",
+              "outline-variant": "#a9b4b9",
+              "surface-bright": "#f7f9fb",
+              "error-container": "#ff8b9a",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#333d55",
+              "on-primary-container": "#3b48a6",
+              "inverse-surface": "#0b0f10",
+              "surface-container-low": "#f0f4f7",
+              "surface-container-highest": "#d9e4ea",
+              "primary-fixed": "#dfe0ff",
+              "on-tertiary-fixed-variant": "#4f5a72",
+              "tertiary-container": "#d5dffd",
+              "primary-container": "#dfe0ff",
+              "surface-container-high": "#e1e9ee",
+              "on-secondary-fixed-variant": "#495f69",
+              "error": "#9e3f4e",
+              "on-tertiary": "#f9f8ff",
+              "inverse-primary": "#8c99fc"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #4955b3 0%, #3c49a7 100%);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- SideNavBar Shell -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-50 bg-slate-100 dark:bg-slate-900 font-manrope text-sm font-medium p-6 space-y-8">
+<!-- Logo Area -->
+<div class="flex items-center space-x-3 mb-4">
+<div class="w-10 h-10 rounded-xl primary-gradient flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<h1 class="text-lg font-extrabold text-slate-900 dark:text-slate-50 leading-tight">DealBot</h1>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center space-x-3 px-4 py-3 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Items</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span>Conversations</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Footer Profile -->
+<div class="pt-6 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">N</div>
+<div class="overflow-hidden">
+<p class="text-[10px] text-slate-500 truncate">saif.kgp@gmail.com</p>
+<p class="text-xs font-bold text-slate-900 dark:text-slate-50">Logout</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen">
+<!-- Top Title Bar -->
+<header class="w-full px-8 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-50 font-headline">Dashboard</h2>
+<p class="text-on-surface-variant text-sm mt-1">Your DealBot at a glance</p>
+</div>
+<!-- Agent Status Toggle -->
+<div class="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between min-w-[320px] shadow-sm">
+<div class="flex items-center space-x-3">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<div>
+<p class="text-sm font-bold text-slate-900">Seller Agent: Active</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Managing inquiries and negotiations.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="px-8 max-w-7xl mx-auto space-y-8 pb-24">
+<!-- Integration Hero Section (Combined) -->
+<section class="bg-[#f0f7ff] border border-[#dce9ff] rounded-2xl p-8 relative overflow-hidden">
+<div class="flex justify-between items-start mb-6">
+<div>
+<p class="text-primary text-[10px] font-bold uppercase tracking-wider mb-2">YOUR DEALBOT NUMBER</p>
+<h3 class="text-3xl font-headline font-black text-[#1a237e]">+14503288371</h3>
+</div>
+<button class="bg-[#dce9ff] hover:bg-[#cfdfff] text-primary px-4 py-1.5 rounded-lg text-xs font-bold transition-colors">
+                        Copy number
+                    </button>
+</div>
+<div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm">
+<p class="text-on-surface-variant text-xs mb-4">Paste this into your listing description:</p>
+<p class="text-sm text-slate-800 leading-relaxed mb-6">
+                        Hi! I'm using an AI assistant named Betty to handle inquiries for this listing. Please text Betty at +14503288371 — she responds instantly 24/7. I'm not monitoring FB Messenger.
+                    </p>
+<button class="bg-primary text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:opacity-90 transition-opacity">
+                        Copy listing text
+                    </button>
+</div>
+</section>
+<!-- Stat Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Active Items -->
+<div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm">
+<p class="text-on-surface-variant text-xs font-medium mb-3">Active Items</p>
+<p class="text-4xl font-headline font-black">2</p>
+</div>
+<!-- Pending Deals -->
+<div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm">
+<p class="text-on-surface-variant text-xs font-medium mb-3">Pending Deals</p>
+<p class="text-4xl font-headline font-black">0</p>
+</div>
+<!-- Active Threads Today -->
+<div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm">
+<p class="text-on-surface-variant text-xs font-medium mb-3">Active Threads Today</p>
+<p class="text-4xl font-headline font-black">1</p>
+</div>
+<!-- Items This Month -->
+<div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm">
+<p class="text-on-surface-variant text-xs font-medium mb-3">Items This Month</p>
+<p class="text-4xl font-headline font-black">5 / 10</p>
+</div>
+</section>
+<!-- Quickstart Guide Section -->
+<section class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-50">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary">play_circle</span>
+<h3 class="text-lg font-headline font-bold text-slate-900">Quickstart Guide</h3>
+</div>
+<p class="text-on-surface-variant text-xs mt-1">Learn how to set up your DealBot in under 2 minutes.</p>
+</div>
+<div class="p-6">
+<div class="aspect-video w-full bg-slate-100 rounded-xl flex items-center justify-center group cursor-pointer relative overflow-hidden border-2 border-dashed border-slate-200 hover:border-primary/30 transition-colors">
+<div class="text-center z-10">
+<div class="w-16 h-16 rounded-full bg-white shadow-xl flex items-center justify-center text-primary mb-4 mx-auto group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<p class="text-slate-500 font-medium text-sm">YouTube Player Placeholder</p>
+</div>
+<!-- Decorative background for placeholder -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+<svg class="h-full w-full" fill="none" viewbox="0 0 100 100">
+<pattern height="10" id="grid" patternunits="userSpaceOnUse" width="10">
+<path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+</pattern>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-2xl flex justify-around items-center p-4 z-50 border-t border-slate-100">
+<button class="flex flex-col items-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-bold mt-1">Overview</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] font-medium mt-1">Items</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-medium mt-1">Chat</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium mt-1">Settings</span>
+</button>
+</nav>
+</body></html>

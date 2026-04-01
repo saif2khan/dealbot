@@ -36,7 +36,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
   // Verify ownership
   const { data: existing } = await supabase
     .from('items')
-    .select('user_id')
+    .select('user_id, name, status')
     .eq('id', id)
     .single()
 
@@ -44,43 +44,115 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  // If status is changing away from 'pending', cancel any scheduled deal, clear pending_buyer_id, and notify waitlist
-  // Uses service client to bypass RLS (pending_deals has no UPDATE policy for users)
+  const serviceClient = createServiceClient()
+
+  // Handle status transitions from 'pending' to other states
   if (update.status && update.status !== 'pending') {
-    const serviceClient = createServiceClient()
-    await serviceClient
-      .from('pending_deals')
-      .update({ status: 'cancelled' })
-      .eq('item_id', id)
-      .eq('status', 'scheduled')
+    const { data: seller } = await supabase
+      .from('users')
+      .select('telnyx_number')
+      .eq('id', user.id)
+      .single()
 
-    update.pending_buyer_id = null
+    if (update.status === 'sold') {
+      // Complete the pending deal
+      await serviceClient
+        .from('pending_deals')
+        .update({ status: 'completed' })
+        .eq('item_id', id)
+        .eq('status', 'scheduled')
 
-    // Notify waitlisted buyers that the item is available again
-    if (update.status === 'active') {
-      const { data: itemData } = await supabase.from('items').select('name, user_id').eq('id', id).single()
-      const { data: seller } = await supabase.from('users').select('telnyx_number').eq('id', user.id).single()
+      update.pending_buyer_id = null
+      update.archived_at = new Date().toISOString()
 
-      if (itemData && seller?.telnyx_number) {
+      // Notify all waitlisted buyers that the item is sold, then archive entries
+      if (seller?.telnyx_number) {
         const { data: waitlist } = await serviceClient
           .from('waitlist_entries')
-          .select('*, conversations(buyer_phone)')
+          .select('buyer_phone')
           .eq('item_id', id)
-          .eq('status', 'waiting')
-          .order('position', { ascending: true })
+          .in('status', ['waiting', 'broadcast_sent'])
 
         if (waitlist && waitlist.length > 0) {
-          const broadcastMsg = `Good news — "${itemData.name}" is available again! Still interested? Reply YES to restart.`
+          const soldMsg = `"${existing.name}" has been sold and is no longer available.`
           for (const entry of waitlist) {
-            const buyerPhone = (entry as unknown as { conversations: { buyer_phone: string } }).conversations?.buyer_phone
-            if (buyerPhone) {
-              await sendSms(seller.telnyx_number, buyerPhone, broadcastMsg)
-              await serviceClient
-                .from('waitlist_entries')
-                .update({ status: 'broadcast_sent', broadcast_sent_at: new Date().toISOString() })
-                .eq('id', entry.id)
+            if (entry.buyer_phone) {
+              await sendSms(seller.telnyx_number, entry.buyer_phone, soldMsg)
             }
           }
+        }
+      }
+
+      // Archive all waitlist entries for this item
+      await serviceClient
+        .from('waitlist_entries')
+        .delete()
+        .eq('item_id', id)
+
+    } else if (update.status === 'archived') {
+      // Cancel any pending deal
+      await serviceClient
+        .from('pending_deals')
+        .update({ status: 'cancelled' })
+        .eq('item_id', id)
+        .eq('status', 'scheduled')
+
+      update.pending_buyer_id = null
+      update.archived_at = new Date().toISOString()
+
+      // Notify all waitlisted buyers, then remove entries
+      if (seller?.telnyx_number) {
+        const { data: waitlist } = await serviceClient
+          .from('waitlist_entries')
+          .select('buyer_phone')
+          .eq('item_id', id)
+          .in('status', ['waiting', 'broadcast_sent'])
+
+        if (waitlist && waitlist.length > 0) {
+          const archivedMsg = `"${existing.name}" is no longer available.`
+          for (const entry of waitlist) {
+            if (entry.buyer_phone) {
+              await sendSms(seller.telnyx_number, entry.buyer_phone, archivedMsg)
+            }
+          }
+        }
+      }
+
+      // Remove all waitlist entries and pending deals for this item
+      await serviceClient.from('waitlist_entries').delete().eq('item_id', id)
+      await serviceClient.from('pending_deals').delete().eq('item_id', id)
+
+    } else if (update.status === 'active') {
+      // Cancel any scheduled deal
+      await serviceClient
+        .from('pending_deals')
+        .update({ status: 'cancelled' })
+        .eq('item_id', id)
+        .eq('status', 'scheduled')
+
+      update.pending_buyer_id = null
+
+      // Broadcast to waitlisted buyers that the item is available again
+      if (seller?.telnyx_number) {
+        const { data: waitlist } = await serviceClient
+          .from('waitlist_entries')
+          .select('buyer_phone')
+          .eq('item_id', id)
+          .eq('status', 'waiting')
+          .order('created_at', { ascending: true })
+
+        if (waitlist && waitlist.length > 0) {
+          const broadcastMsg = `Good news — "${existing.name}" is available again! Still interested? Reply YES to restart.`
+          for (const entry of waitlist) {
+            if (entry.buyer_phone) {
+              await sendSms(seller.telnyx_number, entry.buyer_phone, broadcastMsg)
+            }
+          }
+          await serviceClient
+            .from('waitlist_entries')
+            .update({ status: 'broadcast_sent' })
+            .eq('item_id', id)
+            .eq('status', 'waiting')
         }
       }
     }

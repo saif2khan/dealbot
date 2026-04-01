@@ -102,6 +102,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true })
   }
 
+  // If agent is paused by seller, don't respond
+  if (seller.agent_active === false) {
+    console.log(`[Telnyx webhook] Agent paused for seller ${seller.id}, skipping`)
+    return NextResponse.json({ received: true })
+  }
+
   // 2. Get or create conversation thread (use most recent active one)
   const { data: convRows } = await supabase
     .from('conversations')
@@ -140,7 +146,7 @@ export async function POST(request: NextRequest) {
       .select('*, items(*)')
       .eq('buyer_phone', buyerPhone)
       .eq('status', 'broadcast_sent')
-      .order('broadcast_sent_at', { ascending: false })
+      .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle()
 
@@ -164,8 +170,8 @@ export async function POST(request: NextRequest) {
               item_id: item.id,
               conversation_id: conversation.id,
               buyer_phone: buyerPhone,
-              buyer_name: broadcastEntry.buyer_name ?? 'Waitlist buyer',
-              agreed_price: broadcastEntry.offered_price ?? item.asking_price,
+              buyer_name: 'Waitlist buyer',
+              agreed_price: item.asking_price,
               meetup_date: null,
               meetup_time: null,
               meetup_location: seller.address ?? null,
@@ -197,7 +203,7 @@ export async function POST(request: NextRequest) {
             await sendSms(
               toNumber,
               seller.phone!,
-              `BZARP: ${broadcastEntry.buyer_name ?? 'A waitlist buyer'} confirmed interest in "${item.name}" ($${broadcastEntry.offered_price ?? item.asking_price}). The item is now pending. They'll text to coordinate pickup.`
+              `BZARP: A waitlist buyer confirmed interest in "${item.name}" ($${item.asking_price}). The item is now pending. They'll text to coordinate pickup.`
             )
 
             // Update conversation to link to this item
@@ -437,10 +443,12 @@ export async function POST(request: NextRequest) {
           const sellerMsg =
             `BZARP: Deal confirmed!\n` +
             `Item: ${currentItem.name}\n` +
-            `Buyer: ${action.buyerName} (${buyerPhone})\n` +
+            `Buyer: ${action.buyerName}\n` +
+            `Buyer's number: ${buyerPhone}\n` +
             `Price: $${action.agreedPrice}\n` +
-            `Meetup: ${action.meetupDate} at ${action.meetupTime}\n` +
-            `Location: ${action.meetupLocation}`
+            `Pickup: ${action.meetupDate} at ${action.meetupTime}\n` +
+            `Location: ${action.meetupLocation}\n\n` +
+            `The buyer will now be directed to contact you directly for any further questions.`
           await sendSms(toNumber, seller.phone!, sellerMsg)
         }
         break
@@ -463,48 +471,93 @@ export async function POST(request: NextRequest) {
           break
         }
 
-        // Get current waitlist count for position
-        const { count: position } = await supabase
-          .from('waitlist_entries')
-          .select('*', { count: 'exact', head: true })
-          .eq('item_id', currentItem.id)
-
         await supabase.from('waitlist_entries').insert({
           item_id: currentItem.id,
           conversation_id: conversation.id,
           buyer_phone: buyerPhone,
-          buyer_name: action.buyerName,
-          offered_price: action.offeredPrice,
-          position: (position ?? 0) + 1,
           status: 'waiting',
         })
-
-        // Update buyer name in conversation
-        await supabase
-          .from('conversations')
-          .update({ buyer_name: action.buyerName })
-          .eq('id', conversation.id)
         break
       }
 
-      case 'ESCALATE': {
-        // Mark conversation as escalated
-        await supabase
-          .from('conversations')
-          .update({ status: 'escalated' })
-          .eq('id', conversation.id)
+      case 'DEAL_CANCELLED': {
+        if (!currentItem) break
 
-        // Notify seller via SMS
-        const escalationMsg =
-          `BZARP escalation needed!\n` +
-          `Buyer: ${buyerPhone}\n` +
-          `Item: ${currentItem?.name ?? 'Unknown'}\n` +
-          `Reason: ${action.reason}\n` +
-          `Last message: "${action.lastBuyerMessage}"\n\n` +
-          `Reply to this SMS with your response and BZARP will forward it.`
-        await sendSms(toNumber, seller.phone!, escalationMsg)
+        // Cancel the scheduled deal
+        await supabase
+          .from('pending_deals')
+          .update({ status: 'cancelled' })
+          .eq('item_id', currentItem.id)
+          .eq('status', 'scheduled')
+
+        // Revert item to active
+        await supabase
+          .from('items')
+          .update({ status: 'active', pending_buyer_id: null })
+          .eq('id', currentItem.id)
+
+        // Notify seller
+        await sendSms(
+          toNumber,
+          seller.phone!,
+          `BZARP: The buyer has cancelled their deal for "${currentItem.name}". The item is back to active.`
+        )
+
+        // Broadcast to waitlisted buyers and archive entries
+        const { data: cancelWaitlist } = await supabase
+          .from('waitlist_entries')
+          .select('buyer_phone')
+          .eq('item_id', currentItem.id)
+          .eq('status', 'waiting')
+
+        if (cancelWaitlist && cancelWaitlist.length > 0) {
+          const broadcastMsg = `Good news — "${currentItem.name}" is available again! Still interested? Reply YES to restart.`
+          for (const entry of cancelWaitlist) {
+            if (entry.buyer_phone) {
+              await sendSms(toNumber, entry.buyer_phone, broadcastMsg)
+            }
+          }
+          await supabase
+            .from('waitlist_entries')
+            .update({ status: 'broadcast_sent' })
+            .eq('item_id', currentItem.id)
+            .eq('status', 'waiting')
+        }
         break
       }
+
+      case 'SCHEDULE_CHANGED': {
+        if (!currentItem) break
+
+        // Update the pending deal with new schedule
+        await supabase
+          .from('pending_deals')
+          .update({
+            meetup_date: action.meetupDate,
+            meetup_time: action.meetupTime,
+          })
+          .eq('item_id', currentItem.id)
+          .eq('status', 'scheduled')
+
+        // Notify seller
+        await sendSms(
+          toNumber,
+          seller.phone!,
+          `BZARP: The buyer for "${currentItem.name}" has changed the pickup schedule to ${action.meetupDate} at ${action.meetupTime}.`
+        )
+        break
+      }
+
+      case 'BUYER_QUESTION': {
+        // Notify seller about the unanswered question and suggest adding info to description
+        await sendSms(
+          toNumber,
+          seller.phone!,
+          `BZARP: A buyer asked about "${currentItem?.name ?? 'your listing'}": "${action.question}"\n\nConsider adding this info to the item description in the app so future buyers can get an answer right away.`
+        )
+        break
+      }
+
     }
   }
 

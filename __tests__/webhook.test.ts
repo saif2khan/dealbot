@@ -145,19 +145,6 @@ describe('Webhook: DEAL_CONFIRMED idempotency', () => {
 })
 
 // ---------------------------------------------------------------------------
-// Waitlist position
-// ---------------------------------------------------------------------------
-describe('Webhook: waitlist position', () => {
-  function nextPosition(currentCount: number | null): number {
-    return (currentCount ?? 0) + 1
-  }
-
-  it('first entry gets position 1', () => expect(nextPosition(0)).toBe(1))
-  it('second entry gets position 2', () => expect(nextPosition(1)).toBe(2))
-  it('handles null count as 0', () => expect(nextPosition(null)).toBe(1))
-})
-
-// ---------------------------------------------------------------------------
 // Tone mid-conversation: system prompt rebuilds each request
 // ---------------------------------------------------------------------------
 describe('Webhook: tone changes take effect immediately', () => {

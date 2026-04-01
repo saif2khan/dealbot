@@ -35,15 +35,11 @@ type ItemOption = { id: string; name: string }
 
 const STATUS_COLORS: Record<string, string> = {
   active: 'bg-emerald-100 text-emerald-700',
-  escalated: 'bg-yellow-100 text-yellow-700',
-  resolved: 'bg-slate-100 text-slate-500',
 }
 
 const STATUS_CHIPS = [
   { value: 'all', label: 'All Threads' },
   { value: 'active', label: 'Active' },
-  { value: 'escalated', label: 'Escalated' },
-  { value: 'resolved', label: 'Resolved' },
 ]
 
 export default function ConversationsPage() {
@@ -116,8 +112,6 @@ export default function ConversationsPage() {
             >
               <option value="all">All statuses</option>
               <option value="active">Active</option>
-              <option value="escalated">Escalated</option>
-              <option value="resolved">Resolved</option>
             </select>
             <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
           </div>

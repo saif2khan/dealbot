@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import DashboardSummary from '@/components/dashboard/DashboardSummary'
-import VirtualNumberBanner from '@/components/dashboard/VirtualNumberBanner'
+import AgentStatusSection from '@/components/dashboard/AgentStatusSection'
+import QuickstartGuide from '@/components/dashboard/QuickstartGuide'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -28,17 +29,18 @@ export default async function DashboardPage() {
 
   return (
     <div className="max-w-7xl space-y-8 pb-12">
-      <div>
-        <h2 className="hidden md:block text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">Dashboard</h2>
-        <p className="hidden md:block text-on-surface-variant text-sm mt-1">Your BZARP at a glance</p>
-      </div>
-
-      {profile?.telnyx_number && (
-        <VirtualNumberBanner
-          number={profile.telnyx_number}
+      {profile?.telnyx_number ? (
+        <AgentStatusSection
+          initialActive={profile?.agent_active ?? true}
+          telnyxNumber={profile.telnyx_number}
           agentName={profile.agent_name || 'Zuck'}
-          agentGender={((profile.agent_gender as 'male' | 'female') || 'male')}
+          agentGender={(profile.agent_gender as 'male' | 'female') || 'male'}
         />
+      ) : (
+        <div>
+          <h2 className="hidden md:block text-3xl font-[family-name:var(--font-manrope)] font-extrabold tracking-tight text-slate-900">Dashboard</h2>
+          <p className="hidden md:block text-on-surface-variant text-sm mt-1">Your BZARP at a glance</p>
+        </div>
       )}
 
       <DashboardSummary
@@ -48,6 +50,8 @@ export default async function DashboardPage() {
         itemsUsed={profile?.items_listed_this_month ?? 0}
         itemsLimit={profile?.items_limit ?? 10}
       />
+
+      <QuickstartGuide />
     </div>
   )
 }

@@ -24,18 +24,9 @@ describe('parseAction', () => {
   })
 
   it('parses WAITLIST_JOIN', () => {
-    const raw = 'Added you to the waitlist.\n<ACTION>{"type":"WAITLIST_JOIN","buyerName":"Bob","offeredPrice":70}</ACTION>'
+    const raw = 'Added you to the waitlist.\n<ACTION>{"type":"WAITLIST_JOIN"}</ACTION>'
     const { action } = parseAction(raw)
-    expect(action).toEqual({ type: 'WAITLIST_JOIN', buyerName: 'Bob', offeredPrice: 70 })
-  })
-
-  it('parses ESCALATE', () => {
-    const raw = 'Let me check with the seller.\n<ACTION>{"type":"ESCALATE","reason":"custom paint job question","lastBuyerMessage":"can you repaint it?"}</ACTION>'
-    const { action } = parseAction(raw)
-    expect(action?.type).toBe('ESCALATE')
-    if (action?.type === 'ESCALATE') {
-      expect(action.reason).toBe('custom paint job question')
-    }
+    expect(action).toEqual({ type: 'WAITLIST_JOIN' })
   })
 
   it('returns null action when no ACTION block present', () => {
@@ -50,6 +41,27 @@ describe('parseAction', () => {
     const { text, action } = parseAction(raw)
     expect(action).toBeNull()
     expect(text).toBe('Sure.')
+  })
+
+  it('parses DEAL_CANCELLED', () => {
+    const raw = 'Your deal has been cancelled.\n<ACTION>{"type":"DEAL_CANCELLED"}</ACTION>'
+    const { action } = parseAction(raw)
+    expect(action).toEqual({ type: 'DEAL_CANCELLED' })
+  })
+
+  it('parses SCHEDULE_CHANGED', () => {
+    const raw = 'Updated your pickup time.\n<ACTION>{"type":"SCHEDULE_CHANGED","meetupDate":"2026-04-05","meetupTime":"14:00"}</ACTION>'
+    const { action } = parseAction(raw)
+    expect(action).toEqual({ type: 'SCHEDULE_CHANGED', meetupDate: '2026-04-05', meetupTime: '14:00' })
+  })
+
+  it('parses BUYER_QUESTION', () => {
+    const raw = "I don't have that info, try texting the seller.\n" + '<ACTION>{"type":"BUYER_QUESTION","question":"Does it have a warranty?"}</ACTION>'
+    const { action } = parseAction(raw)
+    expect(action?.type).toBe('BUYER_QUESTION')
+    if (action?.type === 'BUYER_QUESTION') {
+      expect(action.question).toBe('Does it have a warranty?')
+    }
   })
 
   it('strips ACTION block from response text', () => {

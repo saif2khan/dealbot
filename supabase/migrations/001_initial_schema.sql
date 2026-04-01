@@ -7,10 +7,10 @@ CREATE TYPE subscription_status AS ENUM ('trialing', 'active', 'past_due', 'canc
 CREATE TYPE item_status AS ENUM ('active', 'pending', 'sold', 'archived');
 CREATE TYPE item_condition AS ENUM ('new', 'like_new', 'good', 'fair', 'for_parts');
 CREATE TYPE item_category AS ENUM ('electronics', 'furniture', 'vehicle', 'clothing', 'other');
-CREATE TYPE conversation_status AS ENUM ('active', 'resolved', 'escalated');
+CREATE TYPE conversation_status AS ENUM ('active');
 CREATE TYPE message_direction AS ENUM ('inbound', 'outbound');
 CREATE TYPE message_sender_type AS ENUM ('buyer', 'agent', 'seller');
-CREATE TYPE deal_status AS ENUM ('scheduled', 'completed', 'no_show', 'cancelled');
+CREATE TYPE deal_status AS ENUM ('scheduled', 'completed', 'cancelled');
 CREATE TYPE waitlist_entry_status AS ENUM ('waiting', 'broadcast_sent', 'won', 'lost');
 
 -- Users (extends Supabase auth.users)
@@ -101,10 +101,6 @@ CREATE TABLE public.waitlist_entries (
   item_id UUID NOT NULL REFERENCES public.items(id) ON DELETE CASCADE,
   conversation_id UUID NOT NULL REFERENCES public.conversations(id) ON DELETE CASCADE,
   buyer_phone TEXT NOT NULL,
-  buyer_name TEXT,
-  offered_price NUMERIC(10,2),
-  position INTEGER NOT NULL DEFAULT 1,
-  broadcast_sent_at TIMESTAMPTZ,
   status waitlist_entry_status NOT NULL DEFAULT 'waiting',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

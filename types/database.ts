@@ -4,11 +4,11 @@ export type ItemStatus = 'active' | 'pending' | 'sold' | 'archived'
 export type ItemCondition = 'new' | 'like_new' | 'good' | 'fair' | 'for_parts'
 export type ItemCategory = 'electronics' | 'furniture' | 'vehicle' | 'clothing' | 'other'
 
-export type ConversationStatus = 'active' | 'resolved' | 'escalated'
+export type ConversationStatus = 'active'
 export type MessageDirection = 'inbound' | 'outbound'
 export type MessageSenderType = 'buyer' | 'agent' | 'seller'
 
-export type DealStatus = 'scheduled' | 'completed' | 'no_show' | 'cancelled'
+export type DealStatus = 'scheduled' | 'completed' | 'cancelled'
 export type WaitlistEntryStatus = 'waiting' | 'broadcast_sent' | 'won' | 'lost'
 
 export interface User {
@@ -29,6 +29,7 @@ export interface User {
   custom_tone_instructions: string | null
   agent_name: string
   agent_gender: 'male' | 'female'
+  agent_active: boolean
   items_listed_this_month: number
   items_limit: number
   created_at: string
@@ -46,9 +47,9 @@ export interface Item {
   max_discount: number
   firm_price: boolean
   preferred_times: string | null
+  photo_url: string | null
   status: ItemStatus
   pending_buyer_id: string | null
-  final_sale_price: number | null
   created_at: string
   archived_at: string | null
 }
@@ -84,7 +85,6 @@ export interface PendingDeal {
   meetup_time: string
   meetup_location: string
   status: DealStatus
-  followup_sent_at: string | null
   created_at: string
 }
 
@@ -93,10 +93,6 @@ export interface WaitlistEntry {
   item_id: string
   conversation_id: string
   buyer_phone: string
-  buyer_name: string | null
-  offered_price: number | null
-  position: number
-  broadcast_sent_at: string | null
   status: WaitlistEntryStatus
   created_at: string
 }

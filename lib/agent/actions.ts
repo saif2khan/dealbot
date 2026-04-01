@@ -2,8 +2,10 @@
 export type AgentAction =
   | { type: 'ITEM_IDENTIFIED'; itemId: string }
   | { type: 'DEAL_CONFIRMED'; itemId: string; agreedPrice: number; buyerName: string; meetupDate: string; meetupTime: string; meetupLocation: string }
-  | { type: 'WAITLIST_JOIN'; buyerName: string; offeredPrice: number }
-  | { type: 'ESCALATE'; reason: string; lastBuyerMessage: string }
+  | { type: 'WAITLIST_JOIN' }
+  | { type: 'DEAL_CANCELLED' }
+  | { type: 'SCHEDULE_CHANGED'; meetupDate: string; meetupTime: string }
+  | { type: 'BUYER_QUESTION'; question: string }
 
 /** Extract <ACTION>...</ACTION> block from agent response */
 export function parseAction(response: string): { text: string; action: AgentAction | null } {
