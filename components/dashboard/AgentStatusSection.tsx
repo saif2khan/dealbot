@@ -20,17 +20,18 @@ export default function AgentStatusSection({ initialActive, telnyxNumber, agentN
     const next = !active
     setActive(next)
     setSaving(true)
-    try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      if (user) {
-        await supabase.from('users').update({ agent_active: next }).eq('id', user.id)
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { error } = await supabase.from('users').update({ agent_active: next }).eq('id', user.id)
+      if (error) {
+        console.error('Failed to update agent_active:', error)
+        setActive(!next) // revert on failure
       }
-    } catch {
-      setActive(!next)
-    } finally {
-      setSaving(false)
+    } else {
+      setActive(!next) // revert if no user
     }
+    setSaving(false)
   }
 
   return (
