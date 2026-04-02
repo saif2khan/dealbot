@@ -20,7 +20,7 @@ export default function HomePage() {
           Let AI handle selling on FB marketplace
         </h1>
         <p className="text-xl text-gray-500 mt-4 max-w-xl">
-          Life is too short to reply to "Is it available?" 33 times a day. Let your personal AI assistant answer questions, negotiates price, schedules pickups, and notify you when deals are done — all via SMS.
+          Life is too short to reply to "Is it available?" 33 times a day.
         </p>
         <div className="flex gap-3 mt-8">
           <Link href="/signup" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium text-lg hover:bg-blue-700 transition">
