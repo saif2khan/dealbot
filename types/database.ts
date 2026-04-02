@@ -4,7 +4,6 @@ export type ItemStatus = 'active' | 'pending' | 'sold' | 'archived'
 export type ItemCondition = 'new' | 'like_new' | 'good' | 'fair' | 'for_parts'
 export type ItemCategory = 'electronics' | 'furniture' | 'vehicle' | 'clothing' | 'other'
 
-export type ConversationStatus = 'active'
 export type MessageDirection = 'inbound' | 'outbound'
 export type MessageSenderType = 'buyer' | 'agent' | 'seller'
 
@@ -59,7 +58,6 @@ export interface Conversation {
   buyer_phone: string
   buyer_name: string | null
   current_item_id: string | null
-  status: ConversationStatus
   created_at: string
   last_message_at: string
 }

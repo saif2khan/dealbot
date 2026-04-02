@@ -24,7 +24,6 @@ type ConvRow = {
   id: string
   buyer_phone: string
   buyer_name: string | null
-  status: string
   last_message_at: string
   current_item_id: string | null
   items: { id: string; name: string } | null
@@ -33,21 +32,11 @@ type ConvRow = {
 
 type ItemOption = { id: string; name: string }
 
-const STATUS_COLORS: Record<string, string> = {
-  active: 'bg-emerald-100 text-emerald-700',
-}
-
-const STATUS_CHIPS = [
-  { value: 'all', label: 'All Threads' },
-  { value: 'active', label: 'Active' },
-]
-
 export default function ConversationsPage() {
   const [conversations, setConversations] = useState<ConvRow[]>([])
   const [items, setItems] = useState<ItemOption[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
-  const [statusFilter, setStatusFilter] = useState('all')
   const [itemFilter, setItemFilter] = useState('all')
 
   useEffect(() => {
@@ -77,7 +66,6 @@ export default function ConversationsPage() {
   }, [])
 
   const filtered = conversations.filter(conv => {
-    if (statusFilter !== 'all' && conv.status !== statusFilter) return false
     if (itemFilter !== 'all' && conv.current_item_id !== itemFilter) return false
     if (search) {
       const q = search.toLowerCase()
@@ -106,18 +94,6 @@ export default function ConversationsPage() {
         <div className="flex items-center gap-3 flex-wrap">
           <div className="relative">
             <select
-              value={statusFilter}
-              onChange={e => setStatusFilter(e.target.value)}
-              className="appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-9 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
-            >
-              <option value="all">All statuses</option>
-              <option value="active">Active</option>
-            </select>
-            <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
-          </div>
-
-          <div className="relative">
-            <select
               value={itemFilter}
               onChange={e => setItemFilter(e.target.value)}
               className="appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-9 py-2.5 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition-all cursor-pointer"
@@ -130,9 +106,9 @@ export default function ConversationsPage() {
             <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-[18px]">expand_more</span>
           </div>
 
-          {(statusFilter !== 'all' || itemFilter !== 'all') && (
+          {itemFilter !== 'all' && (
             <button
-              onClick={() => { setStatusFilter('all'); setItemFilter('all') }}
+              onClick={() => setItemFilter('all')}
               className="text-sm text-indigo-600 hover:underline font-semibold"
             >
               Clear
@@ -151,23 +127,6 @@ export default function ConversationsPage() {
           placeholder="Search conversations..."
           className="w-full bg-white border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
         />
-      </div>
-
-      {/* Mobile status chips */}
-      <div className="flex gap-2 overflow-x-auto pb-1 md:hidden">
-        {STATUS_CHIPS.map(chip => (
-          <button
-            key={chip.value}
-            onClick={() => setStatusFilter(chip.value)}
-            className={`shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-              statusFilter === chip.value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-white border border-slate-200 text-slate-600'
-            }`}
-          >
-            {chip.label}
-          </button>
-        ))}
       </div>
 
       {/* Thread list */}
@@ -222,14 +181,9 @@ export default function ConversationsPage() {
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${STATUS_COLORS[conv.status] ?? 'bg-slate-100 text-slate-500'}`}>
-                      {conv.status}
-                    </span>
-                    {item && (
-                      <span className="text-[10px] text-slate-400 truncate">· {item.name}</span>
-                    )}
-                  </div>
+                  {item && (
+                    <p className="text-[10px] text-slate-400 truncate mt-1">{item.name}</p>
+                  )}
                 </div>
 
                 <span className="material-symbols-outlined text-slate-300 text-[18px] shrink-0 group-hover:text-slate-400 transition-colors">chevron_right</span>

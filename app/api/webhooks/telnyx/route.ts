@@ -114,7 +114,6 @@ export async function POST(request: NextRequest) {
     .select('*')
     .eq('user_id', seller.id)
     .eq('buyer_phone', buyerPhone)
-    .eq('status', 'active')
     .order('last_message_at', { ascending: false })
     .limit(1)
 
@@ -126,7 +125,6 @@ export async function POST(request: NextRequest) {
       .insert({
         user_id: seller.id,
         buyer_phone: buyerPhone,
-        status: 'active',
       })
       .select()
       .single()
