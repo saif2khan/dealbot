@@ -17,10 +17,10 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 text-center py-20">
         <h1 className="text-5xl font-bold text-gray-900 max-w-2xl leading-tight">
-          Let AI handle your marketplace buyers
+          Let AI handle selling on FB marketplace
         </h1>
         <p className="text-xl text-gray-500 mt-4 max-w-xl">
-          BZARP answers questions, negotiates price, schedules pickups, and notifies you when deals are done — all via SMS.
+          Life is too short to reply to "Is it available?" 33 times a day. Let your personal AI assistant answer questions, negotiates price, schedules pickups, and notify you when deals are done — all via SMS.
         </p>
         <div className="flex gap-3 mt-8">
           <Link href="/signup" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium text-lg hover:bg-blue-700 transition">
