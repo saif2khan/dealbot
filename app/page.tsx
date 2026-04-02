@@ -27,7 +27,7 @@ export default function HomePage() {
             Start free trial
           </Link>
         </div>
-        <p className="text-sm text-gray-400 mt-3">1 month free · No charge today · Cancel anytime</p>
+        <p className="text-sm text-gray-400 mt-3">1 month free · No credit card requird</p>
 
         <div className="grid grid-cols-3 gap-6 mt-16 max-w-2xl text-left">
           {[
