@@ -65,13 +65,12 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       update.pending_buyer_id = null
       update.archived_at = new Date().toISOString()
 
-      // Notify all waitlisted buyers that the item is sold, then archive entries
+      // Notify all waitlisted buyers that the item is sold, then clear the list
       if (seller?.telnyx_number) {
         const { data: waitlist } = await serviceClient
           .from('waitlist_entries')
           .select('buyer_phone')
           .eq('item_id', id)
-          .in('status', ['waiting', 'broadcast_sent'])
 
         if (waitlist && waitlist.length > 0) {
           const soldMsg = `"${existing.name}" has been sold and is no longer available.`
@@ -83,11 +82,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
       }
 
-      // Archive all waitlist entries for this item
-      await serviceClient
-        .from('waitlist_entries')
-        .delete()
-        .eq('item_id', id)
+      await serviceClient.from('waitlist_entries').delete().eq('item_id', id)
 
     } else if (update.status === 'archived') {
       // Cancel any pending deal
@@ -100,13 +95,12 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       update.pending_buyer_id = null
       update.archived_at = new Date().toISOString()
 
-      // Notify all waitlisted buyers, then remove entries
+      // Notify all waitlisted buyers, then clear the list
       if (seller?.telnyx_number) {
         const { data: waitlist } = await serviceClient
           .from('waitlist_entries')
           .select('buyer_phone')
           .eq('item_id', id)
-          .in('status', ['waiting', 'broadcast_sent'])
 
         if (waitlist && waitlist.length > 0) {
           const archivedMsg = `"${existing.name}" is no longer available.`
@@ -118,7 +112,6 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         }
       }
 
-      // Remove all waitlist entries and pending deals for this item
       await serviceClient.from('waitlist_entries').delete().eq('item_id', id)
       await serviceClient.from('pending_deals').delete().eq('item_id', id)
 
@@ -132,27 +125,21 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 
       update.pending_buyer_id = null
 
-      // Broadcast to waitlisted buyers that the item is available again
+      // Broadcast to waitlisted buyers then clear the list
       if (seller?.telnyx_number) {
         const { data: waitlist } = await serviceClient
           .from('waitlist_entries')
           .select('buyer_phone')
           .eq('item_id', id)
-          .eq('status', 'waiting')
-          .order('created_at', { ascending: true })
 
         if (waitlist && waitlist.length > 0) {
-          const broadcastMsg = `Good news — "${existing.name}" is available again! Still interested? Reply YES to restart.`
+          const broadcastMsg = `Good news — "${existing.name}" is available again! Text back if you're still interested.`
           for (const entry of waitlist) {
             if (entry.buyer_phone) {
               await sendSms(seller.telnyx_number, entry.buyer_phone, broadcastMsg)
             }
           }
-          await serviceClient
-            .from('waitlist_entries')
-            .update({ status: 'broadcast_sent' })
-            .eq('item_id', id)
-            .eq('status', 'waiting')
+          await serviceClient.from('waitlist_entries').delete().eq('item_id', id)
         }
       }
     }

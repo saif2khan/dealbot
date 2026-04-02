@@ -9,7 +9,6 @@ export type MessageDirection = 'inbound' | 'outbound'
 export type MessageSenderType = 'buyer' | 'agent' | 'seller'
 
 export type DealStatus = 'scheduled' | 'completed' | 'cancelled'
-export type WaitlistEntryStatus = 'waiting' | 'broadcast_sent' | 'won' | 'lost'
 
 export interface User {
   id: string
@@ -93,6 +92,5 @@ export interface WaitlistEntry {
   item_id: string
   conversation_id: string
   buyer_phone: string
-  status: WaitlistEntryStatus
   created_at: string
 }
