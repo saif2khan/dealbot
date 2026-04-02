@@ -17,7 +17,7 @@ export default function HomePage() {
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 text-center py-20">
         <h1 className="text-5xl font-bold text-gray-900 max-w-2xl leading-tight">
-          Life is too short to reply to "Is it available?" 33 times a day.
+          Life is too short to reply to "Is it available?"
         </h1>
         <p className="text-xl text-gray-500 mt-4 max-w-xl">
           Let AI handle selling on FB marketplace.
