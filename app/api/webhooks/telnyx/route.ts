@@ -401,6 +401,39 @@ export async function POST(request: NextRequest) {
           for (const entry of cancelWaitlist) {
             if (entry.buyer_phone) {
               await sendSms(toNumber, entry.buyer_phone, broadcastMsg)
+
+              // Save broadcast into conversation history so Claude sees it as context
+              const { data: convRows } = await supabase
+                .from('conversations')
+                .select('id')
+                .eq('user_id', seller.id)
+                .eq('buyer_phone', entry.buyer_phone)
+                .order('last_message_at', { ascending: false })
+                .limit(1)
+
+              let convId = convRows?.[0]?.id
+              if (!convId) {
+                const { data: newConv } = await supabase
+                  .from('conversations')
+                  .insert({ user_id: seller.id, buyer_phone: entry.buyer_phone, current_item_id: currentItem.id })
+                  .select('id')
+                  .single()
+                convId = newConv?.id
+              } else {
+                await supabase
+                  .from('conversations')
+                  .update({ current_item_id: currentItem.id, last_message_at: new Date().toISOString() })
+                  .eq('id', convId)
+              }
+
+              if (convId) {
+                await supabase.from('messages').insert({
+                  conversation_id: convId,
+                  direction: 'outbound',
+                  body: broadcastMsg,
+                  sender_type: 'agent',
+                })
+              }
             }
           }
           await supabase.from('waitlist_entries').delete().eq('item_id', currentItem.id)

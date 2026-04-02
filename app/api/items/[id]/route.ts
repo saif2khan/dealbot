@@ -137,6 +137,39 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
           for (const entry of waitlist) {
             if (entry.buyer_phone) {
               await sendSms(seller.telnyx_number, entry.buyer_phone, broadcastMsg)
+
+              // Save broadcast into conversation history so Claude sees it as context
+              const { data: convRows } = await serviceClient
+                .from('conversations')
+                .select('id')
+                .eq('user_id', user.id)
+                .eq('buyer_phone', entry.buyer_phone)
+                .order('last_message_at', { ascending: false })
+                .limit(1)
+
+              let convId = convRows?.[0]?.id
+              if (!convId) {
+                const { data: newConv } = await serviceClient
+                  .from('conversations')
+                  .insert({ user_id: user.id, buyer_phone: entry.buyer_phone, current_item_id: id })
+                  .select('id')
+                  .single()
+                convId = newConv?.id
+              } else {
+                await serviceClient
+                  .from('conversations')
+                  .update({ current_item_id: id, last_message_at: new Date().toISOString() })
+                  .eq('id', convId)
+              }
+
+              if (convId) {
+                await serviceClient.from('messages').insert({
+                  conversation_id: convId,
+                  direction: 'outbound',
+                  body: broadcastMsg,
+                  sender_type: 'agent',
+                })
+              }
             }
           }
           await serviceClient.from('waitlist_entries').delete().eq('item_id', id)
