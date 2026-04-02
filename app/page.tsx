@@ -29,11 +29,12 @@ export default function HomePage() {
         </div>
         <p className="text-sm text-gray-400 mt-3">1 month free · No credit card requird</p>
 
-        <div className="grid grid-cols-3 gap-6 mt-16 max-w-2xl text-left">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 max-w-3xl w-full text-left">
           {[
             { title: 'Answers instantly', desc: 'Buyers get responses in seconds, any time of day.' },
             { title: 'Negotiates for you', desc: 'Sets your floor price. Agent works down to it — not below.' },
             { title: 'Schedules pickups', desc: 'Books meetups based on your availability. No back-and-forth.' },
+            { title: 'Manages the waitlist', desc: 'Automatically notifies next-in-line buyers if a deal falls through — no tracking needed.' },
           ].map(f => (
             <div key={f.title} className="bg-gray-50 rounded-xl p-5">
               <h3 className="font-semibold text-gray-900">{f.title}</h3>
