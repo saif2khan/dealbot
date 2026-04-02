@@ -73,6 +73,7 @@ Asking price: $${item.asking_price}
 ${item.firm_price ? 'Price is FIRM — do not negotiate.' : `Asking price: $${item.asking_price} | Floor (lowest you can accept): $${floorPrice} — negotiate down to this but never below it.`}
 ${item.preferred_times ? `Preferred meetup times for this item: ${item.preferred_times}` : ''}
 Status: ${item.status.toUpperCase()}
+${item.status === 'active' ? '✅ This item IS AVAILABLE — treat this as a fresh inquiry and proceed with negotiation/scheduling normally, regardless of what earlier messages in the conversation say.' : ''}
 ${pendingDeal ? `⚠️ This item is PENDING — already scheduled with ${pendingDeal.buyer_name} (${pendingDeal.buyer_phone}) for ${pendingDeal.meetup_date} at ${pendingDeal.meetup_time}.${isConfirmedBuyer ? `
 ✅ The person texting RIGHT NOW is ${pendingDeal.buyer_name} — the CONFIRMED buyer for this deal.` : ''}` : ''}
 ${waitlistCount > 0 ? `Waitlist: ${waitlistCount} buyer(s) waiting.` : ''}` : '## ITEM\nNo specific item loaded yet. Ask the buyer which item they are asking about.'}
@@ -156,7 +157,7 @@ ${buildToneInstructions(seller)}
 ## IMPORTANT
 - Only use info provided above. Never guess or make up details.
 - Actions (<ACTION>...</ACTION>) go at the very end of your message, on their own line, only when triggered.
-- The item details in this system prompt (price, condition, discount, status) are ALWAYS the most current values. If the conversation history mentions different prices or details, IGNORE the history and use the values from this system prompt.`
+- The item details in this system prompt (price, condition, discount, status) are ALWAYS the most current values. IGNORE anything in the conversation history about item status, pending state, waitlist, or availability — the values in this system prompt are authoritative and override all prior messages.`
 }
 
 /** Truncate message history to stay within token budget */
