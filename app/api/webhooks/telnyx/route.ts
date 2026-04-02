@@ -228,7 +228,7 @@ export async function POST(request: NextRequest) {
     console.error('Claude API error:', err)
     // Fallback: inform buyer and notify seller
     await sendSms(toNumber, buyerPhone, "Sorry, I'm having a brief technical issue. The seller will follow up with you shortly.")
-    await sendSms(toNumber, seller.phone!, `BZARP alert: Claude API error for buyer ${buyerPhone}. Message: "${buyerMessage}"`)
+    if (seller.phone) await sendSms(toNumber, seller.phone, `BZARP alert: Claude API error for buyer ${buyerPhone}. Message: "${buyerMessage}"`)
     return NextResponse.json({ received: true })
   }
 
@@ -338,7 +338,7 @@ export async function POST(request: NextRequest) {
             `Pickup: ${action.meetupDate} at ${action.meetupTime}\n` +
             `Location: ${action.meetupLocation}\n\n` +
             `The buyer will now be directed to contact you directly for any further questions.`
-          await sendSms(toNumber, seller.phone!, sellerMsg)
+          if (seller.phone) await sendSms(toNumber, seller.phone, sellerMsg)
         }
         break
       }
@@ -384,9 +384,9 @@ export async function POST(request: NextRequest) {
           .eq('id', currentItem.id)
 
         // Notify seller
-        await sendSms(
+        if (seller.phone) await sendSms(
           toNumber,
-          seller.phone!,
+          seller.phone,
           `BZARP: The buyer has cancelled their deal for "${currentItem.name}". The item is back to active.`
         )
 
@@ -422,9 +422,9 @@ export async function POST(request: NextRequest) {
           .eq('status', 'scheduled')
 
         // Notify seller
-        await sendSms(
+        if (seller.phone) await sendSms(
           toNumber,
-          seller.phone!,
+          seller.phone,
           `BZARP: The buyer for "${currentItem.name}" has changed the pickup schedule to ${action.meetupDate} at ${action.meetupTime}.`
         )
         break
@@ -432,9 +432,9 @@ export async function POST(request: NextRequest) {
 
       case 'BUYER_QUESTION': {
         // Notify seller about the unanswered question and suggest adding info to description
-        await sendSms(
+        if (seller.phone) await sendSms(
           toNumber,
-          seller.phone!,
+          seller.phone,
           `BZARP: A buyer asked about "${currentItem?.name ?? 'your listing'}": "${action.question}"\n\nConsider adding this info to the item description in the app so future buyers can get an answer right away.`
         )
         break
